@@ -12,11 +12,12 @@ variable ==>
 {public/default/protected/private} {transient - if needed} {volatile/final --if needed} {static --if needed} {datatype} {variable_name} = {value} ;
 
 transient --> marking a variable as transient indicates that it should not be serialized.
-volatile  --> to indicate that a variable's value will be modified by different threads.
+             serialization --> persistence, networking, distributed systems, caching, JMS & message brokers.
+volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
 
 method ==>
 
-{public/default/protected/private} {abstract/final --if needed} {static --if needed} {return type --> void & others} {method_name} (parameters ...any number) { ... }
+{public/default/protected/private} {abstract/final --if needed} {static --if needed} {synchronized -- if needed} {return type --> void & others} {method_name} (parameters ...any number) { ... }
 
 
 NAMING CONVENTION:
@@ -58,6 +59,13 @@ VARIABLE TYPES:
 
 if we need to call NON-STATIC in STATIC method we need object.
 
+AM :
+
+public --> visible to all classes.
+default --> visible to classes under same package.
+protected --> visible to only inherited classes.
+private --> visible to only that class.
+
 IMPORTANT KEYWORDS STATIC / FINAL / SUPER / THIS:
 
 STATIC : ( class, method , variable , block )
@@ -65,8 +73,8 @@ STATIC : ( class, method , variable , block )
 1. static can be used in nested class (class inside class)
 2. If we use static it belongs to the class.
 3. We can't use static/final keyword with constructor.
-4. we can't override static/final/private  method / only can overload it.
-5. static can be used in object creation in case of singleton pattern.
+4. we can't override static/final/private method.
+5. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
 
 FINAL : (class , method , variable) 
 
@@ -74,13 +82,13 @@ FINAL : (class , method , variable)
 2. final method can't be overridden
 3. final variable can't be changed. variable cannot be modified after it has been initialized. (IMMUTABLE)
 
-final var --> Used for constants that are specific to each object instance and remain unchanged after initialization.
-static final var --> Used for constants that are associated with the class itself and are shared across all instances.
+final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.
+static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
 
 SUPER : (INHERITANCE)
 
 1. can't use inside super in static content.
-2. constructor call must be the first statement in constructor.
+2. constructor call must be the first statement in constructor. (using super)
 
 3. can be used to call variable of parent class (super.parentClassVariable .. both static & non-static) (but static should be accessed only with class name)
 4. can be used to call method of parent class (super.parentClassMethod .. both static & non-static) (but static should be accessed only with class name)
@@ -94,8 +102,83 @@ THIS : (ENCAPSULATION)
 3.this can be used to refer "current class Instance". (use -> method chaining)
 4.the previous one can be passed as argument to another method which have (Class objName) as Parameter.
 5.this can be used to call current class method with matching params.
-6.
+6.this can be used to call current class non static method.
+
+7. constructor call must be the first statement in constructor. (using this)
+8. cant use with static content.
 
 
+INHERITANCE: (encourages polymorphism)
+
+* All classes by default extends Object class.
+* types --> single, multilevel, hierarchical.
+* 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM) . solved with interface.
+* In case of Interface method as private, static, default we can't override it.
+* In normal classes , private cant be overrided. other methods can have equal or greater visibility.
+  
+   protected --> protected, default, public.
+   default --> default, public.
+   public --> public.
+
+* child class object can access all methods from parent class.
+* If A a = new C(); , In this, instance of C is created and with this we can access all methods of the classes (A, B, C)
+* A final class can't be subclassed.
+
+CONSTRUCTOR:
+
+*Objective to initialize the value.
+*name as class and should not have a return type.
+*first line of constructor must be either super() or this();
+*If we have explicit constructor with param in parent class, we need to use super with req params.
+*default super() will be supplied to constructor.
 
 
+POLYMORPHISM:
+
+* Types : compile-time polymorphism (overloading) | runtime polymorphism (overriding)
+* overloading --> same method name & different parameters
+* overriding --> class must be inherited, same method signature.
+* final/ static method cant be overrided.
+* methods can have equal or greater visibility.
+
+ENCAPSULATION:
+
+* Encapsulation is the mechanism of restricting access to 
+certain components of an object and only exposing a controlled interface to the outside world.
+
+
+* Benefits of Encapsulation
+
+Data Hiding: Only necessary information is exposed, while the implementation details remain hidden.
+             This reduces the complexity of the code.
+
+Security: Protects an object’s state by controlling the access and modification of its fields.
+
+Flexibility and Maintainability: Changes to the encapsulated code can be made independently without affecting other parts of the program.
+
+Improved Code Reusability: Encapsulated code can be reused more easily as it is modular and self-contained.
+
+* How to Achieve Encapsulation in Java
+Private Fields: Declare the class fields (variables) as private to restrict direct access from outside the class.
+
+Public Methods: Provide public getter and setter methods to allow controlled access and modification of the fields.
+
+
+ABSTRACTION:
+
+ABSTRACT CLASS:
+
+*can't create object. To create object must be inherited
+*can have both abstract method and concrete method.
+*static & final keyword never comes with abstract method.
+*abstract methods must be declared not defined.
+*abstract methods must be overriden.
+*variable can't be abstract.
+
+INTERFACE:
+
+*Can't have an object. To create object must be inherited.
+*default methods only allowed in interfaces. If it is overridden , it's AM should be public.
+*we can use private / static / default method to implement some logic in interface itself.
+*all methods are public abstract.
+*all variables are public static final.
