@@ -78,10 +78,10 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ## **AM**:
 
-1.**public** --> visible to all classes.
-2.**default** --> visible to classes under same package.
-3.**protected** --> visible to only inherited classes.
-4.**private** --> visible to only that class.
+1. **public** --> visible to all classes.
+2. **default** --> visible to classes under same package.
+3. **protected** --> visible to only inherited classes.
+4. **private** --> visible to only that class.
 
 ## **IMPORTANT KEYWORDS STATIC / FINAL / SUPER / THIS**:
 
@@ -146,11 +146,11 @@ static final var --> Used for constants that are associated with the class itsel
 
 ### **CONSTRUCTOR**:
 
-*Objective to initialize the value.
-*name as class and should not have a return type.
-*first line of constructor must be either super() or this();
-*If we have explicit constructor with param in parent class, we need to use super with req params.
-*default super() will be supplied to constructor.
+* Objective to initialize the value.
+* name as class and should not have a return type.
+* first line of constructor must be either super() or this();
+* If we have explicit constructor with param in parent class, we need to use super with req params.
+* default super() will be supplied to constructor.
 
 
 ## **POLYMORPHISM**:
@@ -183,53 +183,53 @@ static final var --> Used for constants that are associated with the class itsel
 
 ### **ABSTRACT CLASS**:
 
-*can't create object. To create object must be inherited. (interface dont have constructor)
-*can have both abstract method and concrete method.
-*static & final keyword never comes with abstract method.
-*abstract methods must be declared not defined.
-*abstract methods must be overriden.
-*variable can't be abstract.
-*can have static and non static block.
-*If child class of abstract class is final, then you can't add new abstract method.
+* can't create object. To create object must be inherited. (interface dont have constructor)
+* can have both abstract method and concrete method.
+* static & final keyword never comes with abstract method.
+* abstract methods must be declared not defined.
+* abstract methods must be overriden.
+* variable can't be abstract.
+* can have static and non static block.
+* If child class of abstract class is final, then you can't add new abstract method.
 
 
 ### **INTERFACE**:
 
-*Can't have an object. To create object must be inherited. (interface dont have constructor)
-*default methods only allowed in interfaces. If it is overridden , it's AM should be public.
-*we can use private / static / default method to implement some logic in interface itself.
-*all methods are public abstract.
-*all variables are public static final.
-*can't have static and non static block.
+* Can't have an object. To create object must be inherited. (interface dont have constructor)
+* default methods only allowed in interfaces. If it is overridden , it's AM should be public.
+* we can use private / static / default method to implement some logic in interface itself.
+* all methods are public abstract.
+* all variables are public static final.
+* can't have static and non static block.
 
 ## **INNER CLASSES**:
 
-uses of inner class:
-1.A member inner class is a class defined within another class and behaves like a member of the outer class. (OuterClass.InnerClass ic =o.new InnerClass();)
-2.A member class can be static also. (OuterClass.InnerClass ic =new OuterClass.InnerClass();)
-3.class created inside method, can be accessed only within the method.
-4.anonymous inner class used when you need a one-off implementation. 
+*uses of inner class*:
+1. A member inner class is a class defined within another class and behaves like a member of the outer class. (OuterClass.InnerClass ic =o.new InnerClass();)
+2. A member class can be static also. (OuterClass.InnerClass ic =new OuterClass.InnerClass();)
+3. class created inside method, can be accessed only within the method.
+4. anonymous inner class used when you need a one-off implementation. 
 (i.e interface anonymous inner class instantiated | that particular object reference used to call that method alone) 
-5.For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
+5. For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
 
 
 ## **INBUILD CLASSES** : 
 
-*By default java.lang package will be imported (implicitly)
-*Other packages we're importing it to use them in your code without needing to specify their full package.
+* By default java.lang package will be imported (implicitly)
+* Other packages we're importing it to use them in your code without needing to specify their full package.
 
-1.classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays.
+1. classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays.
 
 ## **EXCEPTION HANDLING** :
 
 ## **WRAPPER CLASSES** : 
 
-1.Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
-2.Once an object is created, its value cannot be changed. (immutable).  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
-3.Also these classes are also final and can't be subclassed.
-4.wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
-5.Conversion Utilities to convert between datatypes.
-6.Wrapper classes can have null values, when we use Optional values, Database Interaction, working with Collections.
+1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
+2. Once an object is created, its value cannot be changed. (immutable).  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
+3. Also these classes are also final and can't be subclassed.
+4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
+5. Conversion Utilities to convert between datatypes.
+6. Wrapper classes can have null values, when we use Optional values, Database Interaction, working with Collections.
 
 ## **STRING MANIPULATION**:
 
@@ -239,30 +239,30 @@ uses of inner class:
 
 ## **ENUM**:
 
-1.Constants defined this way make the code more readable,
+1. Constants defined this way make the code more readable,
   allow for compile-time checking, 
   document the list of accepted values upfront, 
   and avoid unexpected behavior due to invalid values being passed in.
-2.Can only implements interface & its method should be overridden by each ENUM CONSTANTS, Can't extends any class
-3.Enum can be used in switch statements
-4.Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
-5.enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
+2. Can only implements interface & its method should be overridden by each ENUM CONSTANTS, Can't extends any class
+3. Enum can be used in switch statements
+4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
+5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
 
 ## **JAVA 8 FEATURES** :
 
 ## **Lambda Expressions** :
 
-1.Lambda expression can be achieved only with functional interface. (i.e interface with @FuntionalInterface annotation / one abstract method interface)
-2.FInterface f = () -> {"logic for that abstract method"};
-3.Lambda expression can't be used for default/static method. 
-4.The reference from lambda expression logic can be used to call default/static method.
+1. Lambda expression can be achieved only with functional interface. (i.e interface with @FuntionalInterface annotation / one abstract method interface)
+2. FInterface f = () -> {"logic for that abstract method"};
+3. Lambda expression can't be used for default/static method. 
+4. The reference from lambda expression logic can be used to call default/static method.
 
 ### **IMPORTANT FUNCTIONAL INTERFACE***: Predicate/Function/Consumer/Supplier/BinaryOperator/UnaryOperator/BiConsumer
 
 **Predicate**:
 
-1.boolean-valued function of one argument.
-2.methods - test, and, negate, or, isEqual, not (methods in Predicate)
+1. boolean-valued function of one argument.
+2. methods - test, and, negate, or, isEqual, not (methods in Predicate)
 
 test -> to check the output.
 or -> 1st one is true, doesn't check the second one.
@@ -274,8 +274,8 @@ not -> change in the predicate obj itself, not in outcome like negate.
 
 **Function**:
 
-1.function that accepts one argument and produces a result.
-2.methods - apply, compose, andThen, identity
+1. function that accepts one argument and produces a result.
+2. methods - apply, compose, andThen, identity
 
 apply -> get the output.
 compose -> add input( the output of the one function (f2) ) for another function (f1).  f1.compose(f2)
@@ -284,32 +284,32 @@ identity ->  function that always returns its input argument.
 
 **Consumer**:
 
-1.accepts a single input argument and returns no result.
-2.methods - accept, andThen
+1. accepts a single input argument and returns no result.
+2. methods - accept, andThen
 
 accept -> get the output
 andThen -> add input( the output of the one function (f1) ) for another function (f2).  f1.andThen(f2)
 
 **Supplier**:
 
-1.a new or distinct result be returned each time the supplier is invoked.
+1. a new or distinct result be returned each time the supplier is invoked.
 2. has only one method get
 
 **BinaryOperator**:
 
-1.an operation upon two operands of the same type, produce result of same type
+1. an operation upon two operands of the same type, produce result of same type
 2. two methods minBy and maxBy
     minBy -> returns the lesser of two elements according to comparator.
     maxBy -> returns the greater of two elements according to comparator.
 
 **UnaryOperator**:
 
-1.single operand that produces result of same type.
-2.one method (identity) -> always returns its input argument.
+1. single operand that produces result of same type.
+2. one method (identity) -> always returns its input argument.
 
 **BiConsumer**:
 
-1.accepts two input arguments and returns no result.
+1. accepts two input arguments and returns no result.
 2. methods -> accept, andThen
 
 #### stream API important methods : filter, map, flatMap, reduce, forEach, collect, distinct, sorted, limit, skip.
@@ -350,28 +350,28 @@ Collectors API
 
 ### **Array** :
 
-1.container object that holds a fixed number of values of a single type.
-2.Searching an array element is better compared to others.
+1. container object that holds a fixed number of values of a single type.
+2. Searching an array element is better compared to others.
 
 ### **ArrayList** : (equivalent to vector, but unsynchronized)
 
-1.Resizable-array implementation of the List interface. (stores element in contiguous memory list)
-2.can have duplicates and null value.
-3.insetion order maintained.
+1. Resizable-array implementation of the List interface. (stores element in contiguous memory list)
+2. can have duplicates and null value.
+3. insetion order maintained.
 4. methods - add, contains, forEach, get, indexOf, iterator, remove, reversed, set, sort, size, stream, toArray.
 5. default capacity of ArrayList is 10, but we can specify in constructor while initializing.
 
 **use**:
-fast random access O(1) but slow insertion and deletion.O(n) 
-traverse is bidirectional
+* fast random access O(1) but slow insertion and deletion.O(n) 
+* traverse is bidirectional
 
 ### **LinkedList** : 
 
 1. It stores the object and the pointers to next and previous nodes.(inefficient memory)
 
 use:
-allows for fast insertion and deletion O(1) but slow random access.O(n)
-traverse is bidirectional
+* allows for fast insertion and deletion O(1) but slow random access.O(n)
+* traverse is bidirectional
 
 #### Difference between ArrayList and LinkedList
 | Feature                     | Array                                    | ArrayList                                 | LinkedList                                   |
