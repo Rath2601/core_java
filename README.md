@@ -123,8 +123,8 @@ static final var --> Used for constants that are associated with the class itsel
 4.the previous one can be passed as argument to another method which have (Class objName) as Parameter.
 5.this can be used to call current class method with matching params.
 6.this can be used to call current class non static method.
-7. constructor call must be the first statement in constructor. (using this)
-8. cant use with static content.
+7.constructor call must be the first statement in constructor. (using this)
+8.cant use with static content.
 
 ## **INHERITANCE: (encourages polymorphism)**
 
