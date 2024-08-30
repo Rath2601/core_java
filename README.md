@@ -1,6 +1,6 @@
-##### CORE JAVA NOTES
+# CORE JAVA NOTES
 
-**SYNTAX**:
+##**SYNTAX**:
 
 class ==> 
 
