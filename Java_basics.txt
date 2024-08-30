@@ -188,10 +188,155 @@ INTERFACE:
 *can't have static and non static block.
 
 
-**INBUILD CLASSES** : 
+**INNER CLASSES**:
+
+uses of inner class:
+1.A member inner class is a class defined within another class and behaves like a member of the outer class. (OuterClass.InnerClass ic =o.new InnerClass();)
+2.A member class can be static also. (OuterClass.InnerClass ic =new OuterClass.InnerClass();)
+3.class created inside method, can be accessed only within the method.
+4.anonymous inner class used when you need a one-off implementation. 
+(i.e interface anonymous inner class instantiated | that particular object reference used to call that method alone) 
+5.For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
+
+
+***INBUILD CLASSES*** : 
 
 *By default java.lang package will be imported (implicitly)
 *Other packages we're importing it to use them in your code without needing to specify their full package.
+
+1.classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays, 
+
+**EXCEPTION HANDLING** :
+
+**WRAPPER CLASSES** : 
+
+1.Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
+2.Once an object is created, its value cannot be changed. (immutable).  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
+3.Also these classes are also final and can't be subclassed.
+4.wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
+5.Conversion Utilities to convert between datatypes.
+6.Wrapper classes can have null values, when we use Optional values, Database Interaction, working with Collections.
+
+
+**STRING MANIPULATION**:
+
+String :           Immutable    not synchronized   faster
+StringBuilder:       mutable    not synchronized   faster
+StringBuffer :       mutable        synchronized   slower
+
+**ENUM**:
+
+1.Constants defined this way make the code more readable,
+  allow for compile-time checking, 
+  document the list of accepted values upfront, 
+  and avoid unexpected behavior due to invalid values being passed in.
+2.Can only implements interface & its method should be overridden by each ENUM CONSTANTS, Can't extends any class
+3.Enum can be used in switch statements
+4.Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
+5.enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
+
+***JAVA 8 FEATURES*** :
+
+*Lambda Expressions* :
+
+1.Lambda expression can be achieved only with functional interface. (i.e interface with @FuntionalInterface annotation / one abstract method interface)
+2.FInterface f = () -> {"logic for that abstract method"};
+3.Lambda expression can't be used for default/static method. 
+4.The reference from lambda expression logic can be used to call default/static method.
+
+IMPORTANT FUNCTIONAL INTERFACE: Predicate/Function/Consumer/Supplier/BinaryOperator/UnaryOperator/BiConsumer
+
+Predicate:
+
+1.boolean-valued function of one argument.
+2.methods - test, and, negate, or, isEqual, not (methods in Predicate)
+
+test -> to check the output.
+or -> 1st one is true, doesn't check the second one.
+and -> check both predicate condition.
+negate -> change the obtained value.
+isEqual -> similar to .equals method of Object. 
+[ predicate will be created Predicate p = Predicate.isEqual(obj1); , then check p.test(obj2); ]
+not -> change in the predicate obj itself, not in outcome like negate.
+
+Function:
+
+1.function that accepts one argument and produces a result.
+2.methods - apply, compose, andThen, identity
+
+apply -> get the output.
+compose -> add input( the output of the one function (f2) ) for another function (f1).  f1.compose(f2)
+andThen -> add input( the output of the one function (f1) ) for another function (f2).  f1.andThen(f2)
+identity ->  function that always returns its input argument.
+
+Consumer:
+
+1.accepts a single input argument and returns no result.
+2.methods - accept, andThen
+
+accept -> get the output
+andThen -> add input( the output of the one function (f1) ) for another function (f2).  f1.andThen(f2)
+
+Supplier:
+
+1.a new or distinct result be returned each time the supplier is invoked.
+2. has only one method get
+
+BinaryOperator:
+
+1.an operation upon two operands of the same type, produce result of same type
+2. two methods minBy and maxBy
+    minBy -> returns the lesser of two elements according to comparator.
+    maxBy -> returns the greater of two elements according to comparator.
+
+UnaryOperator:
+
+1.single operand that produces result of same type.
+2.one method (identity) -> always returns its input argument.
+
+BiConsumer:
+
+1.accepts two input arguments and returns no result.
+2. methods -> accept, andThen
+
+stream API important methods : filter, map, flatMap, reduce, forEach, collect, distinct, sorted, limit, skip.
+
+map ->transforms each element of a stream into another object
+flatMap -> transforms each element of a stream into zero or more elements
+
+NOTE : 
+
+1. list(fixed-size) created using Arrays.asList() you cannot add or remove elements from the list. ## UnsupportedOperationException
+2.
+
+Stream API
+Default and Static Methods in Interfaces
+Optional Class
+New Date and Time API
+Nashorn JavaScript Engine
+Method References
+Repeating and Type Annotations
+Parallel Streams
+Collectors API
+
+**OBJECT CLASS METHODS** :
+
+**MULTI THREADING**  (Synchronization):
+
+**EXECUTOR FRAMEWORK** :
+
+**FUTURE** :
+
+**IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
+
+**GARBAGE COLLECTION** :
+
+**JAVA 17 feature** :
+
+
+
+
+
 
 
 
