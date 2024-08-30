@@ -30,15 +30,15 @@ volatile  --> to indicate that a variable's value will be modified by different 
 ## **DATATYPE**:
 
 1.How bit level datatype consumes memory.
-2. byte has range of 2^7-1 to -2^7 . If exceeds we have to cast explicitly and it may leads to overflow / underflow.
-3. other datatypes their range based on memory they take. char has only range of 0 - 65535.
-4. byte --> short --> int <-- long (but with casting) 
+2.byte has range of 2^7-1 to -2^7 . If exceeds we have to cast explicitly and it may leads to overflow / underflow.
+3.other datatypes their range based on memory they take. char has only range of 0 - 65535.
+4.byte --> short --> int <-- long (but with casting) 
                       int --> float --> double 
                       long --> float --> double
-5. by default whole number will be int & decimal number will be double.
-6. we use f/F , d/D, l/L for proper identification.
-7. If the value is out of range it will come to negative range (like rotation)
-8. we can use large numbers like 2_147_483_647.
+5.by default whole number will be int & decimal number will be double.
+6.we use f/F , d/D, l/L for proper identification.
+7.If the value is out of range it will come to negative range (like rotation)
+8.we can use large numbers like 2_147_483_647.
 
 ## **EXECUTION ORDER** :
 
