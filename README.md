@@ -93,7 +93,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. we can't override static/final/private method.
 5. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
 
-### **FINAL : (class , method , variable) **
+### **FINAL : (class , method , variable)**
 
 1. final class can't be inherited.
 2. final method can't be overridden
@@ -101,9 +101,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. final variable can't have setter method.
 5. final doesn't support block.
 
-final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.
+* final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.
               (can be initialized for each object using a constructor. that's why this differs from static final)
-static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
+* static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
 
 ### **SUPER : (INHERITANCE)**
 
