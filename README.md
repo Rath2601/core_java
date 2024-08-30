@@ -63,3 +63,10 @@ volatile  --> to indicate that a variable's value will be modified by different 
      only default AM / final permitted.
 
 if we need to call **NON-STATIC** in  **STATIC** method we need object.
+
+## **AM**:
+
+public --> visible to all classes.
+default --> visible to classes under same package.
+protected --> visible to only inherited classes.
+private --> visible to only that class.
