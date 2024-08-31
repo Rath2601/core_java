@@ -333,6 +333,48 @@ Collectors API
 
 **JAVA 17 feature** :
 
+**COLLECTION FRAMEWORK**:
+
+Array :
+
+1.container object that holds a fixed number of values of a single type.
+2.Searching an array element is better compared to others.
+
+*ArrayList* : (equivalent to vector, but unsynchronized)
+
+1.Resizable-array implementation of the List interface. (stores element in contiguous memory list)
+2.can have duplicates and null value.
+3.insetion order maintained.
+4. methods - add, contains, forEach, get, indexOf, iterator, remove, reversed, set, sort, size, stream, toArray.
+5. default capacity of ArrayList is 10, but we can specify in constructor while initializing.
+
+use:
+fast random access O(1) but slow insertion and deletion.O(n) 
+traverse is bidirectional (by using listIterator)
+
+*LinkedList* : 
+
+1. It stores the object and the pointers to next and previous nodes.(inefficient memory)
+
+use:
+allows for fast insertion and deletion O(1) but slow random access.O(n)
+traverse is bidirectional (by using listIterator)
+
+** table of difference between array, arraylist, linkedlist
+** table of difference between arraylist and vector.
+
+stack :
+
+1. class represents a last-in-first-out (LIFO) stack of objects.
+2. it has the methods that supports LIFO. but it also have List and Vector methods as it extends them. (it behaves like list as well)
+3. synchronized and a thread safe class.
+
+LIST NOTES :
+
+List Interface: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
+Stack Class: Implements LIFO behavior and extends Vector, which implements List.
+LinkedList Class: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
+
 
 
 
