@@ -398,3 +398,9 @@ use:
 | **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
 
 
+
+### **LIST NOTES** :
+
+1.**List Interface**: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
+2.**Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
+3.**LinkedList Class**: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
