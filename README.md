@@ -348,6 +348,8 @@ Collectors API
 
 ## **COLLECTION FRAMEWORK**:
 
+![Collection Framework]([URL_OF_YOUR_IMAGE](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png))
+
 ### **Array** :
 
 1. container object that holds a fixed number of values of a single type.
