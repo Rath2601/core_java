@@ -348,10 +348,19 @@ Collectors API
 
 ## **COLLECTION FRAMEWORK**:
 
+![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
+
 ### **Array** :
 
 1. container object that holds a fixed number of values of a single type.
 2. Searching an array element is better compared to others.
+
+### **List** :
+
+1. Allow duplicates.
+2. Insertion order is maintained.
+3. Can have null values.
+4. Allows elements to be accessed/inserted/deleted by their position.
 
 ### **ArrayList** : (equivalent to vector, but unsynchronized)
 
