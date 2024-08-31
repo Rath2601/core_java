@@ -363,7 +363,7 @@ Collectors API
 
 **use**:
 * fast random access O(1) but slow insertion and deletion.O(n) 
-* traverse is bidirectional
+* traverse is bidirectional (by using listIterator)
 
 ### **LinkedList** : 
 
@@ -371,7 +371,7 @@ Collectors API
 
 use:
 * allows for fast insertion and deletion O(1) but slow random access.O(n)
-* traverse is bidirectional
+* traverse is bidirectional (by using listIterator)
 
 #### Difference between ArrayList and LinkedList
 | Feature                     | Array                                    | ArrayList                                 | LinkedList                                   |
