@@ -348,7 +348,7 @@ Collectors API
 
 ## **COLLECTION FRAMEWORK**:
 
-![Collection Framework]([URL_OF_YOUR_IMAGE](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png))
+![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
 
 ### **Array** :
 
