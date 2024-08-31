@@ -388,3 +388,13 @@ use:
 | **Implements**              | N/A                                      | List, RandomAccess, Cloneable, Serializable | List, Deque, Cloneable, Serializable       |
 | **Use Case**                | Static data where size is known          | Good for read-heavy operations            | Good for write-heavy operations              |
 
+
+| Feature                                | ArrayList                                              | Vector                                                |
+|----------------------------------------|--------------------------------------------------------|-------------------------------------------------------|
+| **Synchronization**                    | ArrayList is not synchronized.                         | Vector is synchronized.                               |
+| **Growth Strategy**                    | ArrayList increments 50% of current array size if the number of elements exceeds its capacity. | Vector increments 100%, meaning it doubles the array size if the total number of elements exceeds its capacity. |
+| **Legacy Status**                      | ArrayList is not a legacy class. It was introduced in JDK 1.2. | Vector is a legacy class.                             |
+| **Performance**                        | ArrayList is fast because it is non-synchronized.       | Vector is slow because it is synchronized. In a multithreading environment, it holds other threads in a runnable or non-runnable state until the current thread releases the lock of the object. |
+| **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
+
+
