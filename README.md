@@ -397,7 +397,15 @@ use:
 | **Performance**                        | ArrayList is fast because it is non-synchronized.       | Vector is slow because it is synchronized. In a multithreading environment, it holds other threads in a runnable or non-runnable state until the current thread releases the lock of the object. |
 | **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
 
+### **STACK** :
 
+1. class represents a last-in-first-out (LIFO) stack of objects.
+2. it has the methods that supports LIFO. but it also have List and Vector methods as it extends them. (it behaves like list as well)
+3. synchronized and a thread safe class.
+
+#### uses:
+
+1.undo mechanism (Text Editors), Backtracking Algorithms (Maze solvers), Depth-First Search (DFS), Navigation in Web Browsers (history management).
 
 ### **LIST NOTES** :
 
