@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.string;
 
 public class Reverse {
 	static String reverse(String word) {

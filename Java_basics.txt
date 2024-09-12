@@ -346,6 +346,7 @@ Array :
 2. Insertion order is maintained.
 3. can have null values.
 4. allows elements to be accessed/inserted/deleted by their position.
+5. can have heterogeneous elements.
 
 *ArrayList* : (equivalent to vector, but unsynchronized)
 
@@ -385,7 +386,17 @@ LinkedList Class: Implements both List and Deque, allowing for both FIFO and LIF
 
 SET :
 
+1. interface that implements the mathematical set.
+2. can have heterogeneous elements
+3. no duplicate elements.
+4. at most have only one null element. (as it overwrite the first null with new nulls if there is any)
+5. Insertion order is not maintained. (follow natural ordering)
+6. Non-synchronized and hence not thread safe.
+
+HashSet :
+
 1.
+
 
 
 
