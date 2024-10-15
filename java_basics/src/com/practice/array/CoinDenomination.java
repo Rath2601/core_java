@@ -5,12 +5,8 @@ import java.util.List;
 
 public class CoinDenomination {
 	public static void main(String[] args) {
-		
-String[] sam = new String[1];
-sam[1]=  "apple,orange,mango";
 
-
-        System.out.println(getWays(4, Arrays.asList(1l,2l,3l)));
+		System.out.println(getWays(4, Arrays.asList(1l, 2l, 3l)));
 	}
 
 	public static long getWays(int n, List<Long> c) {
@@ -22,15 +18,19 @@ sam[1]=  "apple,orange,mango";
 
 		Long val = 0l;
 
-		for (Long elem : c) {
+		for (int i =0; i<c.size(); i++) {
+			
 			while (val < n) {
-				val = elem + val;
-			}
-			if(val==n) {
-				output = output+1;
+				val = c.get(i) + val;
+				if (val == n) {
+					output = output + 1;
+					break;
+				}
 			}
 			
-			val =0l;
+			
+			
+			val = 0l;
 		}
 		return output;
 
