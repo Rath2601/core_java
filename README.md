@@ -340,13 +340,20 @@ Collectors API
 
 **FUTURE** :
 
-**IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
+## **IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
 
-**GARBAGE COLLECTION** :
+## **GARBAGE COLLECTION** :
 
-**JAVA 17 feature** :
+## **JAVA 17 feature** :
 
 ## **COLLECTION FRAMEWORK**:
+
+The major concepts in Java Memory Management :
+
+* JVM Memory Structure
+* Working of Garbage Collector
+
+
 
 ![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
 
