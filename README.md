@@ -344,16 +344,17 @@ Collectors API
 
 ## **GARBAGE COLLECTION** :
 
-## **JAVA 17 feature** :
-
-## **COLLECTION FRAMEWORK**:
 
 The major concepts in Java Memory Management :
 
 * JVM Memory Structure
 * Working of Garbage Collector
 
+![Java_memory_management](https://github.com/Rath2601/core_java/blob/feature_java8/images/Memory.png)
 
+## **JAVA 17 feature** :
+
+## **COLLECTION FRAMEWORK**:
 
 ![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
 
