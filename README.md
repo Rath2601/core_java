@@ -209,6 +209,12 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * Can't have an object. To create object must be inherited. (interface dont have constructor)
 * default methods only allowed in interfaces. If it is overridden , it's AM should be public.
 * we can use private / static / default method to implement some logic in interface itself.
+  * Default Methods:
+    * Backward Compatibility: Allow new methods to be added to interfaces without requiring existing implementing classes to override them, preventing code breakage.
+    * Code Reusability: Provide common functionality directly in the interface, reducing code duplication across implementing classes.
+  * Static Methods:
+    * Utility Methods: Enable utility functions related to the interface, accessible without creating an instance of an implementing class, keeping relevant methods together.
+
 * all methods are public abstract.
 * all variables are public static final.
 * can't have static and non static block.
