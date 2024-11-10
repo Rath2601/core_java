@@ -276,11 +276,11 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ## **WRAPPER CLASSES** : 
 
 1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
-2. Once an object is created, its value cannot be changed. (immutable).  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
+2. Once an object is created, its value cannot be changed. **(immutable)**.  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
 3. Also these classes are also final and can't be subclassed.
 4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
-5. Conversion Utilities to convert between datatypes.
-6. Wrapper classes can have null values, when we use Optional values, Database Interaction, working with Collections.
+5. **Conversion Utilities** to convert between datatypes.
+6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
 
 ## **STRING MANIPULATION**:
 
