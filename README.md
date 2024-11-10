@@ -198,11 +198,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * can have both abstract method and concrete method.
 * static & final keyword never comes with abstract method.
 * abstract methods must be declared not defined.
-* abstract methods must be overriden.
-* variable can't be abstract.
+* abstract methods must be overriden. 
+* variable can't be abstract. (since the syntax abstract itself doesn't apply for variable)
 * can have static and non static block.
-* If child class of abstract class is final, then you can't add new abstract method.
-
 
 ### **INTERFACE**:
 
