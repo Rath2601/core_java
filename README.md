@@ -265,6 +265,12 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 3. Enum can be used in switch statements
 4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
 5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
+
+**USES**:
+* define fixed set of constants
+* Improve code readability work well with switch
+* ensure type safety
+  
 ---
 ### **EXCEPTION HANDLING** :
 
