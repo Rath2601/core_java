@@ -89,6 +89,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 3. **protected** --> visible to only inherited classes.
 4. **private** --> visible to only that class.
 
+* Nested class can have any access modifier.
+
 ## **IMPORTANT KEYWORDS STATIC / FINAL / SUPER / THIS**:
 
 ### **STATIC : ( class, method , variable , block )**
