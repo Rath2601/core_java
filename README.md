@@ -46,7 +46,7 @@ synchronized(this) { } --> locks on the current instance of the class.
    - `long` → `float` → `double`
    - to convert long, float and double as int , need explicit casting.
    - to convert float and double as long , need explicit casting.
-   - to convert as float , need explicit casting.
+   - to convert double as float , need explicit casting.
 
 5. **By default:**
    - Whole numbers are treated as `int`.
