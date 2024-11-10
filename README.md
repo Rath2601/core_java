@@ -282,6 +282,12 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 5. **Conversion Utilities** to convert between datatypes.
 6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
 
+**USES** :
+1. Thread safe
+2. Immutable object created
+3. has conversion utilities (one datatype to another)
+4. working with collection objects (as this can have null values)
+
 ## **STRING MANIPULATION**:
 
 **String** :           Immutable    not synchronized   faster
