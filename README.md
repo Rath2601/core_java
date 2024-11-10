@@ -142,7 +142,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * types --> single, multilevel, hierarchical.
 * 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM) . solved with interface.
 * In case of Interface method as private, static, default we can't override it.
-* In normal classes , private cant be overrided. other methods can have equal or greater visibility.
+* In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
   
    1.**protected** --> protected, default, public.
    2.**default** --> default, public.
