@@ -237,6 +237,44 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ## **EXCEPTION HANDLING** :
 
+1. **try-catch-finally Structure**:
+   - A `try` block must be followed by a `catch` block or a `finally` block.
+   - A `catch` block must be paired with a `try` block.
+   - `try` and `catch` can exist without a `finally` block.
+   - The `finally` block is used to execute cleanup actions, such as closing database connections, regardless of whether an exception occurs or not.
+
+2. **Exception Hierarchy**:
+   - `Throwable` is the root class in the exception hierarchy, with `Error` and `Exception` as its main subclasses.
+   - `Exception` is divided into two types:
+     - **Checked exceptions** (compile-time exceptions).
+     - **Unchecked exceptions** (runtime exceptions).
+
+3. **Handling Checked Exceptions**:
+   - If a checked exception is thrown (either due to inbuilt functionality or via `throw new IOException()`), it must be either:
+     - Enclosed in a `try-catch` block, or
+     - Declared in the method’s signature using the `throws` keyword to propagate it up the call stack.
+
+4. **Handling Unchecked Exceptions**:
+   - Unchecked exceptions do not need to be explicitly caught or declared in the `throws` clause.
+   - **Developer’s Choice**: It is up to the developer to decide whether to handle them with a `try-catch` block or use the `throws` keyword.
+
+5. **Multiple Catch Blocks**:
+   - Multiple catch blocks can be used to handle different exception types.
+   - They should be arranged in **hierarchical order**—the subclass-specific catch block should come before its parent class catch block (e.g., `IOException` before `Exception`).
+
+6. **Exception Hierarchy for Checked Exceptions**:
+   - For checked exceptions, this hierarchical order must be strictly followed to avoid compile-time errors (e.g., catching `Exception` before `IOException` is incorrect if both are expected).
+
+7. **Custom Exceptions**:
+   - Custom exceptions can be created by extending either `Exception` or `RuntimeException`.
+     - Extending `Exception` makes it a **checked exception**.
+     - Extending `RuntimeException` makes it an **unchecked exception**.
+   - Custom exceptions behave like the exception type they extend (checked or unchecked).
+
+--- 
+
+This format keeps the content concise and more directly structured for quick reference.
+
 ## **WRAPPER CLASSES** : 
 
 1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
