@@ -273,8 +273,6 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 --- 
 
-This format keeps the content concise and more directly structured for quick reference.
-
 ## **WRAPPER CLASSES** : 
 
 1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
