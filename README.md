@@ -153,7 +153,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
   [**but if the method is overriden in all the classes , then the last overriden method only can be called. To call precisely need to create object specifically.**]
 * If Instance created for A only its method can be accessed. If instance created for B methods of A & B can be accessed.
 * IF we create B b =(B) new A(); JVM will throw ClassCastException. B is a subset of A. so it will think B can't be initialized with A object.  
-* A final class can't be subclassed.
+* A final class can't be made parent class.
 
 ### **CONSTRUCTOR**:
 
