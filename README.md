@@ -25,6 +25,8 @@ volatile  --> to indicate that a variable's value will be modified by different 
 
 ```java
 {public/default/protected/private} {abstract/final --if needed} {static --if needed} {synchronized -- if needed} {return type --> void & others} {method_name} (parameters ...any number) { ... }
+
+synchronized keyword --> used in Static method, Instance method, and a code block inside Instance method.
 ```
 
 ## **DATATYPE**:
