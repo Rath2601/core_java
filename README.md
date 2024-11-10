@@ -44,6 +44,9 @@ synchronized(this) { } --> locks on the current instance of the class.
    - `byte` → `short` → `int` ← `long` (with casting)
    - `int` → `float` → `double`
    - `long` → `float` → `double`
+   - to convert long, float and double as int , need explicit casting.
+   - to convert float and double as long , need explicit casting.
+   - to convert as float , need explicit casting.
 
 5. **By default:**
    - Whole numbers are treated as `int`.
