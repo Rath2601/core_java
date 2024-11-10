@@ -226,16 +226,47 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. anonymous inner class used when you need a one-off implementation. 
 (i.e interface anonymous inner class instantiated | that particular object reference used to call that method alone) 
 5. For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
-
+---
 
 ## **INBUILD CLASSES** : 
 
 * By default java.lang package will be imported (implicitly)
 * Other packages we're importing it to use them in your code without needing to specify their full package.
+* classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays and etc.
 
-1. classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays.
+### **STRING MANIPULATION**:
 
-## **EXCEPTION HANDLING** :
+* **String** :           Immutable    not synchronized   faster
+* **StringBuilder**:       mutable    not synchronized   faster
+* **StringBuffer** :       mutable        synchronized   slower
+---
+### **WRAPPER CLASSES** : 
+
+1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
+2. Once an object is created, its value cannot be changed. **(immutable)**.  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
+3. Also these classes are also final and can't be subclassed.
+4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
+5. **Conversion Utilities** to convert between datatypes.
+6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
+
+**USES** :
+1. Thread safe
+2. Immutable object created
+3. has conversion utilities (one datatype to another)
+4. working with collection objects (as this can have null values)
+---
+### **ENUM**:
+
+1. Constants defined this way make the code more readable,
+  allow for compile-time checking, 
+  document the list of accepted values upfront, 
+  and avoid unexpected behavior due to invalid values being passed in.
+2. Can only implements interface & its method should be overridden by each ENUM CONSTANTS, Can't extends any class
+3. Enum can be used in switch statements
+4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
+5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
+---
+### **EXCEPTION HANDLING** :
 
 1. **try-catch-finally Structure**:
    - A `try` block must be followed by a `catch` block or a `finally` block.
@@ -272,39 +303,6 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
    - Custom exceptions behave like the exception type they extend (checked or unchecked).
 
 --- 
-
-## **WRAPPER CLASSES** : 
-
-1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
-2. Once an object is created, its value cannot be changed. **(immutable)**.  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
-3. Also these classes are also final and can't be subclassed.
-4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
-5. **Conversion Utilities** to convert between datatypes.
-6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
-
-**USES** :
-1. Thread safe
-2. Immutable object created
-3. has conversion utilities (one datatype to another)
-4. working with collection objects (as this can have null values)
-
-## **STRING MANIPULATION**:
-
-**String** :           Immutable    not synchronized   faster
-**StringBuilder**:       mutable    not synchronized   faster
-**StringBuffer** :       mutable        synchronized   slower
-
-## **ENUM**:
-
-1. Constants defined this way make the code more readable,
-  allow for compile-time checking, 
-  document the list of accepted values upfront, 
-  and avoid unexpected behavior due to invalid values being passed in.
-2. Can only implements interface & its method should be overridden by each ENUM CONSTANTS, Can't extends any class
-3. Enum can be used in switch statements
-4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
-5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
-
 ## **JAVA 8 FEATURES** :
 
 ## **Lambda Expressions** :
