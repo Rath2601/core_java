@@ -98,8 +98,10 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 1. static can be used in nested class (class inside class)
 2. If we use static it belongs to the class.
 3. We can't use static/final keyword with constructor.
-4. we can't override static/final/private method.
-5. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
+   * Constructors are meant to initialize new objects. Hence static can't be used.
+   * constructors cannot be inherited in Java therefore, there is no need to write final before constructors.
+5. we can't override static/final/private method.
+6. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
 
 ### **FINAL : (class , method , variable)**
 
