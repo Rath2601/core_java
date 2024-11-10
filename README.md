@@ -132,10 +132,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 2. this(....params) to call current class matching constructor.
 3. this can be used to refer "current class Instance". (use -> method chaining)
 4. the previous one can be passed as argument to another method which have (Class objName) as Parameter.
-5. this can be used to call current class method with matching params.
-6. this can be used to call current class non static method.
-7. constructor call must be the first statement in constructor. (using this)
-8. cant use with static content.
+5. this can be used to call current class non static method with matching params.
+6. constructor call must be the first statement in constructor. (using this)
+7. **cant use with static content**.
 
 ## **INHERITANCE: (encourages polymorphism)**
 
