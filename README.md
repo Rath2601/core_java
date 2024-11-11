@@ -263,15 +263,15 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * **StringBuffer** :       mutable        synchronized   slower
 ---
 ### **MULTITHREADING**:
-To create a thread we can use,
-* extend the Thread class and override the run() method.
-* Implement the Runnable interface and pass the instance of the class to a Thread object.
 
+* To create a thread we can use,extend the Thread class and override the run() method.
+* Implement the Runnable interface and pass the instance of the class to a Thread object.
 * **start()** : Creates a new thread and runs concurrently.
 * **run()**   : Calling run method, runs in the main thread, not concurrently.
 * **sleep()** : Pauses the thread for a specified time Useful to delay execution or simulate time-based tasks.
 * **join()**  : Waits for this thread to terminate. (only work on running thread / otherwise just moves to next line)
-* **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS) 
+* **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS)
+* **interrupt()**: Signals that the thread should stop its current operation.
 
 ---
 ### **WRAPPER CLASSES** : 
