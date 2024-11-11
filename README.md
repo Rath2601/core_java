@@ -231,6 +231,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ## **INBUILD CLASSES** : 
 
 * By default java.lang package will be imported (implicitly)
+* STATIC import can be made only for a particular class.
 * Other packages we're importing it to use them in your code without needing to specify their full package.
 * classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays and etc.
 ---
