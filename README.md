@@ -233,7 +233,28 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * By default java.lang package will be imported (implicitly)
 * Other packages we're importing it to use them in your code without needing to specify their full package.
 * classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays and etc.
+---
+### **OBJECT CLASS**:
 
+#### **equals(Object obj)**:
+
+* Default: Checks reference equality (whether two references point to the same object).
+* Purpose: Override to define logical equality based on object content.
+* Common usage: Necessary for comparing objects logically, especially in collections.
+
+#### **hashCode()**:
+
+* Default: Returns a unique integer for each object instance.
+* Purpose: Override when equals is overridden to ensure objects that are equal have the same hash code.
+* Common usage: Used in hash-based collections (like HashMap, HashSet) to group objects.
+
+#### **toString()**:
+
+* Default: Returns a string with the class name + "@" + hash code in hexadecimal.
+* Purpose: Override to provide a readable, custom representation of an object’s content.
+* Common usage: Useful for debugging and logging.
+
+---
 ### **STRING MANIPULATION**:
 
 * **String** :           Immutable    not synchronized   faster
