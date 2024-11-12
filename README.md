@@ -144,8 +144,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * In case of Interface method as private, static, default we can't override it.
 * In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
   
-   1. **protected** --> protected, default, public.
-   2. **default** --> default, public.
+   1. **protected** --> protected,  public.
+   2. **default** --> default, protected, public.
    3. **public** --> public.
 
 * child class object can access all methods from parent class.
