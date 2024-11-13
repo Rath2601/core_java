@@ -450,6 +450,8 @@ Collectors API
 3. Array of a parent class can have its subclass elements but its not vice versa.
 4. final -->  prevents reassigning the array reference but doesn’t make the array itself immutable.
 5. elements inside an array are always mutable.
+6. Array are allocated in heap memory
+7. Arrays are serializable by default 
    
 ```  
 final int[] arr = new int[2]; 
