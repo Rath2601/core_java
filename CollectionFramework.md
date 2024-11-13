@@ -82,10 +82,27 @@ use:
 
 #### uses:
 
-1.undo mechanism (Text Editors), Backtracking Algorithms (Maze solvers), Depth-First Search (DFS), Navigation in Web Browsers (history management).
+1. Undo mechanism (Text Editors)
+2. Backtracking Algorithms (Maze solvers)
+3. Depth-First Search (DFS)
+4. Navigation in Web Browsers (history management).
 ---
 ### **LIST NOTES** :
 
 1. **List Interface**: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
 2. **Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
 3. **LinkedList Class**: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
+---
+### **Set**
+
+1. Does not allow duplicates.
+2. Insertion order is not maintained.(generally)
+   * HashSet (doesn't guarantee insertion order or any order)
+   * TreeSet (sort based on natural sorting)
+   * LinkedHashSet (preserve insertion order)
+4. Can have one null value.
+5. Sets do not maintain an index-based structure.primary purpose of a Set is to maintain unique elements without duplicates, not to store elements in a particular order.
+6. Sets are designed for fast lookups (like contains()), additions, and removals based on the value itself rather than its position.
+7. it is implemented with mathematical set logic.
+
+classes -> HashSet, LinkedHashSet, TreeSet.
