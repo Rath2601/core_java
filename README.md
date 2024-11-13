@@ -258,10 +258,17 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ---
 ### **STRING MANIPULATION**:
 
-| **String**           |     Immutable        |  not synchronized  | faster |
-| **StringBuilder**:   |    mutable           | not synchronized   | faster |
-| * **StringBuffer** : |      mutable         | synchronized       | slower |
+| Type           | Mutability | Thread Safety   | Performance |
+|----------------|------------|-----------------|-------------|
+| String         | Immutable  | Not synchronized | Faster      |
+| StringBuilder  | Mutable    | Not synchronized | Faster      |
+| StringBuffer   | Mutable    | Synchronized     | Slower      |
 
+* String has two main concepts. **Immutability and String pool**
+* **Immutability** -->  Once a String object is created, its value cannot be changed.
+  ( Each modification (like concatenation, substring extraction, etc.) results in the creation of a new String object rather than modifying the existing one.)
+* **String pool** --> The String pool is a special memory area in the Java heap where String literals are stored.
+  (Purpose: It allows Java to reuse String literals to save memory.)
 
 
 ---
