@@ -461,9 +461,14 @@ The major concepts in Java Memory Management :
 
 ### **Array** :
 
-1. container object that holds a fixed number of values of a single type.
-2. Searching an array element is better compared to others.
-
+1. container object that holds a fixed number of values of a single type (homogeneous elements) stored in contiguous memory locations.
+2. Directly retrieving an element by index O(1) (efficient random access to elements).
+3. Array of a parent class can have its subclass elements but its not vice versa.
+4. final -->  prevents reassigning the array reference but doesn’t make the array itself immutable.
+```  
+final int[] arr = new int[2]; 
+arr = new int[2]; // this is not possible 
+```
 ### **List** :
 
 1. Allow duplicates.
