@@ -437,23 +437,7 @@ Repeating and Type Annotations
 Parallel Streams
 Collectors API
 
-**EXECUTOR FRAMEWORK** :
-
-**FUTURE** :
-
-## **IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
-
-## **GARBAGE COLLECTION** :
-
-
-The major concepts in Java Memory Management :
-
-* JVM Memory Structure
-* Working of Garbage Collector
-
-![Java_memory_management](https://github.com/Rath2601/core_java/blob/feature_java8/images/Memory.png)
-
-## **JAVA 17 feature** :
+---
 
 ## **COLLECTION FRAMEWORK**:
 
@@ -465,17 +449,20 @@ The major concepts in Java Memory Management :
 2. Directly retrieving an element by index O(1) (efficient random access to elements).
 3. Array of a parent class can have its subclass elements but its not vice versa.
 4. final -->  prevents reassigning the array reference but doesn’t make the array itself immutable.
+5. elements inside an array are always mutable.
+   
 ```  
 final int[] arr = new int[2]; 
 arr = new int[2]; // this is not possible 
 ```
+---
 ### **List** :
 
 1. Allow duplicates.
 2. Insertion order is maintained.
 3. Can have null values.
 4. Allows elements to be accessed/inserted/deleted by their position.
-
+---
 ### **ArrayList** : (equivalent to vector, but unsynchronized)
 
 1. Resizable-array implementation of the List interface. (stores element in contiguous memory list)
@@ -487,7 +474,7 @@ arr = new int[2]; // this is not possible
 **use**:
 * fast random access O(1) but slow insertion and deletion.O(n) 
 * traverse is bidirectional (by using listIterator)
-
+---
 ### **LinkedList** : 
 
 1. It stores the object and the pointers to next and previous nodes.(inefficient memory)
@@ -495,7 +482,7 @@ arr = new int[2]; // this is not possible
 use:
 * allows for fast insertion and deletion O(1) but slow random access.O(n)
 * traverse is bidirectional (by using listIterator)
-
+---
 #### Difference between ArrayList and LinkedList
 | Feature                     | Array                                    | ArrayList                                 | LinkedList                                   |
 |-----------------------------|------------------------------------------|-------------------------------------------|----------------------------------------------|
@@ -511,7 +498,7 @@ use:
 | **Implements**              | N/A                                      | List, RandomAccess, Cloneable, Serializable | List, Deque, Cloneable, Serializable       |
 | **Use Case**                | Static data where size is known          | Good for read-heavy operations            | Good for write-heavy operations              |
 
-
+---
 | Feature                                | ArrayList                                              | Vector                                                |
 |----------------------------------------|--------------------------------------------------------|-------------------------------------------------------|
 | **Synchronization**                    | ArrayList is not synchronized.                         | Vector is synchronized.                               |
@@ -519,7 +506,7 @@ use:
 | **Legacy Status**                      | ArrayList is not a legacy class. It was introduced in JDK 1.2. | Vector is a legacy class.                             |
 | **Performance**                        | ArrayList is fast because it is non-synchronized.       | Vector is slow because it is synchronized. In a multithreading environment, it holds other threads in a runnable or non-runnable state until the current thread releases the lock of the object. |
 | **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
-
+---
 ### **STACK** :
 
 1. class represents a last-in-first-out (LIFO) stack of objects.
@@ -529,9 +516,27 @@ use:
 #### uses:
 
 1.undo mechanism (Text Editors), Backtracking Algorithms (Maze solvers), Depth-First Search (DFS), Navigation in Web Browsers (history management).
-
+---
 ### **LIST NOTES** :
 
 1. **List Interface**: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
 2. **Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
 3. **LinkedList Class**: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
+
+
+**EXECUTOR FRAMEWORK** :
+
+**FUTURE** :
+
+## **IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
+
+## **GARBAGE COLLECTION** :
+
+The major concepts in Java Memory Management :
+
+* JVM Memory Structure
+* Working of Garbage Collector
+
+![Java_memory_management](https://github.com/Rath2601/core_java/blob/feature_java8/images/Memory.png)
+
+## **JAVA 17 feature** :
