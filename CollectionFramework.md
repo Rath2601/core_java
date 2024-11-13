@@ -8,14 +8,20 @@
 2. Directly retrieving an element by index O(1) (efficient random access to elements).
 3. Array of a parent class can have its subclass elements but its not vice versa.
 4. final -->  prevents reassigning the array reference but doesn’t make the array itself immutable.
-5. elements inside an array are always mutable.
-6. Array are allocated in heap memory
-7. Arrays are serializable by default 
-   
 ```  
 final int[] arr = new int[2]; 
 arr = new int[2]; // this is not possible 
 ```
+5. elements inside an array are always mutable.
+```
+arr[0] = 15;
+arr[0] = 14; // array elements are mutable.
+```
+
+6. Array are allocated in heap memory.
+7. Arrays are serializable by default. 
+   
+
 ---
 ### **List** :
 
