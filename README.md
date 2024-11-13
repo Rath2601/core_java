@@ -258,9 +258,12 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ---
 ### **STRING MANIPULATION**:
 
-* **String** :           Immutable    not synchronized   faster
-* **StringBuilder**:       mutable    not synchronized   faster
-* **StringBuffer** :       mutable        synchronized   slower
+| **String**           |     Immutable        |  not synchronized  | faster |
+| **StringBuilder**:   |    mutable           | not synchronized   | faster |
+| * **StringBuffer** : |      mutable         | synchronized       | slower |
+
+
+
 ---
 ### **MULTITHREADING**:
 
