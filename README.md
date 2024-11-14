@@ -292,6 +292,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
 5. **Conversion Utilities** to convert between datatypes.
 6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
+7. All wrapper classes are **SERIALIZABLE BY DEFAULT**
 
 **USES** :
 1. Thread safe
