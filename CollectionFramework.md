@@ -120,9 +120,20 @@ use:
    * HashSet (doesn't guarantee insertion order or any order)
    * TreeSet (sort based on natural sorting)
    * LinkedHashSet (preserve insertion order)
-4. Can have one null value.
+4. Can have one null value. (generally)
 5. Sets do not maintain an index-based structure.primary purpose of a Set is to maintain unique elements without duplicates, not to store elements in a particular order.
-6. Sets are designed for fast lookups (like contains()), additions, and removals based on the value itself rather than its position.
-7. it is implemented with mathematical set logic.
+6. Sets are designed for fast lookups (like contains()), additions, and removals **based on the value** itself **rather than its position**.
+7. it is implemented with **mathematical set** logic.Supports set operations like union (addAll), intersection (retainAll), and difference (removeAll).
 
-classes -> HashSet, LinkedHashSet, TreeSet.
+CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
+
+| Feature                 | `HashSet`                             | `LinkedHashSet`                        | `TreeSet`                               |
+|-------------------------|---------------------------------------|----------------------------------------|----------------------------------------|
+| **Order of Elements**    | No guaranteed order                  | Maintains insertion order              | Sorted order (natural or custom)       |
+| **Null Elements**        | Allows one `null` element             | Allows one `null` element              | Does not allow `null` elements         |
+| **Underlying Structure** | Hash table                            | Hash table with a linked list          | Red-Black Tree                         |
+| **Performance**          | O(1) average for `add`, `remove`, `contains` | Slightly slower than `HashSet` due to linked list | O(log n) for `add`, `remove`, `contains` |
+| **Thread-Safety**        | Not synchronized                     | Not synchronized                       | Not synchronized                       |
+| **Duplicates**           | Does not allow duplicates             | Does not allow duplicates              | Does not allow duplicates              |
+| **Usage**                | Best for unordered sets with fast lookups | Best for ordered sets with fast lookups | Best for sorted sets                   |
+
