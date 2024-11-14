@@ -21,7 +21,14 @@ while serializing we should keep in mind that,
   Major Changes -> increment the serialVersionUID to signal a new version.
 
 ---
+#### **Object class methods** :
+we need to override hashCode() and equals() method for ,
 
+* Correctness in collections (especially hash-based ones like HashMap, HashSet).
+* Efficiency in object storage, searching, and retrieval.
+* Proper customization of equality based on the fields you consider relevant for equality.
+
+---
 ### **Array** :
 
 1. container object that holds a fixed number of values of a single type (homogeneous elements) stored in contiguous memory locations.
