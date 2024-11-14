@@ -2,6 +2,26 @@
 
 ![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
 
+---
+### **Important Terms** :
+#### **Marker Interface** :
+It merely marks a class as capable of doing a specific task to the JRE.
+
+1. **Serializable**  : marks a particular class can be serialized.
+2. **Clonable**      : indicates a class permits cloning.
+3. **Random access** : to mark list implementations that supports fast random access.
+
+while serializing we should keep in mind that,
+ * transient field should not be serialized  (e.g., sensitive data like passwords).
+ * To prevent issues when deserializing an object, a class can declare a serialVersionUID to maintain compatibility.
+
+**serialVersionUID** : long value uniquely identifies a version of a serializable class.
+* How to Generate -> Automatic Generation by IDE / Manual assignment
+* Minor Changes -> If change is backward compatible leave as is it.
+  Major Changes -> increment the serialVersionUID to signal a new version.
+
+---
+
 ### **Array** :
 
 1. container object that holds a fixed number of values of a single type (homogeneous elements) stored in contiguous memory locations.
