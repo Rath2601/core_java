@@ -107,7 +107,7 @@ use:
 3. Depth-First Search (DFS)
 4. Navigation in Web Browsers (history management).
 ---
-### **LIST NOTES** :
+#### **LIST NOTES** :
 
 1. **List Interface**: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
 2. **Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
@@ -137,3 +137,26 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
 | **Duplicates**           | Does not allow duplicates             | Does not allow duplicates              | Does not allow duplicates              |
 | **Usage**                | Best for unordered sets with fast lookups | Best for ordered sets with fast lookups | Best for sorted sets                   |
 
+
+---
+### **QUEUE**
+
+1.FIFO 
+2.Insertion order is not preserved.
+3.Can have duplicate values.
+
+
+| **Feature**               | **`PriorityQueue`**                               | **`ArrayDeque`**                              | **`LinkedList`**                             |
+|---------------------------|--------------------------------------------------|-----------------------------------------------|---------------------------------------------|
+| **Interface Implemented**  | Implements `Queue`, `Deque` (not `List`)         | Implements `Deque`, `Queue`                   | Implements `Deque`, `Queue`, `List`          |
+| **Order of Elements**      | Elements ordered according to priority (natural order or custom comparator) | Elements are ordered in the order they are added | Elements ordered in the order they are added (FIFO) or LIFO based on usage |
+| **Accessing Elements**     | Only the head (smallest element in a min-heap) is accessible efficiently | Allows access to both ends of the queue efficiently | Allows access to both ends efficiently and supports random access (by index) |
+| **Performance (Insertion/Deletion)** | **O(log n)** for insertion/removal of elements | **O(1)** for adding/removing elements at both ends | **O(1)** for adding/removing elements at both ends, but **O(n)** for accessing/removing elements by index |
+| **Memory Usage**           | Efficient for heap-based storage but with some overhead | More memory-efficient than `LinkedList` because it uses an array | Higher memory usage due to node-based structure (pointers for next/prev) |
+| **Thread-Safety**          | Not thread-safe                                   | Not thread-safe                               | Not thread-safe                             |
+| **Internal Structure**     | Backed by a **heap** (usually a binary heap)     | Backed by an **array** (dynamically resized)   | Backed by a **doubly linked list** (nodes with next/previous pointers) |
+| **Random Access**          | **Not supported** (does not allow index-based access) | **Not supported** (does not allow index-based access) | **Supported** (allows random access via index) |
+| **Use Case**               | Used when elements need to be processed by priority (min-heap by default) | Used for fast, efficient queue and deque operations | Used for general-purpose queue, deque, and list operations, including random access |
+| **Null Elements**          | Does **not** allow `null` elements                | Can allow `null` elements                     | Can allow `null` elements                   |
+| **Resizing**               | Does not resize dynamically (fixed size heap)    | Resizes dynamically when needed               | Resizes dynamically when needed             |
+| **Ordering Guarantee**     | Guarantees **priority-based order** (min-heap or max-heap) | Does **not** guarantee any specific order apart from insertion order | Guarantees **insertion order** (FIFO or LIFO depending on usage) |
