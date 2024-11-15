@@ -242,7 +242,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 #### **equals(Object obj)**:
 
-* Default: Checks reference equality (whether two references point to the same object).
+* Default: Checks **reference equality** (whether two references point to the same object) and **the Values** are same.
 * Purpose: Override to define logical equality based on object content.
 * Common usage: Necessary for comparing objects logically, especially in collections.
 
