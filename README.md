@@ -218,6 +218,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * all methods are public abstract.
 * all variables are public static final.
 * can't have static and non static block.
+* Anonymous inner class of interface can be created in subclass with all its method implementation for that particular object.
 
 ## **INNER CLASSES**:
 
