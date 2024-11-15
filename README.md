@@ -117,7 +117,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **SUPER : (INHERITANCE)**
 
-1. can't use inside super in static content/ overridden methods.
+1. can't use super in static content/methods.
 2. constructor call must be the first statement in constructor. (using super)
    (only one constructor can be called from a constructor)
 
