@@ -3,7 +3,6 @@ package imp_keywords;
 public class StaticDemo {
 
 	private StaticDemo(){
-		
 	}
 	
 	private static class SingletonHolder {

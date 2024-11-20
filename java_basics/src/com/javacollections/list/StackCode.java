@@ -10,7 +10,7 @@ public static void main(String[] args) {
 	s.add("sample");
 	s.add(true);
 	
-	s.addFirst(3);
+//	s.addFirst(3);
 	
 	System.out.println(s);
 	

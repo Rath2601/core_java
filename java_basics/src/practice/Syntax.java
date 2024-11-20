@@ -1,47 +1,41 @@
 package practice;
 
-public abstract class Syntax {
-
-	int a = 10;
-
-	 static int b = 20;
-
-	abstract void m1();
-
-	void m2() {
-		System.out.println("method m2");
+public class Syntax {
+    int a = 0;
+	static int b = 10;
+	static final int c = 20;
+	static transient final int d = 25; // all three exist in pair with its own purpose
+	
+	public void m1() {
+		System.out.println("sample non static method");
 	}
-
+	public static void m2() {
+		System.out.println("sample static method");
+	}
+	{
+		System.out.println("sample non static block");
+	}
+	
+	static {
+		System.out.println("sample static block");
+	}
+	
 	public static void main(String[] args) {
-       Main m = new Main();
-       m.speed();
+		Syntax s = new Syntax();
+		s.m1();
+		m2();
+		System.out.println("test without public class");
 	}
 }
 
-class Main extends Syntax implements Dummy {
-
-	@Override
-	public void speed() {
-		System.out.println("overridden method from abstract class");
-		Syntax s = new Main();
-		s.m2();
-	}
-
-	@Override
-	void m1() {
-		Dummy d = new Main();
-		d.m5();
-	}
+final class Main{ // can't be extended
+	
 }
 
-abstract interface Dummy {
-	void speed();
+abstract class Sample{
+	
+}
 
-	static void m4() {
-		System.out.println("static inside interface");
-	}
-
-	default void m5() {
-		System.out.println("default inside interface");
-	}
+interface Test{
+	
 }

@@ -15,12 +15,22 @@ import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
+import java.util.function.Consumer;
 
 public class InnerClass {
 	static int count = 0;
+	
+	void m1() {
+//		Integer a = 10;
+//		
+//		a = 2;
+
+	}
+	
 	public static void main(StringManipulation[] args) {
 		suthan();
 	}

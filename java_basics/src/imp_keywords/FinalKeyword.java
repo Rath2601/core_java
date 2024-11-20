@@ -6,7 +6,6 @@ public class FinalKeyword {
 	
 	 final  StringBuffer sample = new StringBuffer("RATH");
 	 
-	 
 	 void method1() {
 		System.out.println("test for final");
 	}
