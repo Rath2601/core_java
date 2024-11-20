@@ -25,6 +25,9 @@ volatile  --> to indicate that a variable's value will be modified by different 
 
 ```java
 {public/default/protected/private} {abstract/final --if needed} {static --if needed} {synchronized -- if needed} {return type --> void & others} {method_name} (parameters ...any number) { ... }
+
+synchronized keyword --> used in Static method, Instance method, and a code block inside Instance method.
+synchronized(this) { } --> locks on the current instance of the class.
 ```
 
 ## **DATATYPE**:
@@ -41,6 +44,9 @@ volatile  --> to indicate that a variable's value will be modified by different 
    - `byte` → `short` → `int` ← `long` (with casting)
    - `int` → `float` → `double`
    - `long` → `float` → `double`
+   - to convert long, float and double as int , need explicit casting.
+   - to convert float and double as long , need explicit casting.
+   - to convert double as float , need explicit casting.
 
 5. **By default:**
    - Whole numbers are treated as `int`.
@@ -83,6 +89,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 3. **protected** --> visible to only inherited classes.
 4. **private** --> visible to only that class.
 
+* Nested class can have any access modifier.
+
 ## **IMPORTANT KEYWORDS STATIC / FINAL / SUPER / THIS**:
 
 ### **STATIC : ( class, method , variable , block )**
@@ -90,8 +98,10 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 1. static can be used in nested class (class inside class)
 2. If we use static it belongs to the class.
 3. We can't use static/final keyword with constructor.
-4. we can't override static/final/private method.
-5. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
+   * Constructors are meant to initialize new objects. Hence static can't be used.
+   * constructors cannot be inherited in Java therefore, there is no need to write final before constructors.
+5. we can't override static/final/private method.
+6. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
 
 ### **FINAL : (class , method , variable)**
 
@@ -107,13 +117,14 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **SUPER : (INHERITANCE)**
 
-1. can't use inside super in static content/ overridden methods.
+1. can't use super in static content/methods.
 2. constructor call must be the first statement in constructor. (using super)
+   (only one constructor can be called from a constructor)
 
-3. can be used to call variable of parent class (super.parentClassVariable .. both static & non-static) (but static should be accessed only with class name)
-4. can be used to call method of parent class (super.parentClassMethod .. both static & non-static) (but static should be accessed only with class name)
+4. can be used to call **variable** of parent class (super.parentClassVariable .. both static & non-static) (but static should be accessed only with class name)
+5. can be used to call **method** of parent class (super.parentClassMethod .. both static & non-static) (but static should be accessed only with class name)
     (If parent's method not implemented in child class no need to use super)
-5. Can call parent's constructor with its param.(can be called only from child constructor)
+6. Can call parent's constructor with its param.(can be called **only** from child constructor)
 
 ### **THIS : (ENCAPSULATION)**
 
@@ -121,10 +132,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 2. this(....params) to call current class matching constructor.
 3. this can be used to refer "current class Instance". (use -> method chaining)
 4. the previous one can be passed as argument to another method which have (Class objName) as Parameter.
-5. this can be used to call current class method with matching params.
-6. this can be used to call current class non static method.
-7. constructor call must be the first statement in constructor. (using this)
-8. cant use with static content.
+5. this can be used to call current class non static method with matching params.
+6. constructor call must be the first statement in constructor. (using this)
+7. **cant use with static content**.
 
 ## **INHERITANCE: (encourages polymorphism)**
 
@@ -132,17 +142,18 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * types --> single, multilevel, hierarchical.
 * 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM) . solved with interface.
 * In case of Interface method as private, static, default we can't override it.
-* In normal classes , private cant be overrided. other methods can have equal or greater visibility.
+* In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
   
-   1.**protected** --> protected, default, public.
-   2.**default** --> default, public.
-   3.**public** --> public.
+   1. **protected** --> protected,  public.
+   2. **default** --> default, protected, public.
+   3. **public** --> public.
 
 * child class object can access all methods from parent class.
 * If A a = new C(); , In this, instance of C is created and with this we can access all methods of the classes (A, B, C)
+  [**but if the method is overriden in all the classes , then the last overriden method only can be called. To call precisely need to create object specifically.**]
 * If Instance created for A only its method can be accessed. If instance created for B methods of A & B can be accessed.
 * IF we create B b =(B) new A(); JVM will throw ClassCastException. B is a subset of A. so it will think B can't be initialized with A object.  
-* A final class can't be subclassed.
+* A final class can't be made parent class.
 
 ### **CONSTRUCTOR**:
 
@@ -187,20 +198,27 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * can have both abstract method and concrete method.
 * static & final keyword never comes with abstract method.
 * abstract methods must be declared not defined.
-* abstract methods must be overriden.
-* variable can't be abstract.
+* abstract methods must be overriden. 
+* variable can't be abstract. (since the syntax abstract itself doesn't apply for variable)
 * can have static and non static block.
-* If child class of abstract class is final, then you can't add new abstract method.
-
 
 ### **INTERFACE**:
 
 * Can't have an object. To create object must be inherited. (interface dont have constructor)
 * default methods only allowed in interfaces. If it is overridden , it's AM should be public.
 * we can use private / static / default method to implement some logic in interface itself.
+  * Default Methods: [**can be accessed with child object if not overrided**] [**else this can be accessed using interface.super.methodName**]
+    * Backward Compatibility: Allow new methods to be added to interfaces without requiring existing implementing classes to override them, preventing code breakage.
+    * Code Reusability: Provide common functionality directly in the interface, reducing code duplication across implementing classes.
+  * Static Methods: [**can be accessed with class name**]
+    * Utility Methods: Enable utility functions related to the interface, accessible without creating an instance of an implementing class, keeping relevant methods together.
+  * Private Methods:
+    Hold all the logic that can be used only by default/static methods inside interface.
+
 * all methods are public abstract.
 * all variables are public static final.
 * can't have static and non static block.
+* Anonymous inner class of interface can be created in subclass with all its method implementation for that particular object.
 
 ## **INNER CLASSES**:
 
@@ -211,33 +229,81 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. anonymous inner class used when you need a one-off implementation. 
 (i.e interface anonymous inner class instantiated | that particular object reference used to call that method alone) 
 5. For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
-
+---
 
 ## **INBUILD CLASSES** : 
 
 * By default java.lang package will be imported (implicitly)
+* STATIC import can be made only for a particular class.
 * Other packages we're importing it to use them in your code without needing to specify their full package.
+* classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays and etc.
+---
+### **OBJECT CLASS**:
 
-1. classes like Math, String, StringBuffer, StringBuilder, all wrapper classes, Arrays.
+#### **equals(Object obj)**:
 
-## **EXCEPTION HANDLING** :
+* Default: Checks **reference equality** (whether two references point to the same object) and **the Values** are same.
+* Purpose: Override to define logical equality based on object content.
+* Common usage: Necessary for comparing objects logically, especially in collections.
 
-## **WRAPPER CLASSES** : 
+#### **hashCode()**:
+
+* Default: Returns a unique integer for each object instance.
+* Purpose: Override when equals is overridden to ensure objects that are equal have the same hash code.
+* Common usage: Used in hash-based collections (like HashMap, HashSet) to group objects.
+
+#### **toString()**:
+
+* Default: Returns a string with the class name + "@" + hash code in hexadecimal.
+* Purpose: Override to provide a readable, custom representation of an object’s content.
+* Common usage: Useful for debugging and logging.
+
+---
+### **STRING MANIPULATION**:
+
+| Type           | Mutability | Thread Safety   | Performance |
+|----------------|------------|-----------------|-------------|
+| String         | Immutable  | Not synchronized | Faster      |
+| StringBuilder  | Mutable    | Not synchronized | Faster      |
+| StringBuffer   | Mutable    | Synchronized     | Slower      |
+
+* String has two main concepts. **Immutability and String pool**
+* **Immutability** -->  Once a String object is created, its value cannot be changed.
+  ( Each modification (like concatenation, substring extraction, etc.) results in the creation of a new String object rather than modifying the existing one.)
+* **String pool** --> The String pool is a special memory area in the Java heap where String literals are stored.
+  (Purpose: It allows Java to reuse String literals to save memory.)
+
+
+---
+### **MULTITHREADING**:
+
+* To create a thread we can use,extend the Thread class and override the run() method.
+* Implement the Runnable interface and pass the instance of the class to a Thread object.
+* **start()** : Creates a new thread and runs concurrently.
+* **run()**   : Calling run method, runs in the main thread, not concurrently.
+* **sleep()** : Pauses the thread for a specified time Useful to delay execution or simulate time-based tasks.
+* **join()**  : Waits for this thread to terminate. (only work on running thread / otherwise just moves to next line)
+* **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS)
+* **interrupt()**: Signals that the thread should stop its current operation.
+
+---
+### **WRAPPER CLASSES** : 
 
 1. Wrapper classes -> Byte, Short, Integer, Long, Float, Double, Character, Boolean. (wraps its respective primitive type)
-2. Once an object is created, its value cannot be changed. (immutable).  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
+2. Once an object is created, its value cannot be changed. **(immutable)**.  [AtomicInteger, AtomicLong are mutable, suitable for multithreading]
 3. Also these classes are also final and can't be subclassed.
 4. wrapper classes cache frequently used values to improve performance. [Integer.valueOf(100) will return same object reference]
-5. Conversion Utilities to convert between datatypes.
-6. Wrapper classes can have null values, when we use Optional values, Database Interaction, working with Collections.
+5. **Conversion Utilities** to convert between datatypes.
+6. Wrapper classes **can have null values**, when we use Optional values, Database Interaction, working with Collections.
+7. All wrapper classes are **SERIALIZABLE BY DEFAULT**
 
-## **STRING MANIPULATION**:
-
-**String** :           Immutable    not synchronized   faster
-**StringBuilder**:       mutable    not synchronized   faster
-**StringBuffer** :       mutable        synchronized   slower
-
-## **ENUM**:
+**USES** :
+1. Thread safe
+2. Immutable object created
+3. has conversion utilities (one datatype to another)
+4. working with collection objects (as this can have null values)
+---
+### **ENUM**:
 
 1. Constants defined this way make the code more readable,
   allow for compile-time checking, 
@@ -248,6 +314,49 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
 5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
 
+**USES**:
+* define fixed set of constants
+* Improve code readability work well with switch
+* ensure type safety
+  
+---
+### **EXCEPTION HANDLING** :
+
+1. **try-catch-finally Structure**:
+   - A `try` block must be followed by a `catch` block or a `finally` block.
+   - A `catch` block must be paired with a `try` block.
+   - `try` and `catch` can exist without a `finally` block.
+   - The `finally` block is used to execute cleanup actions, such as closing database connections, regardless of whether an exception occurs or not.
+
+2. **Exception Hierarchy**:
+   - `Throwable` is the root class in the exception hierarchy, with `Error` and `Exception` as its main subclasses.
+   - `Exception` is divided into two types:
+     - **Checked exceptions** (compile-time exceptions).
+     - **Unchecked exceptions** (runtime exceptions).
+
+3. **Handling Checked Exceptions**:
+   - If a checked exception is thrown (either due to inbuilt functionality or via `throw new IOException()`), it must be either:
+     - Enclosed in a `try-catch` block, or
+     - Declared in the method’s signature using the `throws` keyword to propagate it up the call stack.
+
+4. **Handling Unchecked Exceptions**:
+   - Unchecked exceptions do not need to be explicitly caught or declared in the `throws` clause.
+   - **Developer’s Choice**: It is up to the developer to decide whether to handle them with a `try-catch` block or use the `throws` keyword.
+
+5. **Multiple Catch Blocks**:
+   - Multiple catch blocks can be used to handle different exception types.
+   - They should be arranged in **hierarchical order**—the subclass-specific catch block should come before its parent class catch block (e.g., `IOException` before `Exception`).
+
+6. **Exception Hierarchy for Checked Exceptions**:
+   - For checked exceptions, this hierarchical order must be strictly followed to avoid compile-time errors (e.g., catching `Exception` before `IOException` is incorrect if both are expected).
+
+7. **Custom Exceptions**:
+   - Custom exceptions can be created by extending either `Exception` or `RuntimeException`.
+     - Extending `Exception` makes it a **checked exception**.
+     - Extending `RuntimeException` makes it an **unchecked exception**.
+   - Custom exceptions behave like the exception type they extend (checked or unchecked).
+
+--- 
 ## **JAVA 8 FEATURES** :
 
 ## **Lambda Expressions** :
@@ -332,10 +441,6 @@ Repeating and Type Annotations
 Parallel Streams
 Collectors API
 
-**OBJECT CLASS METHODS** :
-
-**MULTI THREADING**  (Synchronization):
-
 **EXECUTOR FRAMEWORK** :
 
 **FUTURE** :
@@ -343,7 +448,6 @@ Collectors API
 ## **IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
 
 ## **GARBAGE COLLECTION** :
-
 
 The major concepts in Java Memory Management :
 
@@ -353,79 +457,3 @@ The major concepts in Java Memory Management :
 ![Java_memory_management](https://github.com/Rath2601/core_java/blob/feature_java8/images/Memory.png)
 
 ## **JAVA 17 feature** :
-
-## **COLLECTION FRAMEWORK**:
-
-![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
-
-### **Array** :
-
-1. container object that holds a fixed number of values of a single type.
-2. Searching an array element is better compared to others.
-
-### **List** :
-
-1. Allow duplicates.
-2. Insertion order is maintained.
-3. Can have null values.
-4. Allows elements to be accessed/inserted/deleted by their position.
-
-### **ArrayList** : (equivalent to vector, but unsynchronized)
-
-1. Resizable-array implementation of the List interface. (stores element in contiguous memory list)
-2. can have duplicates and null value.
-3. insetion order maintained.
-4. methods - add, contains, forEach, get, indexOf, iterator, remove, reversed, set, sort, size, stream, toArray.
-5. default capacity of ArrayList is 10, but we can specify in constructor while initializing.
-
-**use**:
-* fast random access O(1) but slow insertion and deletion.O(n) 
-* traverse is bidirectional (by using listIterator)
-
-### **LinkedList** : 
-
-1. It stores the object and the pointers to next and previous nodes.(inefficient memory)
-
-use:
-* allows for fast insertion and deletion O(1) but slow random access.O(n)
-* traverse is bidirectional (by using listIterator)
-
-#### Difference between ArrayList and LinkedList
-| Feature                     | Array                                    | ArrayList                                 | LinkedList                                   |
-|-----------------------------|------------------------------------------|-------------------------------------------|----------------------------------------------|
-| **Data Structure**          | Fixed-size array                         | Resizable array                           | Doubly linked list                           |
-| **Size**                    | Fixed                                    | Dynamic                                   | Dynamic                                      |
-| **Access Time (get)**       | O(1) - Fast                              | O(1) - Fast                               | O(n) - Slower                                |
-| **Insertion (add)**         | N/A - Fixed size                         | O(1) - at end, O(n) - at index            | O(1) - Adding elements anywhere              |
-| **Deletion (remove)**       | N/A - Fixed size                         | O(n) - Due to shifting elements           | O(1) - Easy to remove from the middle        |
-| **Memory Usage**            | Least memory per element                 | Less memory per element                   | More memory per element (due to pointers)    |
-| **Traversal**               | Fast with index access                   | Faster with index access (random access)  | Slower for large lists (sequential access)   |
-| **Best Suited For**         | Fixed number of elements, fast access    | Frequent access to elements by index      | Frequent insertions/deletions at any position|
-| **Resize Capability**       | Not resizable                            | Automatically resizes                     | Automatically resizes                        |
-| **Implements**              | N/A                                      | List, RandomAccess, Cloneable, Serializable | List, Deque, Cloneable, Serializable       |
-| **Use Case**                | Static data where size is known          | Good for read-heavy operations            | Good for write-heavy operations              |
-
-
-| Feature                                | ArrayList                                              | Vector                                                |
-|----------------------------------------|--------------------------------------------------------|-------------------------------------------------------|
-| **Synchronization**                    | ArrayList is not synchronized.                         | Vector is synchronized.                               |
-| **Growth Strategy**                    | ArrayList increments 50% of current array size if the number of elements exceeds its capacity. | Vector increments 100%, meaning it doubles the array size if the total number of elements exceeds its capacity. |
-| **Legacy Status**                      | ArrayList is not a legacy class. It was introduced in JDK 1.2. | Vector is a legacy class.                             |
-| **Performance**                        | ArrayList is fast because it is non-synchronized.       | Vector is slow because it is synchronized. In a multithreading environment, it holds other threads in a runnable or non-runnable state until the current thread releases the lock of the object. |
-| **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
-
-### **STACK** :
-
-1. class represents a last-in-first-out (LIFO) stack of objects.
-2. it has the methods that supports LIFO. but it also have List and Vector methods as it extends them. (it behaves like list as well)
-3. synchronized and a thread safe class.
-
-#### uses:
-
-1.undo mechanism (Text Editors), Backtracking Algorithms (Maze solvers), Depth-First Search (DFS), Navigation in Web Browsers (history management).
-
-### **LIST NOTES** :
-
-1. **List Interface**: A general-purpose ordered collection. It doesn't enforce FIFO or LIFO; it's up to the specific implementation or usage.
-2. **Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
-3. **LinkedList Class**: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
