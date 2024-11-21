@@ -1,6 +1,6 @@
 ## **COLLECTION FRAMEWORK**:
 
-![Collection Framework](https://github.com/Rath2601/core_java/blob/feature_java8/images/Collections-in-Java.png)
+![Collection Framework](https://github.com/Rath2601/core_java/blob/main/images/Collections-in-Java.png)
 
 ---
 ### **Important Terms** :
