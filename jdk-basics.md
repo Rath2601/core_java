@@ -90,8 +90,62 @@ In order to work with JDBC in Java, we need to follow these steps:
 - **`CallableStatement`**: Executes stored procedures and functions, handles parameters.
 - **Always close your resources** (connections, statements, result sets) to avoid memory leaks.
 
+---
 
-### Note
+## Additional features in JDBC
+### 1. Batch Processing
+
+Batch processing allows multiple SQL queries to be executed together, which can improve performance significantly.
+
+Example of executing a batch of insert queries:
+
+```java
+for (Employee e : employees) {
+    ps.setInt(1, e.getId());
+    ps.setString(2, e.getName());
+    ps.setDouble(3, e.getSalary());
+    ps.addBatch(); // Add to batch
+}
+int[] results = ps.executeBatch();  // Execute all the queries in the batch
+```
+### Transaction Management
+
+In JDBC, transactions are managed automatically, but you can disable auto-commit to manage transactions manually for multiple queries.
+```java
+connection.setAutoCommit(false);  // Disable auto-commit
+
+try {
+    // Execute multiple queries
+
+    connection.commit();  // Commit transaction if all queries are successful
+} catch (SQLException ex) {
+    connection.rollback();  // Rollback in case of error
+}
+```
+### Connection pooling
+
+Connection pooling improves performance by reusing existing database connections, avoiding the overhead of opening and closing connections repeatedly.
+
+```java
+public static HikariConfig getConfig() {
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl(URL);
+    config.setUsername(USER);
+    config.setPassword(PASSWORD);
+    config.setMaximumPoolSize(10);  // Set maximum number of connections in the pool
+    config.setIdleTimeout(300000);  // Timeout for idle connections
+    config.setAutoCommit(true);  // Enable auto-commit for all connections
+    config.setDriverClassName("org.postgresql.Driver");
+    config.setMaxLifetime(180000);  // Set max lifetime for connections
+
+    return config;
+}
+
+HikariDataSource hds = new HikariDataSource(getConfig());
+Connection connection = hds.getConnection();  // Get connection from pool
+```
+
+## Note
 
 * Java 9+ Modularization: From Java 9, JDK libraries are modularized. You can declare modules using **module-info.java** to specify dependencies, e.g., requires java.sql; for JDBC.
 * **JDBC: Part of the java.sql module** for CRUD operations in modular applications.
