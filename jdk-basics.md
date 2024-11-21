@@ -124,7 +124,8 @@ try {
 ```
 ### Connection pooling
 
-Connection pooling improves performance by reusing existing database connections, avoiding the overhead of opening and closing connections repeatedly.
+* Connection pooling improves performance by reusing existing database connections, avoiding the overhead of opening and closing connections repeatedly.
+* We used HikariCP here. To use this we added HikariCP, slf4j API, slf4j-simple provider JARs(since this is a java code) to work with it.
 
 ```java
 public static HikariConfig getConfig() {
