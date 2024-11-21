@@ -454,6 +454,6 @@ The major concepts in Java Memory Management :
 * JVM Memory Structure
 * Working of Garbage Collector
 
-![Java_memory_management](https://github.com/Rath2601/core_java/blob/feature_java8/images/Memory.png)
+![Java_memory_management](https://github.com/Rath2601/core_java/blob/main/images/Memory.png)
 
 ## **JAVA 17 feature** :
