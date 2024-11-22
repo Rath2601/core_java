@@ -272,7 +272,20 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
   ( Each modification (like concatenation, substring extraction, etc.) results in the creation of a new String object rather than modifying the existing one.)
 * **String pool** --> The String pool is a special memory area in the Java heap where String literals are stored.
   (Purpose: It allows Java to reuse String literals to save memory.)
+* **difference between == and equals() method**:
+  ```java
+  String s1 = "hello";
+  String s2 = "hello";
+  String s3 = new String("hello");
 
+  // Case 1: Reference comparison
+  System.out.println(s1 == s2); // true (same reference in string pool)
+  System.out.println(s1 == s3); // false (different objects in memory)
+
+  // Case 2: Value comparison
+  System.out.println(s1.equals(s2)); // true (content is the same)
+  System.out.println(s1.equals(s3)); // true (content is the same)
+  ```
 
 ---
 ### **MULTITHREADING**:
