@@ -266,6 +266,10 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
   - `Map.copyOf`
 - **Characteristics**:
   - **Immutable**: Modifying operations (`put`, `remove`) throw `UnsupportedOperationException`.
+    ```
+    Map test = Map.of(1, "Rathna",2,"Sathya");
+		test.put(2, "Keerthi");
+    ```
   - **Disallow `null` keys and values** (`NullPointerException`).
   - **Reject duplicate keys at creation** (`IllegalArgumentException`).
   - **Iteration order is unspecified.**
