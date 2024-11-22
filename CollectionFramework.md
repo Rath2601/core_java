@@ -57,26 +57,6 @@ arr[0] = 14; // array elements are mutable.
 3. Can have null values.
 4. Allows elements to be accessed/inserted/deleted by their position.
 ---
-### **ArrayList** : (equivalent to vector, but unsynchronized)
-
-1. Resizable-array implementation of the List interface. (stores element in contiguous memory list)
-2. can have duplicates and null value.
-3. insetion order maintained.
-4. methods - add, contains, forEach, get, indexOf, iterator, remove, reversed, set, sort, size, stream, toArray.
-5. default capacity of ArrayList is 10, but we can specify in constructor while initializing.
-
-**use**:
-* fast random access O(1) but slow insertion and deletion.O(n) 
-* traverse is bidirectional (by using listIterator)
----
-### **LinkedList** : 
-
-1. It stores the object and the pointers to next and previous nodes.(inefficient memory)
-
-use:
-* allows for fast insertion and deletion O(1) but slow random access.O(n)
-* traverse is bidirectional (by using listIterator)
----
 #### Difference between ArrayList and LinkedList
 | Feature                     | Array                                    | ArrayList                                 | LinkedList                                   |
 |-----------------------------|------------------------------------------|-------------------------------------------|----------------------------------------------|
@@ -88,7 +68,7 @@ use:
 | **Memory Usage**            | Least memory per element                 | Less memory per element                   | More memory per element (due to pointers)    |
 | **Traversal**               | Fast with index access                   | Faster with index access (random access)  | Slower for large lists (sequential access)   |
 | **Best Suited For**         | Fixed number of elements, fast access    | Frequent access to elements by index      | Frequent insertions/deletions at any position|
-| **Resize Capability**       | Not resizable                            | Automatically resizes                     | Automatically resizes                        |
+| **Resize Capability**       | Not resizable                            | Automatically resizes. default capacity(10)                   | Automatically resizes                        |
 | **Implements**              | N/A                                      | List, RandomAccess, Cloneable, Serializable | List, Deque, Cloneable, Serializable       |
 | **Use Case**                | Static data where size is known          | Good for read-heavy operations            | Good for write-heavy operations              |
 
@@ -100,6 +80,35 @@ use:
 | **Legacy Status**                      | ArrayList is not a legacy class. It was introduced in JDK 1.2. | Vector is a legacy class.                             |
 | **Performance**                        | ArrayList is fast because it is non-synchronized.       | Vector is slow because it is synchronized. In a multithreading environment, it holds other threads in a runnable or non-runnable state until the current thread releases the lock of the object. |
 | **Traversal**                          | ArrayList uses the `Iterator` interface to traverse the elements. | Vector can use the `Iterator` interface or `Enumeration` interface to traverse the elements. |
+---
+### **Points Related to Immutable Lists and Objects**
+
+- **We can't add any new elements**. *(Applies to fixed-size mutable lists like `Arrays.asList()` but not truly immutable lists.)*
+- **All unmodifiable lists are thread-safe**.
+- **We can use `set(index, element)` to modify elements in fixed-size mutable lists** like `Arrays.asList()`.  
+  - However, this does **not work** in `List.of()` or `Collections.unmodifiableList()`.
+- **We can manipulate the elements if mutable elements are inside the list**.
+- **If we try to manipulate immutable objects in the list**, it creates new objects, which must be stored in a new list.
+- **Immutable lists can be created using**:
+  - `Arrays.asList()`
+  - `Collections.unmodifiableList()`
+  - `List.of()`
+
+## Steps to Create an Immutable Object
+- **Declare the class as `final`** to prevent inheritance.
+- **Make all fields `private final`** and initialize them only through the constructor.
+- **Ensure mutable references are immutable** using defensive copying.  
+```java
+    private final Date eventDate; //final field
+
+    public ImmutableEvent(String eventName, Date eventDate) {
+        this.eventName = eventName;
+        this.eventDate = new Date(eventDate.getTime()); // Clone mutable object
+    }
+    public Date getEventDate() {
+        return new Date(eventDate.getTime()); // Return a copy to preserve immutability
+    }
+```
 ---
 ### **STACK** :
 
