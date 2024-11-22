@@ -301,4 +301,18 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
    - Leads to inconsistent behavior (e.g., `containsKey` may fail).
 2. **Recursive Traversal in Self-Referential Maps**:
    - Methods like `clone`, `equals`, `hashCode`, and `toString` may fail.
+---
+| **Aspect**                | **HashMap**                                 | **TreeMap**                                | **LinkedHashMap**                           |
+|---------------------------|---------------------------------------------|--------------------------------------------|--------------------------------------------|
+| **Ordering**               | No ordering (unordered)                    | Ordered according to **natural order** of keys or a custom comparator | Maintains insertion order of elements |
+| **Null Keys/Values**       | Allows one `null` key and multiple `null` values | Does not allow `null` keys (throws `NullPointerException`), but allows `null` values | Allows one `null` key and multiple `null` values |
+| **Performance (Time Complexity)** | O(1) for basic operations (put, get)    | O(log n) for most operations (put, get, remove) | O(1) for basic operations (put, get)       |
+| **Order of Iteration**     | Unspecified                                 | Sorted order (ascending order of keys)     | Iteration order is the same as insertion order |
+| **Comparator**             | Does not require a comparator for ordering | Requires a comparator for custom ordering or uses natural order | No comparator, but maintains insertion order |
+| **Thread Safety**          | Not thread-safe (use `Collections.synchronizedMap()` for synchronization) | Not thread-safe (use `Collections.synchronizedMap()` for synchronization) | Not thread-safe (use `Collections.synchronizedMap()` for synchronization) |
+| **Usage**                  | Ideal for general-purpose maps that don't require ordering | Ideal for maps where sorting or range queries are needed | Ideal when insertion order needs to be preserved |
+| **Space Overhead**         | Less overhead                               | Higher overhead due to tree structure      | Higher overhead due to maintaining insertion order |
+| **Iterator**               | Allows `null` key, but iterators are not ordered | Sorted iterators based on key order        | Iterators maintain the insertion order of elements |
+| **KeySet**                  | Unordered key set                          | Sorted key set                             | Key set is in insertion order              |
+
 
