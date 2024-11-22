@@ -29,7 +29,7 @@ we need to override hashCode() and equals() method for ,
 * Proper customization of equality based on the fields you consider relevant for equality.
 
 ---
-### **Array** :
+## **Array** :
 
 1. container object that holds a fixed number of values of a single type (homogeneous elements) stored in contiguous memory locations.
 2. Directly retrieving an element by index O(1) (efficient random access to elements).
@@ -50,7 +50,7 @@ arr[0] = 14; // array elements are mutable.
    
 
 ---
-### **List** :
+## **List** :
 
 1. Allow duplicates.
 2. Insertion order is maintained.
@@ -120,7 +120,7 @@ use:
 2. **Stack Class**: Implements LIFO behavior and extends Vector, which implements List.
 3. **LinkedList Class**: Implements both List and Deque, allowing for both FIFO and LIFO behaviors depending on the methods used.
 ---
-### **Set**
+## **Set**
 
 1. Does not allow duplicates.
 2. Insertion order is not maintained.(generally)
@@ -146,7 +146,7 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
 
 
 ---
-### **QUEUE**
+## **QUEUE**
 
 1.FIFO 
 2.Insertion order is not preserved.
@@ -167,3 +167,118 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
 | **Null Elements**          | Does **not** allow `null` elements                | Can allow `null` elements                     | Can allow `null` elements                   |
 | **Resizing**               | Does not resize dynamically (fixed size heap)    | Resizes dynamically when needed               | Resizes dynamically when needed             |
 | **Ordering Guarantee**     | Guarantees **priority-based order** (min-heap or max-heap) | Does **not** guarantee any specific order apart from insertion order | Guarantees **insertion order** (FIFO or LIFO depending on usage) |
+
+---
+## **Map**
+### **Overview**
+- A `Map` is a collection of objects that map **keys** to **values**.
+- **Key Characteristics**:
+  - **Key-Value Mapping**: Each key maps to exactly one value.
+  - **No Duplicate Keys**: Keys must be unique.
+  - **Replaces `Dictionary`**: `Map` takes the place of the older `Dictionary` abstract class.
+  - Allows a map's contents to be viewed as:
+    - A **Set** of keys.
+    - A **Collection** of values.
+    - A **Set** of key-value mappings.
+---
+### **Order Behavior in Common Implementations**
+1. **HashMap**:
+   - Does not maintain order.
+   - Uses hashing for storage and retrieval.
+2. **TreeMap**:
+   - Maintains keys in **natural order**.
+   - Does not allow `null` keys (throws `NullPointerException`).
+3. **LinkedHashMap**:
+   - Maintains keys in **insertion order**.
+---
+### **Hashing Considerations** -[This is common for all Hashing based collection classes]
+- All hashing-based map implementations should override:
+  - `hashCode` method.
+  - `equals` method.
+    
+- **Mutable Objects as Keys**:
+  - Should be avoided as they can cause unexpected behavior.
+  - Example:
+    ```java
+    Map<StringBuilder, String> map = new HashMap<>();
+    StringBuilder key = new StringBuilder("example");
+    map.put(key, "value");
+    key.append("changed"); // Modifies the key's state
+    System.out.println(map.get(key)); // Might return null
+    ```
+---
+### **Self-Referential Maps**
+- **A Map Cannot Contain Itself as a Key**:
+  - Causes `StackOverflowError`.
+- **A Map Can Contain Itself as a Value**:
+  - Allowed but must be used cautiously to avoid issues in:
+    - `clone()`
+    - `equals()`
+    - `hashCode()`
+    - `toString()`
+---
+### **Unsupported Operations**
+- If a map does not allow modification:
+  - Destructive methods (`put`, `remove`, `clear`) throw `UnsupportedOperationException`.
+  - Optional behavior: Even if the operation has no effect (e.g., `putAll` on an empty map), the exception **may** still be thrown.
+---
+### **Standard Constructors**
+1. **No-args Constructor**:
+   - Creates an empty map.
+   - Example:
+     ```java
+     Map<String, String> emptyMap = new HashMap<>();
+     ```
+2. **Copy Constructor**:
+   - Creates a new map by copying the key-value pairs from an existing map.
+   - Example:
+     ```java
+     Map<String, String> original = new HashMap<>();
+     original.put("A", "Apple");
+     Map<String, String> copy = new HashMap<>(original);
+     ```
+---
+### **Behavior of Keys and Values**
+- **Restrictions**:
+  - Some map implementations (e.g., `Hashtable`) do not allow:
+    - `null` keys or values.
+    - Keys/values of incompatible types (`ClassCastException`).
+- **Behavior**:
+  - May throw exceptions like:
+    - `NullPointerException`
+    - `ClassCastException`
+  - Query methods (`containsKey`, `containsValue`) may:
+    - Return `false` for ineligible keys/values.
+    - Throw exceptions in some implementations.
+---
+### **Relation to `equals` and `hashCode`**
+- Many methods in `Map` rely on `equals` and `hashCode`:
+  - Example: `containsKey` checks if a key exists.
+    - If `key == null`: Looks for a `null` key.
+    - Otherwise: Uses `key.equals(k)` to match.
+- **Optimizations**:
+  - Hashing implementations (e.g., `HashMap`) compare hash codes first before invoking `equals`.
+---
+### **Unmodifiable Maps**
+- Created using:
+  - `Map.of`
+  - `Map.ofEntries`
+  - `Map.copyOf`
+- **Characteristics**:
+  - **Immutable**: Modifying operations (`put`, `remove`) throw `UnsupportedOperationException`.
+  - **Disallow `null` keys and values** (`NullPointerException`).
+  - **Reject duplicate keys at creation** (`IllegalArgumentException`).
+  - **Iteration order is unspecified.**
+  - Value-based:
+    - Treat logically equal instances as interchangeable.
+    - Avoid using them for synchronization.
+---
+### **Serialization**
+- Maps created via `Map.of`, `Map.ofEntries`, or `Map.copyOf` are **serializable** if all keys and values are serializable.
+---
+### **Key Notes on Behavior**
+1. **Poor `hashCode` or `equals` Implementation**:
+   - Leads to inconsistent behavior (e.g., `containsKey` may fail).
+2. **Recursive Traversal in Self-Referential Maps**:
+   - Methods like `clone`, `equals`, `hashCode`, and `toString` may fail.
+
