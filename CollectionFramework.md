@@ -291,6 +291,7 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
   - Value-based:
     - Treat logically equal instances as interchangeable.(logically equal map, but distinct)
     - Avoid using them for synchronization.
+      [**If synchronization is required, a synchronized or concurrent map is a better choice because they are explicitly designed for multi-threaded environments.**]
 ---
 ### **Serialization**
 - Maps created via `Map.of`, `Map.ofEntries`, or `Map.copyOf` are **serializable** if all keys and values are serializable.
