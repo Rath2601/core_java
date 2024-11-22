@@ -268,13 +268,19 @@ CLASSES -> **HashSet**, **LinkedHashSet**, **TreeSet**.
   - **Immutable**: Modifying operations (`put`, `remove`) throw `UnsupportedOperationException`.
     ```
     Map test = Map.of(1, "Rathna",2,"Sathya");
-		test.put(2, "Keerthi");
+    test.put(2, "Keerthi");
     ```
   - **Disallow `null` keys and values** (`NullPointerException`).
+    ```
+    Map test = Map.of(1, "Rathna",2,"Sathya", null,null); // NullPointerException
+    ```
   - **Reject duplicate keys at creation** (`IllegalArgumentException`).
+    ```
+    Map test = Map.of(1, "Rathna",2,"Sathya", 2,"Rathna"); //IllegalArgumentException
+    ```
   - **Iteration order is unspecified.**
   - Value-based:
-    - Treat logically equal instances as interchangeable.
+    - Treat logically equal instances as interchangeable.(logically equal map, but distinct)
     - Avoid using them for synchronization.
 ---
 ### **Serialization**
