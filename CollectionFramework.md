@@ -29,7 +29,7 @@ we need to override hashCode() and equals() method for ,
 * Proper customization of equality based on the fields you consider relevant for equality.
 
 ---
-### **Comparable vs Comparator
+### **Comparable vs Comparator**
 #### Key Points
 1. **TreeSet/TreeMap and Ordering**  
 - If neither `Comparable` (natural ordering) nor a `Comparator` is provided, a `ClassCastException` will occur when adding elements to a `TreeSet` or `TreeMap` that do not have a natural ordering.
