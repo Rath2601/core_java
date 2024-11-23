@@ -3,8 +3,8 @@
 ![Collection Framework](https://github.com/Rath2601/core_java/blob/main/images/Collections-in-Java.png)
 
 ---
-### **Important Terms** :
-#### **Marker Interface** :
+## **Important Terms** :
+### **Marker Interface** :
 It merely marks a class as capable of doing a specific task to the JRE.
 
 1. **Serializable**  : marks a particular class can be serialized.
@@ -21,7 +21,7 @@ while serializing we should keep in mind that,
   Major Changes -> increment the serialVersionUID to signal a new version.
 
 ---
-#### **Object class methods** :
+### **Object class methods** :
 we need to override hashCode() and equals() method for ,
 
 * Correctness in collections (especially hash-based ones like HashMap, HashSet).
@@ -29,6 +29,51 @@ we need to override hashCode() and equals() method for ,
 * Proper customization of equality based on the fields you consider relevant for equality.
 
 ---
+### **Comparable vs Comparator
+#### Key Points
+1. **TreeSet/TreeMap and Ordering**  
+- If neither `Comparable` (natural ordering) nor a `Comparator` is provided, a `ClassCastException` will occur when adding elements to a `TreeSet` or `TreeMap` that do not have a natural ordering.
+- **TreeSet** and **TreeMap** require either one of `Comparable` or `Comparator` to determine the order of elements.
+  
+2. **Custom Class with TreeSet/TreeMap**
+- If you define a custom class and use it in a `TreeSet` or `TreeMap`, it **must implement `Comparable`** or be paired with a **`Comparator`**.
+- Without either, adding elements will throw a `ClassCastException`.
+  
+3. **Collections.sort() vs Arrays.sort()**
+- Both `Collections.sort()` and `Arrays.sort()` can use either **`Comparable`** (for default natural ordering) or **`Comparator`** (for custom ordering).
+- If a `Comparator` is provided, it takes **precedence** over the `Comparable`.
+
+```java
+Collections.sort(list, Comparator.reverseOrder()); // Custom ordering
+System.out.println(list); // Output: [8, 5, 2]
+
+Integer[] array = {5, 2, 8};
+Arrays.sort(array); // Natural ordering
+Arrays.sort(array, Comparator.reverseOrder()); // Custom ordering
+```
+4. **Collections.sort() is designed for List** implementations and uses **TimSort algorithm**.
+5. **Arrays.sort() is designed for arrays** and uses:
+   * Dual-pivot quicksort for primitive types (e.g., int[], char[]).
+   * TimSort for reference types (e.g., Integer[]).
+6. **Comparable** allows multiple sorting logics within the compareTo() method itself.- **fixed as part of the class's natural order**
+7. **Comparator** allows defining multiple sorting logics in separate classes- **apply different Comparators as needed, without altering the original class or its natural ordering.**
+8. If **compareTo() returns 0 (indicating equality), equals() should also return true** to maintain consistency.
+   * Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
+   * Always override equals() and hashCode() along with compareTo() when using a class in sorted collections.
+
+| Feature                     | Comparable                                    | Comparator                                      |
+|-----------------------------|-----------------------------------------------|-------------------------------------------------|
+| **Definition**               | A class implements Comparable to define its own natural order using compareTo(). | A separate comparator class defines custom sorting logic via compare(). |
+| **Default Sorting Logic**    | Natural ordering is fixed and cannot be changed. | Custom sorting logic can be defined dynamically using multiple comparators. |
+| **Usage**                    | Typically used when you want a class to define its own ordering. | Used when sorting logic is defined externally or multiple sorting criteria are needed. |
+| **Application**              | compareTo() is applied directly on the class. | You can create multiple comparators and apply them as needed. |
+| **Order Precedence**         | N/A                                           | Comparator takes precedence over Comparable. |
+| **Sorting Mechanism**        | Sorting logic is embedded in the class itself. | Allows for flexible sorting based on different criteria. |
+| **Consistency with equals()**| Should be consistent (if compareTo() returns 0, equals() should return true). | Must also ensure consistency with equals() for predictable behavior in sorted collections. |
+| **Example**                  | `class Patient implements Comparable<Patient>` | `Comparator<Patient> genderComparator = new GenderComparator();` |
+
+---
+
 ## **Array** :
 
 1. container object that holds a fixed number of values of a single type (homogeneous elements) stored in contiguous memory locations.
