@@ -73,6 +73,26 @@ Arrays.sort(array, Comparator.reverseOrder()); // Custom ordering
 | **Example**                  | `class Patient implements Comparable<Patient>` | `Comparator<Patient> genderComparator = new GenderComparator();` |
 
 ---
+### **Fail-Fast vs. Fail-Safe Mechanism**
+
+| **Aspect**              | **Fail-Fast**                                                                                  | **Fail-Safe**                                                                                  |
+|--------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Definition**           | Throws `ConcurrentModificationException` when the collection is modified during iteration.     | Iterates over a snapshot or copy of the collection, avoiding exceptions during modifications. |
+| **How It Works**         | Tracks structural modifications using an internal counter called `modCount`.                  | Operates on a snapshot or a separate copy of the collection.                                  |
+| **modCount Explanation** | `modCount` increments with every structural modification (e.g., `add`, `remove`). The iterator checks `modCount` during iteration to detect changes. | Snapshot is independent of `modCount` and modifications, ensuring consistent iteration.      |
+| **Examples of Behavior** | Throws `ConcurrentModificationException` if `modCount` changes during iteration.              | No exception; ongoing iteration is unaffected by live modifications.                         |
+| **Collections Implementing** | `ArrayList`, `HashMap`, `HashSet`, `TreeSet` from `java.util`.                                | `CopyOnWriteArrayList`, `ConcurrentHashMap`, `ConcurrentSkipListMap` from `java.util.concurrent`. |
+| **Impact of Modifications** | Any modification to the collection (other than through the iterator) results in an exception. | Modifications to the live collection do not affect the snapshot or iteration.                |
+| **Performance**          | Faster, as it works on the live collection without creating a snapshot.                       | Slower, as it creates a snapshot or uses additional memory for iteration.                    |
+| **Thread Safety**        | Not thread-safe; designed for single-threaded environments.                                   | Thread-safe; designed for concurrent environments.                                            |
+| **Usage**                | Suitable for non-concurrent collections or where modifications during iteration are infrequent. | Ideal for concurrent collections where modifications are frequent during iteration.           |
+| **Memory Overhead**      | No additional memory required for iteration.                                                  | Requires extra memory for creating a snapshot or copying the collection.                     |
+| **Examples**             | `ArrayList`, `HashMap`: Modifications during iteration throw an exception.                    | `CopyOnWriteArrayList`, `ConcurrentHashMap`: Iteration works on a snapshot, no exceptions.    |
+| **Iterator Behavior**    | Iterators work directly on the live collection.                                               | Iterators work on a snapshot or a copy of the original collection.                           |
+| **Application Scenarios**| Used in single-threaded environments for better performance.                                  | Used in multi-threaded environments to handle concurrent modifications safely.               |
+| **Key Limitation**       | Not suitable for concurrent modifications; prone to `ConcurrentModificationException`.        | May consume significant memory and is slower due to snapshot creation.                       |
+
+---
 
 ## **Array** :
 
