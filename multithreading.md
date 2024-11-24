@@ -23,8 +23,9 @@
 * **Method Synchronization**:
   * **Instance level** 
   * **Class level**
+* If a synchronized method in the parent class is overridden in a child class, the synchronization behavior depends on the child class. If not explicitly synchronized, it won't be synchronized by default.
 * You **can use synchronized blocks inside methods** to synchronize specific code blocks (rather than the entire method).
-  ```
+```java
   synchronized (lock) { // lock --> any object can be passed as lock object, usually the instance that is calling this method
      // If the lock object is null, it will result in a NullPointerException.
   }
@@ -32,11 +33,7 @@
   synchronized (MyClass.class) {  // In case of static we have to use the class in the synchronized block
      
   }
- ```
-
-* If a synchronized method in the parent class is overridden in a child class, the synchronization behavior depends on the child class. If not explicitly synchronized, it won't be synchronized by default.
-
-
+```
 ```java
 public class Stack {
 	private int[] array;
