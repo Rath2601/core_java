@@ -134,6 +134,6 @@ public class Stack {
 * **common thread safe classes in java**
      * **Vector**, **Stack** ,**Hashtable**
      * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`**
-     * **Stringuffer**, **StringBuilder**
+     * **Stringuffer** (mutable and synchronized)
 * String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
 * Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
