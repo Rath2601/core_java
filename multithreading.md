@@ -137,3 +137,105 @@ public class Stack {
      * **Stringuffer** (mutable and synchronized)
 * String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
 * Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
+  
+---
+### **ProducerConsumer problem in Threads**:
+
+```java
+
+public class ProducerConsumerDemo {
+
+    // Shared Queue to store produced items
+    private Queue<String> q;
+
+    // Maximum capacity of the queue
+    private Integer cap;
+
+    // Constructor to initialize queue and capacity
+    public ProducerConsumerDemo(Integer cap) {
+        this.cap = cap;
+        this.q = new LinkedList<String>();
+    }
+
+    // Synchronized method to add an element to the queue (Producer's action)
+    public synchronized Boolean add(String element) {
+         // If the queue is full, the producer thread needs to wait
+        while (q.size() == cap) {
+            try {
+                // The producer thread releases the lock and waits for the consumer to consume an item
+                this.wait(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Add the item to the queue
+        q.add(element);
+
+        // Notify all waiting threads (e.g., consumers) that the queue is no longer empty
+        this.notifyAll(); 
+
+        return true;
+    }
+
+    // Synchronized method to remove an element from the queue (Consumer's action)
+    public synchronized String remove() {
+        // If the queue is empty, the consumer thread needs to wait
+        while (q.size() == 0) {
+            try {
+                // The consumer thread releases the lock and waits for the producer to add an item
+                this.wait(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Remove an item from the queue
+        String element = q.poll();
+
+        // Notify all waiting threads (e.g., producers) that the queue is no longer full
+        this.notifyAll(); 
+
+        return element;
+    }
+
+    public static void main(String[] args) {
+        ProducerConsumerDemo pc = new ProducerConsumerDemo(5); // Queue with a capacity of 5
+
+        // Producer Thread
+        Thread producer = new Thread(() -> {
+            int count = 1;
+            while (true) {
+                try {
+                    String item = "Item-" + count;
+                    pc.add(item); // Producer adds an item to the queue
+                    System.out.println("Produced: " + item);
+                    count++;
+                    Thread.sleep(500); // Simulate production time
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }, "producer");
+
+        // Consumer Thread
+        Thread consumer = new Thread(() -> {
+            while (true) {
+                try {
+                    String item = pc.remove(); // Consumer removes an item from the queue
+                    System.out.println("Consumed: " + item);
+                    Thread.sleep(1000); // Simulate consumption time
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }, "consumer");
+
+        // Start both threads
+        producer.start();
+        consumer.start();
+    }
+}
+```
