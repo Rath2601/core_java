@@ -33,7 +33,9 @@
      
   }
  ```
+
 * If a synchronized method in the parent class is overridden in a child class, the synchronization behavior depends on the child class. If not explicitly synchronized, it won't be synchronized by default.
+
 
 ```java
 public class Stack {
