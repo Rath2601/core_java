@@ -131,6 +131,7 @@ public class Stack {
 
 Thread-safety typically refers to the **ability to safely modify the state of an object when accessed concurrently by multiple threads**.
 
-* **common thread safe classes in java** -> **Vector**, **Stack** ,**Hashtable**
-                                            all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`**
-                                            **Stringuffer**, **StringBuilder**
+* **common thread safe classes in java**
+     * **Vector**, **Stack** ,**Hashtable**
+     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`**
+     * **Stringuffer**, **StringBuilder**
