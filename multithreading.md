@@ -239,3 +239,6 @@ public class ProducerConsumerDemo {
     }
 }
 ```
+### **Thread lifecycle**
+
+![Thread Lifecycle](https://github.com/Rath2601/main/images/thread_lc.jpg)
