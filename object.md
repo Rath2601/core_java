@@ -35,6 +35,9 @@
 * notifyAll() wakes up all threads waiting on the monitor of the same object instance.
 * It will notify all threads in the waiting queue for that specific object.
 
+#### **NOTE**:
+**wait(), notify(), and notifyAll() are only applicable to threads that currently hold the synchronized lock on the object they are invoking these methods on.**
+
 ```java
 public class ObjectMethodPrac {
 
