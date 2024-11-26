@@ -242,3 +242,58 @@ public class ProducerConsumerDemo {
 ### **Thread lifecycle**
 
 ![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
+
+### **Join Demo**:
+
+```java
+public class JoinDemo {
+	public static void main(String[] args) {
+
+		Thread t1 = new Thread(() -> {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName());
+		}, "Thread-1");
+
+		Thread t2 = new Thread(() -> {
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName());
+		}, "Thread-2");
+
+		Thread t3 = new Thread(() -> {
+			try {
+				Thread.sleep(2000);
+				try {
+					t2.join(18000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName());
+		}, "Thread-3");
+
+		t1.start();
+		t2.start();
+		t3.start();
+
+		System.out.println("Thread-1 : " + t1.getState());
+		System.out.println("Thread-2 : " + t2.getState()); // Thread-2 TIMED_WAITING state it is sleeping for 20 seconds
+		System.out.println("Thread-3 : " + t3.getState()); // Thread-3 TIMED_WAITING state it is waiting for Thread-2 to
+															// finish (18s)
+
+	}
+}
+```
