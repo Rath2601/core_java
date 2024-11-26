@@ -3,6 +3,9 @@
 ![Collection Framework](https://github.com/Rath2601/core_java/blob/main/images/Collections-in-Java.png)
 
 ---
+## **underlying concepts**:
+
+---
 ## **Important Terms** :
 ### **Marker Interface** :
 It merely marks a class as capable of doing a specific task to the JRE.
