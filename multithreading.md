@@ -297,3 +297,46 @@ public class JoinDemo {
 	}
 }
 ```
+### **Dead lock**
+
+```java
+
+public class DeadLockDemo {
+	public static void main(String[] args) {
+        String lock_one = "boom";
+        String lock_two = new String("boom");
+        
+        System.out.println(lock_one==lock_two); // If this is true, We can't able to acquire deadlock
+        System.out.println(lock_one.equals(lock_two));
+        
+        Thread t1 = new Thread(() -> {
+        	synchronized(lock_one) {
+        		try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        		synchronized(lock_two) {
+        			System.out.println("successfully acquired lock");
+        		}
+        	}
+        },"Thread1");
+        
+        Thread t2 = new Thread(() -> {
+        	synchronized(lock_two) {
+        		try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        		synchronized(lock_one) {
+        			System.out.println("successfully acquired lock");
+        		}
+        	}
+        },"Thread2");
+        
+        t1.start();
+        t2.start();
+	}
+}
+```
