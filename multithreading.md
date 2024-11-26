@@ -9,6 +9,15 @@
 * Lightweight compared to process.
 * **share the process** running the program.
   
+### **Thread methods**:
+
+* **start()** : Creates a new thread and runs concurrently.
+* **run()**   : Calling run method, runs in the main thread, not concurrently.
+* **sleep()** : Pauses the thread for a specified time Useful to delay execution or simulate time-based tasks.
+* **join()**  : Waits for this thread to terminate. (only work on running thread / otherwise just moves to next line)
+* **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS)
+* **interrupt()**: Signals that the thread should stop its current operation.
+  
 ### **Concept in multithreading**
 * Main thread(also user thread) is initial point where we can spawn multiple user and deamon threads.
 * Program stops executing as soon as user thread finished (dont wait for deamon execution)
