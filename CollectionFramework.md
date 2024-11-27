@@ -17,6 +17,11 @@
 * **Uniformity**: Implementing Iterable makes the collection **compatible with enhanced for-loops (for-each)** and Java's iteration utilities.
 * **Separation of Concerns**: Iterable defines the capability to be iterated, while Iterator encapsulates the traversal logic, **keeping the iteration independent of the collection's internal structure**.
 
+*note*
+
+*  to use forEach loop, the instance should be array or it should implements iterable. **Can only iterate over an array or an instance of java.lang.Iterable**
+*  map is not implemented collection which implements Iterable, then how we traverse over the elements ?
+
 ---
 ### **Marker Interface** :
 It merely marks a class as capable of doing a specific task to the JRE.
