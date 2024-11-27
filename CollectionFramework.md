@@ -7,6 +7,17 @@
 
 ---
 ## **Important Terms** :
+
+### **Iterable and Iterator**:
+* **Iterable**: An interface that represents a collection that can be iterated over; it provides the iterator() method to return an Iterator.
+* **Iterator**: An interface used to traverse a collection, offering methods like hasNext() and next() to access elements sequentially.
+
+*why use iterable with collection class?*
+
+* **Uniformity**: Implementing Iterable makes the collection **compatible with enhanced for-loops (for-each)** and Java's iteration utilities.
+* **Separation of Concerns**: Iterable defines the capability to be iterated, while Iterator encapsulates the traversal logic, **keeping the iteration independent of the collection's internal structure**.
+
+---
 ### **Marker Interface** :
 It merely marks a class as capable of doing a specific task to the JRE.
 
