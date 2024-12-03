@@ -58,7 +58,7 @@ driver.method() // we can invoke the methods in the class using reflection API
 
 **Memory leak is a situation where where there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory.**
 
-The potential areas of memory leak are
+The **potential areas of memory leak** are
 1. Static References
 2. listeners and callback
 3. cached objects
@@ -66,3 +66,38 @@ The potential areas of memory leak are
 5. unclosed resources
 6. Inner class.
 
+**impact of memory leak** can be
+1. Decreased Application Performance
+2. Increasing Memory Consumption Over Time
+3. Frequent Garbage Collection Activities
+4. OutOfMemoryError Exceptions
+
+#### **Analyzing and Diagnosing Memory Leaks**
+
+* **heap dump** -> snapshot of all the objects in memory at a particular moment
+* **heap walker** -> tool for inspecting objects, references, and memory usage in the Java heap to identify memory leaks.
+
+##### **VisualVM**
+* Pricing: Free (Included in Oracle JDK).
+* Features: Real-time memory monitoring, heap dump analysis, and built-in heap walker.
+* Usage: Detect leaks by observing heap size growth and ineffective garbage collection.
+
+##### **Eclipse Memory Analyzer (MAT)**
+* Pricing: Free (Open-source).
+* Features: Large heap dump analysis and automatic memory leak detection.
+* Usage: Analyze heap dumps to locate memory leak suspects and large object allocations.
+
+##### **JProfiler**
+* Pricing: €449 (per user, perpetual license).
+* Features: Real-time profiling, detailed heap analysis, and memory allocation tracking.
+* Usage: Monitor memory usage in real-time and identify high-memory-consuming code paths.
+
+##### **YourKit Java Profiler**
+* Pricing: $499 (per user, perpetual license).
+* Features: Comprehensive profiling for memory, CPU, and garbage collection.
+* Usage: Analyze memory allocations and investigate inefficient garbage collection.
+
+##### **Java Flight Recorder (JFR) and Java Mission Control (JMC)**
+* Pricing: Free (Bundled with Oracle JDK).
+* Features: Low-overhead data recording and advanced analysis of memory patterns.
+* Usage: Collect runtime data and analyze memory usage in development or production.
