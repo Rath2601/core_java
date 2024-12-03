@@ -35,11 +35,11 @@ driver.method() // we can invoke the methods in the class using reflection API
 
 #### **Functioning of classloader**:
 
-* CL are part of JRE, whenever JVM request a class the CL checks to load the class. 
-* If it doesn't able to load it, this'll delegate the loading task to its parent class (a type of AppClassLoader)
-* Still not found --> delegate to parent (a type of ExtClassLoader)
-* Still not found --> delegate to parent ( Bootstrap ClassLoader)
-* Still not found --> then only throw the error. 
+ * CL are part of JRE, whenever JVM request a class the CL checks to load the class. 
+ * If it doesn't able to load it, this'll delegate the loading task to its parent class (a type of AppClassLoader)
+ * Still not found --> delegate to parent (a type of ExtClassLoader)
+ * Still not found --> delegate to parent ( Bootstrap ClassLoader)
+ * Still not found --> then only throw the error. 
 
 * **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
 * **Heap** : Stores objects, arrays and other data structure.
