@@ -426,13 +426,4 @@ Collectors API
 
 ## **IO STREAM** (**SERIALIZATION** (Serial ID for exception class & other such class)) :
 
-## **GARBAGE COLLECTION** :
-
-The major concepts in Java Memory Management :
-
-* JVM Memory Structure
-* Working of Garbage Collector
-
-![Java_memory_management](https://github.com/Rath2601/core_java/blob/main/images/Memory.png)
-
 ## **JAVA 17 feature** :
