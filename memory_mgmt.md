@@ -101,3 +101,15 @@ The **potential areas of memory leak** are
 * Pricing: Free (Bundled with Oracle JDK).
 * Features: Low-overhead data recording and advanced analysis of memory patterns.
 * Usage: Collect runtime data and analyze memory usage in development or production.
+  
+#### **strategies to prevent memory leak**
+* use local variables inside methods wherever possible
+* Avoid static collections that grow indefinitely. (If a static collection is necessary, consider implementing a cleanup strategy that periodically removes unnecessary entries.) 
+* Always unregister listeners and callbacks when they are no longer needed
+* Use caching wisely with an eviction policy in place. Limit the size of caches and use soft or weak references.
+* Be vigilant with collections. Remove objects from collections when they are no longer needed.
+* Use static inner classes if an instance of the inner class can outlive its outer class instance.
+* Always close resources (files, streams, connections) after use. Use try-with-resources statements for automatic resource management.
+* Regularly profile your application for memory usage, especially after adding new features or making significant changes.
+* Regular code reviews and pair programming sessions can help identify potential memory leak issues early.
+* Write unit and integration tests to check for memory leaks, particularly in critical parts of the application.
