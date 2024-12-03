@@ -11,7 +11,7 @@ The major concepts in Java Memory Management :
 
 * **CLASSLOADER** -> used to load class into memory.
   * **Load classes in hierarchical fashion**
-  * **convert fro .java to .class**
+  * **convert from .class to class obj** (compiler converts from .java to .class)
   * First class in app is loaded using static main() invoked by JVM. other classes are loaded as required by this particular class.
   
 1. BootStrap Classloader -> core class loader loads all classes in jre library
