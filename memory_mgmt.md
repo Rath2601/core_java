@@ -58,6 +58,37 @@ driver.method() // we can invoke the methods in the class using reflection API
 ---
 ### **Garbage collector**:
 
+The garbage collector is primarily applicable for **heap memory**.
+
+Heap divided into Young generation (Eden, survivors) , old generation, and permanent generation (static and non static method metadata , static and non static block metadata, static variables)
+
+1. First when we run GC , the unreferenced objects marked and moved out of the heap and referenced are sweep to survivor 0.
+2. the second time GC executes, the unreferenced objects marked and moved out of heap and referenced are sweep to survivor 1. 
+(each time the age of an object is increased and we can set the threshold value in VM argument)
+3. If an object survived till it reaches the threshold value then it'll be promoted to old generation . In the old generation the execution of GC is less frequent. Also the objects present in old generation are quiet big one.
+4. the GC executed in young generation is called minor GC. GC executed in old generation is called major GC. 
+
+The garbage collector has two **strategies of execution**, They are 
+
+1. Mark and sweep 
+2. Mark and sweep and compaction
+  * **Prevents Fragmentation**: Fragmentation occurs when free memory is scattered across the heap, making it difficult to allocate large objects even if enough memory is available overall.
+  * **Improves Allocation Efficiency**: With compacted memory, allocating memory for new objects is faster because the JVM doesn’t need to search for fragmented free spaces.
+
+Also the garbage collector has **many versions** along many versions of Java. They are
+
+versions of GC ->  because of the enhancement of GC (throughput will increase and latency will decrease) (*Here provide me pros and cons for each*) 
+
+ 1. **serial**  -> single thread (app thread will pause)
+ 2. **parallel** -> multiple thread will work (app thread will pause)
+ 3. **concurrent mark & sweep(CMS)** -> while app thread working , concurrently GC threads also working (100% not guaranteed) (no compaction happens)
+ 4. **G1 garbage collector** (like CMS with compaction)
+
+To make references we can have three options Strong references, weak references, soft references.
+
+ 1. **Strong reference** -> Regular object references.
+ 2. **Weak reference** -> Caches where objects can be discarded if memory is tight.
+ 3. **Soft reference** -> Memory-sensitive caches or applications.
 
 ---
 ### **Memory Leak**:
