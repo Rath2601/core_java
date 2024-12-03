@@ -48,7 +48,7 @@ driver.method() // we can invoke the methods in the class using reflection API
 ---
 ### **Memory areas in Java**:
 
-
+![Memory management](https://github.com/Rath2601/core_java/blob/main/images/memory_mgmt.png)
 
 * **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
 * **Heap** : Stores objects, arrays and other data structure.
