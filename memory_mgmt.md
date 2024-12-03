@@ -1,8 +1,6 @@
 ## Memory area allocated by JVM
 
-
 The major concepts in Java Memory Management :
-
 * **Loading Metadata**
 * **JVM Memory Structure**
 * **Working of Garbage Collector**
@@ -48,6 +46,10 @@ driver.method() // we can invoke the methods in the class using reflection API
   * Dynamically load and unload plugins at runtime. (new functionalities can be added without restarting the system.)
   * enabling different versions of classes to coexist.
 ---
+### **Memory areas in Java**:
+
+
+
 * **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
 * **Heap** : Stores objects, arrays and other data structure.
 * **Stack** : Stores method call frames, local variables, and primitive data types.
@@ -60,8 +62,7 @@ driver.method() // we can invoke the methods in the class using reflection API
 
 The **potential areas of memory leak** are
 1. Static References
-   (note : A static field, by itself, is not a memory leak.It's only a memory leak if memory is allocated but not released when no longer needed.  
-If you need a list of doubles for the lifetime of the program, then keeping the data in a static field is an appropriate design.)
+   (note : A static field, by itself, is not a memory leak.It's only a memory leak if memory is allocated but not released when no longer needed.If you need a list of doubles for the lifetime of the program, then keeping the data in a static field is an appropriate design.)
 3. listeners and callback
 4. cached objects
 5. Improper use of collections
