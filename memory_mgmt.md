@@ -60,11 +60,13 @@ driver.method() // we can invoke the methods in the class using reflection API
 
 The **potential areas of memory leak** are
 1. Static References
-2. listeners and callback
-3. cached objects
-4. Improper use of collections
-5. unclosed resources
-6. Inner class.
+   (note : A static field, by itself, is not a memory leak.It's only a memory leak if memory is allocated but not released when no longer needed.  
+If you need a list of doubles for the lifetime of the program, then keeping the data in a static field is an appropriate design.)
+3. listeners and callback
+4. cached objects
+5. Improper use of collections
+6. unclosed resources
+7. Inner class.
 
 **impact of memory leak** can be
 1. Decreased Application Performance
