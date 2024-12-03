@@ -43,6 +43,11 @@ driver.method() // we can invoke the methods in the class using reflection API
   * Still not found --> then only throw the error. 
 
 ---
+#### **Uses of CustomClassLoader** :
+  * Load classes from sources other than the file system or JARs, such as databases, networks, or custom file systems.
+  * Dynamically load and unload plugins at runtime. (new functionalities can be added without restarting the system.)
+  * enabling different versions of classes to coexist.
+---
 * **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
 * **Heap** : Stores objects, arrays and other data structure.
 * **Stack** : Stores method call frames, local variables, and primitive data types.
