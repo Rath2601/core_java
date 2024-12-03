@@ -53,3 +53,7 @@ driver.method() // we can invoke the methods in the class using reflection API
 * **Stack** : Stores method call frames, local variables, and primitive data types.
 * **Program Counter Register** :  Stores the address of the next instruction to be executed for each thread.
 * **Native Method Stack** : Stores native method calls (if any).
+---
+### **Memory Leak**:
+
+**Memory leak is a situation where where there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory.**
