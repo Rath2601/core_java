@@ -57,3 +57,12 @@ driver.method() // we can invoke the methods in the class using reflection API
 ### **Memory Leak**:
 
 **Memory leak is a situation where where there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory.**
+
+The potential areas of memory leak are
+1. Static References
+2. listeners and callback
+3. cached objects
+4. Improper use of collections
+5. unclosed resources
+6. Inner class.
+
