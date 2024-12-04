@@ -84,6 +84,26 @@ versions of GC ->  because of the enhancement of GC (throughput will increase an
  3. **concurrent mark & sweep(CMS)** -> while app thread working , concurrently GC threads also working (100% not guaranteed) (no compaction happens)
  4. **G1 garbage collector** (like CMS with compaction)
 
+**Serial Collector**:
+* Use -XX:+UseSerialGC if:
+* The application has a small data set (up to approximately 100 MB).
+* The application will run on a single processor with no pause-time requirements.
+
+**Parallel Collector**:
+* Use -XX:+UseParallelGC if:
+* Peak application performance is the first priority.
+* There are no strict pause-time requirements, or pauses of 1 second or longer are acceptable.
+
+**G1 or CMS Collector**:
+* Use -XX:+UseG1GC or -XX:+UseConcMarkSweepGC if:
+* Response time is more important than overall throughput.
+* Garbage collection pauses must be kept shorter than 1 second.
+
+**ZGC (Fully Concurrent Collector)**:
+* Use -XX:+UseZGC if:
+* Response time is a high priority.
+* The application uses a very large heap.
+
 To make references we can have three options Strong references, weak references, soft references.
 
  1. **Strong reference** -> Regular object references.
