@@ -57,18 +57,16 @@ synchronized(this) { } --> explicitly locks the current object (this)
 
 2. **Byte has a range of** `2^7 - 1` **to** `-2^7`. 
    - If exceeded, we have to cast explicitly, which may lead to overflow/underflow.**(bit truncation)**
+   - **(bit truncation)** -> If the value is out of range, it will roll over to the negative range (like rotation).
    ```java
    Byte b = (byte) 129; // b = -127 overflow
    Byte b = (byte) -129; // b = 127 underflow
    ```
-   
-
 3. **Other data types have their range based on the memory they consume.**
    - `char` has a range of `0` to `65535`. if the value is out of this range need to explicitly cast it
   ```java
   char c = (char) 65536;
   ```
-
 4. **Data type conversions:**
    - `byte` → `short` → `int` ← `long` (with casting) **(bit truncation)**
    - `int` ← `float` ← `double` **(range saturation)**
@@ -77,16 +75,11 @@ synchronized(this) { } --> explicitly locks the current object (this)
    - if float & double values are casted to int, fractional part is truncated & if value > Integer.MAX_VALUE → result is Integer.MAX_VALUE if value < Integer.MIN_VALUE → result is Integer.MIN_VALUE.**(range saturation)**
    - to convert float and double as long , need explicit casting.
    - to convert double as float , need explicit casting.
-
 5. **By default:**
    - Whole numbers are treated as `int`.
    - Decimal numbers are treated as `double`.
-
 6. **Use** `f/F`, `d/D`, `l/L` **for proper identification of float, double, and long respectively.**
-
-7. **If the value is out of range, it will roll over to the negative range (like rotation).**
-
-8. **We can use large numbers like** `2_147_483_647`.
+7. **We can use large numbers like** `2_147_483_647`.
 
 ## **EXECUTION ORDER** :
 
