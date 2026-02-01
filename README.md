@@ -87,7 +87,7 @@ synchronized(this) { } --> explicitly locks the current object (this)
 
 **static block** --> initialize static variables or perform one-time actions when the class is loaded
 
-**non -static block** --> called everytime when a new object created.
+**non-static block** --> called everytime when a new object created.
 
 ## **VARIABLE TYPES**:
 
