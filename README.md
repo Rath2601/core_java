@@ -30,8 +30,12 @@ transient + volatile -> (transient - won’t cross JVM boundary,volatile - visib
 ```java
 {public/default/protected/private} {abstract/final --if needed} {static --if needed} {synchronized -- if needed} {return type --> void & others} {method_name} (parameters ...any number) { ... }
 
-synchronized keyword --> used in Static method, Instance method, and a code block inside Instance method.
-synchronized(this) { } --> locks on the current instance of the class.
+synchronized keyword --> used in static methods, instance methods, and code blocks.
+- instance method  → locks on current object (this)
+- static method    → class-level locking 
+                     
+synchronized(this) { } --> explicitly locks the current object (this) 
+                           but only for the specific block of code.
 ```
 
 ## **DATATYPE**:
