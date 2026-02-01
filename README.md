@@ -41,6 +41,18 @@ synchronized(this) { } --> explicitly locks the current object (this)
 ## **DATATYPE**:
 
 1. **How bit-level datatype consumes memory.**
+| Type      | Bits            | Actual memory used |
+| --------- | --------------- | ------------------ |
+| `boolean` | 1 bit (logical) | **1 byte**         |
+| `byte`    | 8 bits          | **1 byte**         |
+| `short`   | 16 bits         | **2 bytes**        |
+| `int`     | 32 bits         | **4 bytes**        |
+| `long`    | 64 bits         | **8 bytes**        |
+| `char`    | 16 bits         | **2 bytes**        |
+| `float`   | 32 bits         | **4 bytes**        |
+| `double`  | 64 bits         | **8 bytes**        |
+
+* Sign bit exists for signed primitives (except boolean & char)
 
 2. **Byte has a range of** `2^7 - 1` **to** `-2^7`. 
    - If exceeded, we have to cast explicitly, which may lead to overflow/underflow.
