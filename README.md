@@ -16,9 +16,13 @@ abstract/final --> not needed for interface
 ```java
 {public/default/protected/private} {transient - if needed} {volatile/final --if needed} {static --if needed} {datatype} {variable_name} = {value} ;
 
-transient --> marking a variable as transient indicates that it should not be serialized.
-             serialization --> persistence, networking, distributed systems, caching, JMS & message brokers.
+transient --> stops serializing a field , but persists in DB
+             (serializing used in data is sent over the network, sessions sharing, data stored in redis, sent via messaging, objects saved and loaded later, but not in DB)
 volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
+
+static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
+static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
+transient + volatile -> (transient - won’t cross JVM boundary,volatile - visible to all threads inside JVM, used for runtime-only flags, in-memory states)
 
 ```
 ### Method Definition
