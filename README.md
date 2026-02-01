@@ -41,6 +41,7 @@ synchronized(this) { } --> explicitly locks the current object (this)
 ## **DATATYPE**:
 
 1. **How bit-level datatype consumes memory.**
+
 | Type      | Bits            | Actual memory used |
 | --------- | --------------- | ------------------ |
 | `boolean` | 1 bit (logical) | **1 byte**         |
