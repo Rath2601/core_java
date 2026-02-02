@@ -16,8 +16,9 @@ abstract/final --> not needed for interface
 ```java
 {public/default/protected/private} {transient - if needed} {volatile/final --if needed} {static --if needed} {datatype} {variable_name} = {value} ;
 
-transient --> stops serializing a field , but persists in DB
-             (serializing used in data is sent over the network, sessions sharing, data stored in redis, sent via messaging, objects saved and loaded later, but not in DB)
+transient --> keyword only works if the "sending" or "storing" mechanism uses Native Java Serialization.
+ (Session Sharing (Tomcat/Jetty), (Redis (Native)JdkSerializationRedisSerializer), Saved to .ser file (Uses ObjectOutputStream))
+ (Ignored in Redis (JSON) , kafka sends in JSON/Avro)
 volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
 
 static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
