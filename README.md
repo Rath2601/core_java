@@ -21,6 +21,11 @@ transient --> keyword only works if the "sending" or "storing" mechanism uses Na
  (Ignored in Redis (JSON) , kafka sends in JSON/Avro, MyBatis, Hibernate, and JPA use reflection and JDBC drivers to map data instead of Serialization)
 volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
 
+static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
+static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
+transient + volatile -> (transient - won’t cross JVM boundary,volatile - visible to all threads inside JVM, used for runtime-only flags, in-memory states)
+
+```
 NOTE : 
 |Layer|Technology|How to Ignore a Field|
 | --------- | --------------- | ------------------ |
@@ -31,11 +36,6 @@ NOTE :
 |Cache|Redis (Jackson)|@JsonIgnore|
 |Native Java|JVM Serialization]transient (keyword)|
 
-static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
-static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
-transient + volatile -> (transient - won’t cross JVM boundary,volatile - visible to all threads inside JVM, used for runtime-only flags, in-memory states)
-
-```
 ### Method Definition
 
 ```java
