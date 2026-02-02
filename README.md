@@ -94,9 +94,10 @@ synchronized(this) { } --> explicitly locks the current object (this)
 
 ## **EXECUTION ORDER** :
 
-* **static block** --> **main method** --> **non-static block** (executed at every object creation)--> **non-static method** / **static method** (based on calling order).
-* **static block** --> initialize static variables or perform one-time actions when the class is loaded
+* **static block** --> **main method** --> **non-static block** (executed at every object creation) --> constructor --> **non-static method** / **static method** (based on calling order).
+* **static block** --> initialize static variables or perform one-time actions when the class is loaded 
 * **non-static block** --> called everytime when a new object created.
+* **static block & non-static block** called based on code order
 
 * Static blocks of parent class execute first because the compiler loads parent class before child class.
 
