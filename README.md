@@ -22,7 +22,14 @@ transient --> keyword only works if the "sending" or "storing" mechanism uses Na
 volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
 
 NOTE : 
-* client API call -> ObjectMapper (converts POJO into a JSON string, in fasterxml)
+|Layer|Technology|How to Ignore a Field|
+| --------- | --------------- | ------------------ |
+|Network / API|Jackson (ObjectMapper)|@JsonIgnore|
+|Database|JPA / Hibernate|@Transient (javax.persistence)|
+|Database|MyBatis|Omit from XML Mapper / SQL|
+|Messaging|Kafka (JSON)|@JsonIgnore|
+|Cache|Redis (Jackson)|@JsonIgnore|
+|Native Java|JVM Serialization]transient (keyword)|
 
 static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
 static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
