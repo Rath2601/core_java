@@ -18,8 +18,11 @@ abstract/final --> not needed for interface
 
 transient --> keyword only works if the "sending" or "storing" mechanism uses Native Java Serialization.
  (Session Sharing (Tomcat/Jetty), (Redis (Native)JdkSerializationRedisSerializer), Saved to .ser file (Uses ObjectOutputStream))
- (Ignored in Redis (JSON) , kafka sends in JSON/Avro)
+ (Ignored in Redis (JSON) , kafka sends in JSON/Avro, MyBatis, Hibernate, and JPA use reflection and JDBC drivers to map data instead of Serialization)
 volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
+
+NOTE : 
+* client API call -> ObjectMapper (converts POJO into a JSON string, in fasterxml)
 
 static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
 static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
