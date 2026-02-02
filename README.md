@@ -34,7 +34,7 @@ NOTE :
 |Database|MyBatis|Omit from XML Mapper / SQL|
 |Messaging|Kafka (JSON)|@JsonIgnore|
 |Cache|Redis (Jackson)|@JsonIgnore|
-|Native Java|JVM Serialization]transient (keyword)|
+|Native Java|JVM Serialization|transient (keyword)|
 
 ### Method Definition
 
