@@ -137,6 +137,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
    * constructors cannot be inherited in Java therefore, there is no need to write final before constructors.
 5. we can't override static/final/private method.
 6. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
+7. `this` and `super` cannot be used in static context
+8. 
 
 ### **FINAL : (class , method , variable)**
 
