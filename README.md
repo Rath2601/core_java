@@ -155,7 +155,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ```java 
 final List<Integer> list = new ArrayList<>(); 
 list.add(1); // allowed 
-``` 
+```
+
 4. final variable can have setter method, but setters are meaningless since we can’t set new value
 5. final can’t be used with static/non-static block. 
 6. final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.  (can be initialized for each object using a constructor, non-static block. that's why this differs from static final)
