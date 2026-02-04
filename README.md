@@ -146,15 +146,20 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **FINAL : (class , method , variable)**
 
+
 1. final class can't be inherited.
 2. final method can't be overridden
-3. final variable can't be changed. variable cannot be modified after it has been initialized. (IMMUTABLE)
-4. final variable can't have setter method.
-5. final doesn't support block.
+3. final variable can't be changed. variable cannot be modified after it has been initialized. (IMMUTABLE) 
+    - (final means reference cannot change. It does not guarantee immutability of the object.)   
 
-* final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.
-              (can be initialized for each object using a constructor. that's why this differs from static final)
-* static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
+```java 
+final List<Integer> list = new ArrayList<>(); 
+list.add(1); // allowed 
+``` 
+4. final variable can have setter method, but setters are meaningless since we can’t set new value
+5. final can’t be used with static/non-static block. 
+6. final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.  (can be initialized for each object using a constructor, non-static block. that's why this differs from static final)
+7. static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
 
 ### **SUPER : (INHERITANCE)**
 
