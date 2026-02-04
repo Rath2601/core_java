@@ -130,15 +130,19 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **STATIC : ( class, method , variable , block )**
 
-1. static can be used in nested class (class inside class)
+1. Static blocks execute once
 2. If we use static it belongs to the class.
-3. We can't use static/final keyword with constructor.
+3. Static variables are shared across all objects
+4. We can't use static/final keyword with constructor.
    * Constructors are meant to initialize new objects. Hence static can't be used.
    * constructors cannot be inherited in Java therefore, there is no need to write final before constructors.
 5. we can't override static/final/private method.
 6. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
 7. `this` and `super` cannot be used in static context
-8. 
+8. static can be used in nested classes. In non-static inner classes, `static members` were not allowed before Java 16, except `static final` compile-time constants.
+9. Static members stored in method area / metaspace
+10. Static methods are resolved at compile time
+11. **Interface fields & methods** are implicitly `public static final` & `public static` respectively
 
 ### **FINAL : (class , method , variable)**
 
