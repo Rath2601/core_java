@@ -247,6 +247,7 @@ list.add(1); // allowed 
 * can't create object. To create object must be inherited. (interface dont have constructor)
 * can have both abstract method and concrete method.
 * static & final keyword never comes with abstract method.
+* can't have default method like interface
 * abstract methods must be declared not defined.
 * abstract methods must be overriden. 
 * variable can't be abstract. (since the syntax abstract itself doesn't apply for variable)
