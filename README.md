@@ -187,7 +187,7 @@ list.add(1); // allowed 
 
 * All classes by default extends Object class.
 * types --> single, multilevel, hierarchical.
-* 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM) . solved with interface.
+* 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM). A class cannot extends multiple classes. solved with interface.
 * In case of Interface method as private, static, default we can't override it.
 * In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
   
