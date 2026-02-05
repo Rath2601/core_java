@@ -244,7 +244,8 @@ list.add(1); // allowed 
 
 ### **ABSTRACT CLASS**:
 
-* can't create object. To create object must be inherited. (interface dont have constructor)
+* can have any kind of variable like normal class
+* can't create object. To create object must be inherited. (Abstract class have constructor)
 * can have both abstract method and concrete method.
 * static & final keyword never comes with abstract method.
 * can't have default method like interface
