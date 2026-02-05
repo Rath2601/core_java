@@ -224,7 +224,7 @@ list.add(1); // allowed 
 
 ## **ENCAPSULATION**:
 
-* Encapsulation is the mechanism of restricting access to certain components of an object and only exposing a controlled interface to the outside world.
+* Encapsulation is useful when you don’t expose raw fields, but control access through behavior.
 
 ### Benefits of Encapsulation
 
