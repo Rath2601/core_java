@@ -188,7 +188,7 @@ list.add(1); // allowed 
 * All classes by default extends Object class.
 * types --> single, multilevel, hierarchical.
 * 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM). A class cannot extends multiple classes. solved with interface.
-* In case of Interface method as private, static, default we can't override it.
+* In case of Interface method as private, static, default(package-private) we can't override it.
 * In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
   
    1. **protected** --> protected,  public.
@@ -199,8 +199,11 @@ list.add(1); // allowed 
 * If A a = new C(); , In this, instance of C is created and with this we can access all methods of the classes (A, B, C)
   [**but if the method is overriden in all the classes , then the last overriden method only can be called. To call precisely need to create object specifically.**]
 * If Instance created for A only its method can be accessed. If instance created for B methods of A & B can be accessed.
-* IF we create B b =(B) new A(); JVM will throw ClassCastException. B is a subset of A. so it will think B can't be initialized with A object.  
+* IF we create B b =(B) new A(); JVM will throw ClassCastException. B is a subset of A. so it will think B can't be initialized with A object.
+* Upcasting A a = new B() || Downcasting B b = (B) a; (explicit, runtime check)
+* `instanceof` operator used to check object type before casting avoids **ClassCastException** 
 * A final class can't be made parent class.
+* **Constructors** are NOT inherited, but are executed from parent → child using super().
 
 ### **CONSTRUCTOR**:
 
