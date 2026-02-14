@@ -309,11 +309,11 @@ list.add(1); // allowed 
   String s2 = "hello";
   String s3 = new String("hello");
 
-  // Case 1: Reference comparison
+  // Case 1: Reference comparison only in object. Primitive value check
   System.out.println(s1 == s2); // true (same reference in string pool)
   System.out.println(s1 == s3); // false (different objects in memory)
 
-  // Case 2: Value comparison
+  // Case 2: Value comparison. Not applicable for primitive type
   System.out.println(s1.equals(s2)); // true (content is the same)
   System.out.println(s1.equals(s3)); // true (content is the same)
   ```
