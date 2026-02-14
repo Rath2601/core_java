@@ -320,9 +320,10 @@ list.add(1); // allowed 
 
   // another example
   String s1 = "Task";
-String s2 = "Task";
-String s3 = "Mask";
-s3 = "Flask"; // Mask is eligible for garbage collection
+  String s2 = "Task";
+  String s3 = "Mask";
+  s3 = "Flask"; // Mask is eligible for garbage collection
+
   ```
 ---
 ### **WRAPPER CLASSES** : 
