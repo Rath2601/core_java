@@ -396,6 +396,14 @@ list.add(1); // allowed 
      - Extending `RuntimeException` makes it an **unchecked exception**.
    - Custom exceptions behave like the exception type they extend (checked or unchecked).
 
+8. Business rule failures are programming/runtime flow issues and hence we use RuntimeException (unchecked exception) 
+    - We don’t want to force try-catch everywhere.
+    - Handled globally (e.g., using global exception handler).
+
+9. we use "private static final long serialVersionUID = 1L;" 
+    - but its not required for modern applications 
+    ```(Exception → @ControllerAdvice → ErrorResponse DTO → JSON (via Jackson) (doesn't use Java object serialization.)```
+
 --- 
 ## **JAVA 8 FEATURES** :
 
