@@ -352,6 +352,7 @@ list.add(1); // allowed 
 3. Enum can be used in switch statements
 4. Enum should initialize values using constructor and have getter method to retrieve specific field from the enum. (i.e Season.SPRING.getDesc();)
 5. enums are implicitly constants, and are seperated by "," and end with ";" and declared only in capitals
+6. public enum can be in a public class
 
 **USES**:
 * define fixed set of constants
