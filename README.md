@@ -401,7 +401,7 @@ list.add(1); // allowed 
     - Handled globally (e.g., using global exception handler).
 
 9. we use "private static final long serialVersionUID = 1L;" 
-    - but its not required for modern applications 
+    - but its not required for modern applications<br>
     ```(Exception → @ControllerAdvice → ErrorResponse DTO → JSON (via Jackson) (doesn't use Java object serialization.)```
 
 --- 
