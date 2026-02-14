@@ -316,6 +316,13 @@ list.add(1); // allowed 
   // Case 2: Value comparison. Not applicable for primitive type
   System.out.println(s1.equals(s2)); // true (content is the same)
   System.out.println(s1.equals(s3)); // true (content is the same)
+
+
+  // another example
+  String s1 = "Task";
+String s2 = "Task";
+String s3 = "Mask";
+s3 = "Flask"; // Mask is eligible for garbage collection
   ```
 ---
 ### **WRAPPER CLASSES** : 
