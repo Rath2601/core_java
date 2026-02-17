@@ -70,21 +70,20 @@ Arrays.sort(array, Comparator.reverseOrder()); // Custom ordering
 5. **Arrays.sort() is designed for arrays** and uses:
    * Dual-pivot quicksort for primitive types (e.g., int[], char[]).
    * TimSort for reference types OBJECTS (e.g., Integer[]).
-6. **Comparable** allows multiple sorting logics within the compareTo() method itself.- **fixed as part of the class's natural order**
-7. **Comparator** allows defining multiple sorting logics in separate classes- **apply different Comparators as needed, without altering the original class or its natural ordering.**
+6. Comparable defines a single, fixed natural ordering inside the class.
+7. Comparator provides multiple external, flexible ordering strategies that can vary by context.
 8. Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
    * Always override equals() and hashCode() along with compareTo() when using a class in sorted collections.
 
-| Feature                     | Comparable                                    | Comparator                                      |
-|-----------------------------|-----------------------------------------------|-------------------------------------------------|
-| **Definition**               | A class implements Comparable to define its own natural order using compareTo(). | A separate comparator class defines custom sorting logic via compare(). |
-| **Default Sorting Logic**    | Natural ordering is fixed and cannot be changed. | Custom sorting logic can be defined dynamically using multiple comparators. |
-| **Usage**                    | Typically used when you want a class to define its own ordering. | Used when sorting logic is defined externally or multiple sorting criteria are needed. |
-| **Application**              | compareTo() is applied directly on the class. | You can create multiple comparators and apply them as needed. |
-| **Order Precedence**         | N/A                                           | Comparator takes precedence over Comparable. |
-| **Sorting Mechanism**        | Sorting logic is embedded in the class itself. | Allows for flexible sorting based on different criteria. |
-| **Consistency with equals()**| Should be consistent (if compareTo() returns 0, equals() should return true). | Must also ensure consistency with equals() for predictable behavior in sorted collections. |
-| **Example**                  | `class Patient implements Comparable<Patient>` | `Comparator<Patient> genderComparator = new GenderComparator();` |
+
+| Feature | `Comparable<T>` | `Comparator<T>` |
+| :--- | :--- | :--- |
+| **Package** | `java.lang` | `java.util` |
+| **Method** | `compareTo(T o)` | `compare(T o1, T o2)` |
+| **Modification** | Requires modifying the **source code** of the class. | No source code access needed; works on **third-party classes**. |
+| **Implementation** | The class "is" comparable (Internal). | You create a separate "tool" to compare (External). |
+| **Common Use** | Default sorting (e.g., Alphabetical for Strings). | Custom sorting (e.g., by age, then by name). |
+| **Order Precedence** |  N/A                                           | Comparator takes precedence over Comparable. |
 
 ---
 ### **Fail-Fast vs. Fail-Safe Mechanism**
