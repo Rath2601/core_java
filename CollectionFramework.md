@@ -72,7 +72,7 @@ Arrays.sort(array, Comparator.reverseOrder()); // Custom ordering
    * TimSort for reference types OBJECTS (e.g., Integer[]).
 6. **Comparable** allows multiple sorting logics within the compareTo() method itself.- **fixed as part of the class's natural order**
 7. **Comparator** allows defining multiple sorting logics in separate classes- **apply different Comparators as needed, without altering the original class or its natural ordering.**
-8.Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
+8. Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
    * Always override equals() and hashCode() along with compareTo() when using a class in sorted collections.
 
 | Feature                     | Comparable                                    | Comparator                                      |
