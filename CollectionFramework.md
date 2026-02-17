@@ -53,12 +53,8 @@ we need to override hashCode() and equals() method for ,
 1. **TreeSet/TreeMap and Ordering**  
 - If neither `Comparable` (natural ordering) nor a `Comparator` is provided, a `ClassCastException` will occur when adding elements to a `TreeSet` or `TreeMap` that do not have a natural ordering.
 - **TreeSet** and **TreeMap** require either one of `Comparable` or `Comparator` to determine the order of elements.
-  
-2. **Custom Class with TreeSet/TreeMap**
-- If you define a custom class and use it in a `TreeSet` or `TreeMap`, it **must implement `Comparable`** or be paired with a **`Comparator`**.
-- Without either, adding elements will throw a `ClassCastException`.
-  
-3. **Collections.sort() vs Arrays.sort()**
+
+2. **Collections.sort() vs Arrays.sort()**
 - Both `Collections.sort()` and `Arrays.sort()` can use either **`Comparable`** (for default natural ordering) or **`Comparator`** (for custom ordering).
 - If a `Comparator` is provided, it takes **precedence** over the `Comparable`.
 
@@ -73,11 +69,10 @@ Arrays.sort(array, Comparator.reverseOrder()); // Custom ordering
 4. **Collections.sort() is designed for List** implementations and uses **TimSort algorithm**.
 5. **Arrays.sort() is designed for arrays** and uses:
    * Dual-pivot quicksort for primitive types (e.g., int[], char[]).
-   * TimSort for reference types (e.g., Integer[]).
+   * TimSort for reference types OBJECTS (e.g., Integer[]).
 6. **Comparable** allows multiple sorting logics within the compareTo() method itself.- **fixed as part of the class's natural order**
 7. **Comparator** allows defining multiple sorting logics in separate classes- **apply different Comparators as needed, without altering the original class or its natural ordering.**
-8. If **compareTo() returns 0 (indicating equality), equals() should also return true** to maintain consistency.
-   * Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
+8. Inconsistent compareTo() and equals() can cause issues in collections like TreeSet or TreeMap, leading to unpredictable behavior and violations of the Set or Map contract.
    * Always override equals() and hashCode() along with compareTo() when using a class in sorted collections.
 
 | Feature                     | Comparable                                    | Comparator                                      |
