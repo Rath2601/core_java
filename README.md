@@ -30,28 +30,129 @@ Nested Class
 
 ### Variable Definition
 
+#### 1. Correct Syntax Order
+
 ```java
-{public/default/protected/private} {transient - if needed} {volatile/final --if needed} {static --if needed} {datatype} {variable_name} = {value} ;
-
-transient --> keyword only works if the "sending" or "storing" mechanism uses Native Java Serialization.
- (Session Sharing (Tomcat/Jetty), (Redis (Native)JdkSerializationRedisSerializer), Saved to .ser file (Uses ObjectOutputStream))
- (Ignored in Redis (JSON) , kafka sends in JSON/Avro, MyBatis, Hibernate, and JPA use reflection and JDBC drivers to map data instead of Serialization)
-volatile  --> to indicate that a variable's value will be modified by different threads. (change in one thread is visible to all threads)
-
-static + transient -> (static - not serialized by design, transient - also skips serialization, transient adds no extra effect)
-static + volatile -> (static - keeps value shared, volatile - visibility across threads, used for global flags, feature toggles,system state)
-transient + volatile -> (transient - won’t cross JVM boundary,volatile - visible to all threads inside JVM, used for runtime-only flags, in-memory states)
-
+[Access_Modifier] [static] [final/volatile] [transient] [Data_Type] [variable_name] = [value];
 ```
-NOTE : 
-|Layer|Technology|How to Ignore a Field|
-| --------- | --------------- | ------------------ |
-|Network / API|Jackson (ObjectMapper)|@JsonIgnore|
-|Database|JPA / Hibernate|@Transient (javax.persistence)|
-|Database|MyBatis|Omit from XML Mapper / SQL|
-|Messaging|Kafka (JSON)|@JsonIgnore|
-|Cache|Redis (Jackson)|@JsonIgnore|
-|Native Java|JVM Serialization|transient (keyword)|
+`final` and `volatile` are mutually exclusive. You cannot use both on the same variable.
+
+---
+
+#### 2. Invalid Variable Modifiers
+
+The following keywords cannot be applied to variables:
+
+| Keyword | Valid Usage |
+|----------|-------------|
+| `synchronized` | Methods / Blocks only |
+| `abstract` | Classes / Interfaces / Methods only |
+| `native` | Methods only |
+| `strictfp` | Classes / Interfaces / Methods / Expressions only |
+
+---
+
+#### 3. Core Keywords Reference
+
+##### `static`
+Class-level shared state. Belongs to the class metadata, not object instances.
+
+###### Native Java Serialization
+- Skipped automatically.
+- Represents class state, not instance state.
+
+###### Jackson / Gson
+- Not ignored by default.
+- If a static field has a public getter, Jackson may serialize it into JSON.
+- Use `@JsonIgnore` or custom visibility configuration to exclude it.
+
+###### JPA / Hibernate / MyBatis
+- Ignored for database mapping.
+- ORMs map instance fields to database rows.
+
+---
+
+##### `final` 
+Assigned exactly once. The primitive value or object reference cannot be changed after initialization.
+
+###### Jackson / Gson
+- Works well for immutable DTOs.
+- Constructor injection using `@JsonCreator` is commonly used.
+
+###### JPA / Hibernate
+- Generally unsupported or problematic.
+- JPA requires:
+  - A no-argument constructor.
+  - Reflection/proxy-based field population.
+- `final` fields interfere with this lifecycle.
+
+---
+
+##### `volatile`
+Guarantees visibility across threads. Reads and writes occur directly against main memory.
+
+`volatile` does **not** provide: Atomicity & Mutual exclusion
+
+Example:
+
+```java
+count++;
+```
+This remains a read-modify-write operation and can still suffer from race conditions.
+
+---
+
+##### `transient`
+Marks a field to be skipped during state persistence/serialization.
+
+###### behaviour on framework
+Skip Native Java, Jackson, JPA, Gson Serializations. MyBatis has no effect
+
+
+---
+
+#### 4. Keyword Combinations
+
+##### `static final` : Compile-time or runtime constants.
+
+---
+
+##### `static volatile` : Global thread-visible state.
+
+Examples:
+- Feature flags
+- Shutdown indicators
+- Shared JVM-wide status variables
+
+---
+
+##### `transient volatile` : Runtime-only, thread-visible state.
+- Cache status flags
+- Session runtime state
+- In-memory synchronization indicators - Fields remain thread-safe for visibility but are excluded from serialization.
+
+---
+
+##### `transient final` : Runtime-only immutable fields.
+- Assigned during object construction.
+- Excluded from serialization mechanisms that honor `transient`.
+
+---
+
+#### 5. Redundant Combinations
+
+##### `static transient`
+- `static` fields are already excluded from native Java serialization.
+- Adding `transient` provides no additional benefit.
+
+---
+
+##### `static transient volatile`
+- `static` already excludes the field from native serialization.
+- `volatile` still affects thread visibility.
+- `transient` contributes no additional behavior.
+
+---
 
 ### Method Definition
 
