@@ -186,18 +186,18 @@ NOTE : this behaves equivalent to pessimistic lock in DB
 | `double`  | 64 bits         | 15-16 decimal digits precision       |
 
 2. Sign
-Signed   : byte, short, int, long, float, double
-Unsigned : char (0 → 65535)
-N/A      : boolean
+* Signed   : byte, short, int, long, float, double
+* Unsigned : char (0 → 65535)
+* N/A      : boolean
 
 3. Type Conversion
-Implicit (Widening)
-byte → short → int → long → float → double
-char → int → long → float → double
+* **Implicit** (Widening)
+  - byte → short → int → long → float → double
+  - char → int → long → float → double
 
-Explicit (Narrowing)
-double → float → long → int → short → byte
-int → char
+* **Explicit** (Narrowing)
+  - double → float → long → int → short → byte
+  - int → char
 - **(bit truncation)** -> If the value is out of range, it will roll over to the negative range (like rotation).
 - if float & double values are casted to int, fractional part is truncated & if value > Integer.MAX_VALUE → result is Integer.MAX_VALUE if value < Integer.MIN_VALUE → result is Integer.MIN_VALUE.**(range saturation)**
 
