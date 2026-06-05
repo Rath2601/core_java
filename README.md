@@ -5,9 +5,26 @@
 ### Class Definition
 
 ```java
-{public/default} {abstract/final --if needed} class/interface {class_name} {....... }
 
-abstract/final --> not needed for interface
+Top-level Class
+---------------
+{public/default} {abstract/final/strictfp} class ClassName
+
+Notes:
+- abstract OR final (not both)
+- strictfp optional
+
+Top-level Interface
+-------------------
+{public/default} interface InterfaceName
+
+Notes:
+- implicitly abstract
+- cannot be final
+
+Nested Class
+------------
+{public/protected/private/default} {abstract/final/static} class ClassName
 
 ```
 
