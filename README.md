@@ -174,44 +174,38 @@ NOTE : this behaves equivalent to pessimistic lock in DB
 
 1. **How bit-level datatype consumes memory.**
 
-| Type      | Bits            | Actual memory used |
+| Type      | Bits            | Range |
 | --------- | --------------- | ------------------ |
-| `boolean` | 1 bit (logical) | **1 byte**         |
-| `byte`    | 8 bits          | **1 byte**         |
-| `short`   | 16 bits         | **2 bytes**        |
-| `int`     | 32 bits         | **4 bytes**        |
-| `long`    | 64 bits         | **8 bytes**        |
-| `char`    | 16 bits         | **2 bytes**        |
-| `float`   | 32 bits         | **4 bytes**        |
-| `double`  | 64 bits         | **8 bytes**        |
+| `boolean` | JVM-dependent |       |
+| `byte`    | 8 bits          |  -2⁷ → 2⁷-1        |
+| `short`   | 16 bits         | -2¹⁵ → 2¹⁵-1       |
+| `int`     | 32 bits         | -2³¹ → 2³¹-1       |
+| `long`    | 64 bits         | -2⁶³ → 2⁶³-1       |
+| `char`    | 16 bits         | 0 → 65535        |
+| `float`   | 32 bits         | 7 decimal digits precision      |
+| `double`  | 64 bits         | 15-16 decimal digits precision       |
 
-* Sign bit exists for signed primitives (except boolean & char)
+2. Sign
+Signed   : byte, short, int, long, float, double
+Unsigned : char (0 → 65535)
+N/A      : boolean
 
-2. **Byte has a range of** `2^7 - 1` **to** `-2^7`. 
-   - If exceeded, we have to cast explicitly, which may lead to overflow/underflow.**(bit truncation)**
-   - **(bit truncation)** -> If the value is out of range, it will roll over to the negative range (like rotation).
-   ```java
-   Byte b = (byte) 129; // b = -127 overflow
-   Byte b = (byte) -129; // b = 127 underflow
-   ```
-3. **Other data types have their range based on the memory they consume.**
-   - `char` has a range of `0` to `65535`. if the value is out of this range need to explicitly cast it
-  ```java
-  char c = (char) 65536;
-  ```
-4. **Data type conversions:**
-   - `byte` → `short` → `int` ← `long` (with casting) **(bit truncation)**
-   - `int` ← `float` ← `double` **(range saturation)**
-   - `long` ← `float` ← `double` **(range saturation)**
-   - to convert long, float and double as int , need explicit casting.
-   - if float & double values are casted to int, fractional part is truncated & if value > Integer.MAX_VALUE → result is Integer.MAX_VALUE if value < Integer.MIN_VALUE → result is Integer.MIN_VALUE.**(range saturation)**
-   - to convert float and double as long , need explicit casting.
-   - to convert double as float , need explicit casting.
-5. **By default:**
+3. Type Conversion
+Implicit (Widening)
+byte → short → int → long → float → double
+char → int → long → float → double
+
+Explicit (Narrowing)
+double → float → long → int → short → byte
+int → char
+- **(bit truncation)** -> If the value is out of range, it will roll over to the negative range (like rotation).
+- if float & double values are casted to int, fractional part is truncated & if value > Integer.MAX_VALUE → result is Integer.MAX_VALUE if value < Integer.MIN_VALUE → result is Integer.MIN_VALUE.**(range saturation)**
+
+4. **By default:**
    - Whole numbers are treated as `int`.
    - Decimal numbers are treated as `double`.
-6. **Use** `f/F`, `d/D`, `l/L` **for proper identification of float, double, and long respectively.**
-7. **We can use large numbers like** `2_147_483_647`.
+5. **Use** `f/F`, `d/D`, `l/L` **for proper identification of float, double, and long respectively.**
+6. **We can use large numbers like** `2_147_483_647`.
 
 ## **EXECUTION ORDER** :
 
