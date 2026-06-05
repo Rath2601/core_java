@@ -166,7 +166,7 @@ synchronized(this) { } --> explicitly locks the current object (this)
 - static method    → class-level locking
 synchronized(Sample.class) { } --> explicitly locks on class level (this) 
                            but only for the specific block of code.
-                     
+NOTE : this behaves equivalent to pessimistic lock in DB
 
 ```
 
