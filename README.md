@@ -161,10 +161,13 @@ Examples:
 
 synchronized keyword --> used in static methods, instance methods, and code blocks.
 - instance method  → locks on current object (this)
-- static method    → class-level locking 
-                     
 synchronized(this) { } --> explicitly locks the current object (this) 
+                           but only for the specific block of code
+- static method    → class-level locking
+synchronized(Sample.class) { } --> explicitly locks on class level (this) 
                            but only for the specific block of code.
+                     
+
 ```
 
 ## **DATATYPE**:
