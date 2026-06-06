@@ -274,14 +274,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ---
 ### **SUPER : (INHERITANCE)**
 
-1. can't use super in static content (methods)
-2. constructor call must be the first statement in constructor. (using super)
-   (only one constructor can be called from a constructor)
-
-4. can be used to call **variable** of parent class (super.parentClassVariable .. both static & non-static) (but static should be accessed only with class name)
-5. can be used to call **method** of parent class (super.parentClassMethod .. both static & non-static) (but static should be accessed only with class name)
-    (If parent's method not implemented in child class no need to use super)
-6. Can call parent's constructor with its param.(can be called **only** from child constructor, Constructor chaining)
+* Can't use super in static method or block. can’t use for static variable but could use for static variable in non static method (not recommended)
+* Can call parent's constructor with its param but as first statement using super (can be called only from child constructor, Constructor chaining)
+* Can be used to call variable & method of parent class (both static & non-static) (but static should be accessed only with class name)  (If parent's method not implemented in child class no need to use super)
 
 ### **THIS : (ENCAPSULATION)**
 
