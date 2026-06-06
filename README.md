@@ -289,25 +289,25 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 ---
 ## **INHERITANCE: (encourages polymorphism)**
 
-* All classes by default extends Object class.
-* types --> single, multilevel, hierarchical.
-* 1 Java doesn't support multiple inheritance (DIAMOND PROBLEM). A class cannot extends multiple classes. solved with interface.
-* In case of Interface method as private, static, default(package-private) we can't override it.
-* In normal classes , private/static cant be overrided. other methods can have equal or greater visibility.
-  
-   1. **protected** --> protected,  public.
-   2. **default** --> default, protected, public.
-   3. **public** --> public.
+* All classes extends Object class
+* inheritance types : single, multilevel, hierarchical. doesn’t support multiple inheritance (DIAMOND PROBLEM solved with interface)
+* private and static can’t be overridden. other methods can have equal or greater visibility.
+    * protected --> protected, public.
+    * default --> default, protected, public.
+    * public --> public
+* In Interface method having private, static , default we can't override it
+  ```java
+  class B extends A
+  class C extends B
+  ```
+* creating C c = new C() gives access to all methods of A, B, and C — but if a method is overridden across all three, only C's version executes
+* To invoke A or B's version specifically, you'd need their own instance. Access scope follows the object type: new A() sees only A, new B() sees A+B
+* A a = new B() is upcasting (implicit, safe). B b = (B) a is downcasting (explicit, runtime-checked). But (B) new A() throws a ClassCastException at runtime because B is a superset of A and an A instance can't fulfill B's contract.
+* reference type decides what's visible, actual object type decides what runs
 
-* child class object can access all methods from parent class.
-* If A a = new C(); , In this, instance of C is created and with this we can access all methods of the classes (A, B, C)
-  [**but if the method is overriden in all the classes , then the last overriden method only can be called. To call precisely need to create object specifically.**]
-* If Instance created for A only its method can be accessed. If instance created for B methods of A & B can be accessed.
-* IF we create B b =(B) new A(); JVM will throw ClassCastException. B is a subset of A. so it will think B can't be initialized with A object.
-* Upcasting A a = new B() || Downcasting B b = (B) a; (explicit, runtime check)
-* `instanceof` operator used to check object type before casting avoids **ClassCastException** 
+* instanceof operator used to check object type before casting to avoid ClassCastException
 * A final class can't be made parent class.
-* **Constructors** are NOT inherited, but are executed from parent → child using super().
+* Constructors are NOT inherited, but are executed from parent → child using super().
 
 ### **CONSTRUCTOR**:
 
