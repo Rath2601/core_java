@@ -276,7 +276,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * Can't use super in static method or block. can’t use for static variable but could use for static variable/static method in non static method (not recommended)
 * Can call parent's constructor with its param but as first statement using super (can be called only from child constructor, Constructor chaining)
 * Can be used to call variable & method of parent class (both static & non-static) (but static should be accessed only with class name)  (If parent's method not implemented in child class no need to use super)
-
+---
 ### **THIS : (ENCAPSULATION)**
 
 * `this` keyword can’t be used in static method or block. Could use for static variable/static method in non static method
@@ -286,7 +286,7 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
     * iii) constructor with matching params as first statement, 
     * iv) non static method with matching params (this.method() executes the child version)
     * v) by returning this we can do method chaining
-
+---
 ## **INHERITANCE: (encourages polymorphism)**
 
 * All classes by default extends Object class.
