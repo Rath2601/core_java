@@ -248,19 +248,14 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **STATIC : ( class, method , variable , block )**
 
-1. Static blocks execute once
-2. If we use static it belongs to the class.
-3. Static variables are shared across all objects
-4. We can't use static/final keyword with constructor.
-   * Constructors are meant to initialize new objects. Hence static can't be used.
-   * constructors cannot be inherited in Java therefore, there is no need to write final before constructors.
-5. we can't override final/private methods & static methods are hidden
-6. static can be used in object creation in case of singleton pattern.(static Obj j = new Obj(); )
-7. `this` and `super` cannot be used in static context
-8. static can be used in nested classes. In non-static inner classes, `static members` were not allowed before Java 16, except `static final` compile-time constants.
-9. Static members stored in method area / metaspace
-10. Static methods are resolved at compile time
-11. **Interface fields, abstract methods, static methods** are implicitly `public static final` , `public abstract`, `public static` respectively
+* **Members & Memory**: Can be used with variables, methods, blocks, and nested classes; class metadata is in Metaspace (bytecode), but actual static variables reside on the Heap inside the java.lang.Class instance.
+* **Where It Cannot Be Used**: Cannot be used with top-level classes, constructors (cannot be inherited (final) & meant to initialize new objects (static)), local variables inside methods (stack variables can't be class variables), or abstract methods (meant to be overridden).
+* **No this or super**: Illegal because this and super require an object instance, but static contexts load at the class level before any object exists in memory.
+* ** Method Hiding & Binding**: Static methods are hidden, not overridden; the compiler binds them at compile-time (invokestatic) based on the reference type, bypassing the runtime virtual method table just like private methods do.
+* ** Nested vs. Inner Classes**: Static nested classes don't need an outer instance; non-static inner classes require an outer instance but can now contain static members natively (allowed since Java 16).
+* **Singleton Pattern**: Uses a private static variable to hold the single global instance and a public static method to return it without creating new objects.
+* **Resolution Mechanics**: Resolved at compile-time via Static Binding, where the compiler hardcodes the exact class method into the bytecode rather than waiting for runtime dynamic lookup.
+* **Interfaces** : Interface fields are implicitly `public static final (constants)`, and interface static methods must be called directly using the Interface name, never via an implementing class reference.
 
 ### **FINAL : (class , method , variable)**
 
