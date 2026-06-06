@@ -257,23 +257,27 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * **Resolution Mechanics**: Resolved at compile-time via Static Binding, where the compiler hardcodes the exact class method into the bytecode rather than waiting for runtime dynamic lookup.
 * **Interfaces** : Interface fields are implicitly `public static final (constants)`, and interface static methods must be called directly using the Interface name, never via an implementing class reference.
 
-### **FINAL : (class , method , variable)**
-
-
-1. final class can't be inherited.
-2. final method can't be overridden
-3. final variable can't be changed. variable cannot be modified after it has been initialized. (IMMUTABLE) 
-    - (final means reference cannot change. It does not guarantee immutability of the object.)   
-
-```java 
-final List<Integer> list = new ArrayList<>(); 
-list.add(1); // allowed 
-```
-
-4. final variable can have setter method, but setters are meaningless since we can’t set new value
-5. final can’t be used with static/non-static block. [ collection of statements executed at a specific point in the class lifecycle. You cannot "override" a block, you cannot "extend" a block, and you cannot "reassign" a block. ]
-6. final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.  (can be initialized for each object using a constructor, non-static block. that's why this differs from static final)
-7. static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
+### **FINAL :
+#### 1. Core Modifiers
+* **Final Class:** Cannot be extended or inherited (e.g., `java.lang.String`).
+* **Final Method:** Cannot be overridden by subclasses.
+* **Final Variable:** Cannot be reassigned after initialization.
+---
+#### 2. Immutability vs. Reference
+* **Reference Immutability:** The `final` keyword guarantees **reference immutability**, *not* object immutability.
+    > **Example:** If you declare `final List<Integer> list = new ArrayList<>();`, you cannot reassign `list` to a new `ArrayList`. However, you can freely modify the contents of the list using `list.add(1)` because the underlying object state remains mutable.
+---
+#### 3. Syntax Restrictions (Setters & Blocks)
+* **No Setters:** A `final` instance variable cannot have a setter method. A setter's core job is reference reassignment, which the compiler explicitly blocks.
+* **No Initialization Blocks:** `final` cannot be applied to static or non-static initialization blocks. Blocks are neither variables, methods, nor classes; they are lifecycle execution phases, making the keyword syntactically invalid there.
+---
+#### 4. Initialization Scope (Blank vs. Static)
+* **Blank Final (`final var`):** Assigned exactly once per object instance (via a constructor or an instance initializer block). Used when individual instances require unique, unchangeable configurations.
+* **Static Final (`static final var`):** Assigned exactly once at the class level (during class loading). Shared globally across all instances as a true constant.
+---
+#### 5. Method Parameters
+* **Final Parameters:** Used in method signatures to enforce a strict design contract. It guarantees that the method input argument value or reference cannot be reassigned inside the method body, preventing accidental bugs and side effects.
+---
 
 ### **SUPER : (INHERITANCE)**
 
