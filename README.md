@@ -387,13 +387,13 @@ list.add(1); // allowed 
 
 ## **INNER CLASSES**:
 
-*uses of inner class*:
-1. A member inner class is a class defined within another class and behaves like a member of the outer class. (OuterClass.InnerClass ic =o.new InnerClass();)
-2. A member class can be static also. (OuterClass.InnerClass ic =new OuterClass.InnerClass();)
-3. class created inside method, can be accessed only within the method.
-4. anonymous inner class used when you need a one-off implementation. 
-(i.e interface anonymous inner class instantiated | that particular object reference used to call that method alone) 
-5. For the above all unimplemented methods will be used for a single object creation using anonymous inner class.
+| Inner Class Type | Spring Boot Relevance | Primary Use Case |
+| :--- | :--- | :--- |
+| **Static Nested** | **Critical** | Grouping DTOs, Builders (`@Builder`), custom configuration properties classes. |
+| **Non-Static Inner** | **Situational** | Strictly bound domain logic (Aggregate Roots/Entities) where the child *must* mutate parent state. |
+| **Anonymous** | **Legacy** | Heavy interface implementations with multiple methods. (Otherwise, use Lambdas). |
+| **Method Local** | **Anti-Pattern** | Do not use. Refactor into private methods or dedicated beans. |
+
 ---
 
 ## **INBUILD CLASSES** : 
