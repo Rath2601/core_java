@@ -222,13 +222,16 @@ NOTE : this behaves equivalent to pessimistic lock in DB
      different for each object.
      initialization not mandatory.(default value applied)
      created along with its object and destroyed along with its object.
+     Stored in Heap (inside object) - Until object is garbage collected
 ### **2.Static variable**:
      only difference is static keyword & this is common for all object.
      if changed through one object it'll be reflected in all objects.
+     Stored in Method Area / Metaspace (class level) - Until class is unloaded
 ### **3.Local/ method variable**:
      initialization is mandatory.
      local to method/constructor/block. cant be accessed outside unless passed/ returned from a method.
      only default AM / final permitted.
+     Stored in Stack Frame - Until method/block execution ends
 
 if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
