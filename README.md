@@ -328,21 +328,10 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ## **ENCAPSULATION**:
 
-* Encapsulation is useful when you don’t expose raw fields, but control access through behavior.
-
-### Benefits of Encapsulation
-
-* **Data Hiding**: Only necessary information is exposed, while the implementation details remain hidden.This reduces the complexity of the code.
-* **Security**: Protects an object’s state by controlling the access and modification of its fields.
-* **Flexibility and Maintainability**: Changes to the encapsulated code can be made independently without affecting other parts of the program.
-* **Improved Code Reusability**: Encapsulated code can be reused more easily as it is modular and self-contained.
-
-### How to Achieve Encapsulation in Java
-
-* **Private Fields**: Declare the class fields (variables) as private to restrict direct access from outside the class.
-
-* **Public Methods**: Provide public getter and setter methods to allow controlled access and modification of the fields.
-
+* **What Encapsulation Actually Is**: It is bundling data and behavior into a single class to enforce business rules (invariants) and protect data integrity. 
+  - It is not about hiding fields behind private variables only to immediately expose them with public getters and setters.
+* **Rule of Thumb 1 (DTOs)** : If a class exists purely to move data (like receiving JSON in a REST controller), it has no business logic. Drop getters/setters entirely and use Java records. They are immutable, transparent, and don't pretend to be encapsulated objects.
+* **Rule of Thumb 2 (Entities)** : If a class represents a core business entity (like an Order or Account), it must guard its state. Do not add setters blindly to fields. Only expose explicit, public methods that represent valid business transitions (e.g., use order.ship() instead of order.setStatus("SHIPPED")).
 
 ## **ABSTRACTION**:
 
