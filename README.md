@@ -337,15 +337,13 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 
 ### **ABSTRACT CLASS**:
 
-* can have any kind of variable like normal class
+* can have any kind of variable and methods like normal class but also has abstract method 
 * can't create object. To create object must be inherited. (Abstract class have constructor)
-* can have both abstract method and concrete method.
-* static & final keyword never comes with abstract method.
+* static & final keyword never comes with abstract method
 * can't have default method like interface
-* abstract methods must be declared not defined.
-* abstract methods must be overriden. 
+* abstract methods must be declared not defined & must be overriden
 * variable can't be abstract. (since the syntax abstract itself doesn't apply for variable)
-* can have static and non static block.
+* can have static and non static block
 
 ### **INTERFACE**:
 
@@ -359,11 +357,9 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
     * Utility Methods: Enable utility functions related to the interface, accessible without creating an instance of an implementing class, keeping relevant methods together.
   * Private Methods:
     Hold all the logic that can be used only by default/static methods inside interface.
-
-* all methods are public abstract.
-* all variables are public static final.
+* all methods are public abstract & all variables are public static final.
 * can't have static and non static block.
-* Anonymous inner class of interface can be created in subclass with all its method implementation for that particular object.
+* Anonymous inner class of interface can be created in subclass with all its method implementation for that particular object.(use Lambdas instead)
 
 ## **INNER CLASSES**:
 
