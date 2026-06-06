@@ -243,9 +243,8 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 4. **private** --> visible to only that class.
 
 * Nested class can have any access modifier.
-
+---
 ## **IMPORTANT KEYWORDS STATIC / FINAL / SUPER / THIS**:
-
 ### **STATIC : ( class, method , variable , block )**
 
 * **Members & Memory**: Can be used with variables, methods, blocks, and nested classes; class metadata is in Metaspace (bytecode), but actual static variables reside on the Heap inside the java.lang.Class instance.
@@ -256,29 +255,23 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * **Singleton Pattern**: Uses a private static variable to hold the single global instance and a public static method to return it without creating new objects.
 * **Resolution Mechanics**: Resolved at compile-time via Static Binding, where the compiler hardcodes the exact class method into the bytecode rather than waiting for runtime dynamic lookup.
 * **Interfaces** : Interface fields are implicitly `public static final (constants)`, and interface static methods must be called directly using the Interface name, never via an implementing class reference.
-
+---
 ### **FINAL** :
 #### 1. Core Modifiers
 * **Final Class:** Cannot be extended or inherited (e.g., `java.lang.String`).
 * **Final Method:** Cannot be overridden by subclasses.
 * **Final Variable:** Cannot be reassigned after initialization.
----
-#### 2. Immutability vs. Reference
 * **Reference Immutability:** The `final` keyword guarantees **reference immutability**, *not* object immutability.
-    > **Example:** If you declare `final List<Integer> list = new ArrayList<>();`, you cannot reassign `list` to a new `ArrayList`. However, you can freely modify the contents of the list using `list.add(1)` because the underlying object state remains mutable.
----
-#### 3. Syntax Restrictions (Setters & Blocks)
+  ```java
+  final List<Integer> list = new ArrayList<>();
+  list.add(1);
+  ```
 * **No Setters:** A `final` instance variable cannot have a setter method. A setter's core job is reference reassignment, which the compiler explicitly blocks.
 * **No Initialization Blocks:** `final` cannot be applied to static or non-static initialization blocks. Blocks are neither variables, methods, nor classes; they are lifecycle execution phases, making the keyword syntactically invalid there.
----
-#### 4. Initialization Scope (Blank vs. Static)
 * **Blank Final (`final var`):** Assigned exactly once per object instance (via a constructor or an instance initializer block). Used when individual instances require unique, unchangeable configurations.
 * **Static Final (`static final var`):** Assigned exactly once at the class level (during class loading). Shared globally across all instances as a true constant.
----
-#### 5. Method Parameters
 * **Final Parameters:** Used in method signatures to enforce a strict design contract. It guarantees that the method input argument value or reference cannot be reassigned inside the method body, preventing accidental bugs and side effects.
 ---
-
 ### **SUPER : (INHERITANCE)**
 
 1. can't use super in static content (methods)
