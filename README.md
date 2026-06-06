@@ -271,7 +271,7 @@ list.add(1); // allowed 
 ```
 
 4. final variable can have setter method, but setters are meaningless since we can’t set new value
-5. final can’t be used with static/non-static block. 
+5. final can’t be used with static/non-static block. [ collection of statements executed at a specific point in the class lifecycle. You cannot "override" a block, you cannot "extend" a block, and you cannot "reassign" a block. ]
 6. final var --> Used for constants that are specific to "each object instance" and remain unchanged after initialization.  (can be initialized for each object using a constructor, non-static block. that's why this differs from static final)
 7. static final var --> Used for constants that are associated with the class itself and are shared across "all instances".
 
