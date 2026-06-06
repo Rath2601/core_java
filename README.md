@@ -257,7 +257,6 @@ if we need to call **NON-STATIC** in  **STATIC** method we need object.
 * **Interfaces** : Interface fields are implicitly `public static final (constants)`, and interface static methods must be called directly using the Interface name, never via an implementing class reference.
 ---
 ### **FINAL** :
-#### 1. Core Modifiers
 * **Final Class:** Cannot be extended or inherited (e.g., `java.lang.String`).
 * **Final Method:** Cannot be overridden by subclasses.
 * **Final Variable:** Cannot be reassigned after initialization.
