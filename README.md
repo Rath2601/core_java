@@ -35,7 +35,7 @@ Nested Class
 ```java
 [Access_Modifier] [static] [final/volatile] [transient] [Data_Type] [variable_name] = [value];
 ```
-`final` and `volatile` are mutually exclusive. You cannot use both on the same variable.
+`final` and `volatile` are mutually exclusive. You cannot use both on the same variable. There is no "latest change" for a final field, so volatile has no meaningful role.
 
 ---
 
