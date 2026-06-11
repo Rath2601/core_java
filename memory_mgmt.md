@@ -1,50 +1,45 @@
-## Memory area allocated by JVM
+### JVM ClassLoaders
 
-The major concepts in Java Memory Management :
-* **Loading Metadata**
-* **JVM Memory Structure**
-* **Working of Garbage Collector**
-
-### **Loading Metadata**:
-
-* **CLASSLOADER** -> used to load class into memory.
-  * **Load classes in hierarchical fashion**
-  * **convert from .class to class obj** (compiler converts from .java to .class)
-  * First class in app is loaded using static main() invoked by JVM. other classes are loaded as required by this particular class.
-  
-1. BootStrap Classloader ->
-   * Bootstrap CL serves as the parent of all the other CL instances. 
-   * core class loader loads all classes in jre library (only classes belong to **java.base**) (**loads the classloader itself**)
-   * not a java class (written in native c/c++) 
-2. Extension Classloader ->
-   * child of the bootstrap class loader.
-   * all classes under ext folder of jre. (all other modules than java.base)
-3. System Classloader    ->
-   * loads everything on the classpath (jdbc jar, hibernate jar , spring jar)
-   * loads the userdefined classes also.
-4. Custom Classloader    -> 
-   * application server dev write their own custom CL for jboss, weblogic
-
-to dynamically load a class at runtime , 
-```
-Class driver = Class.forName("com.mysql.jdbc.Driver"): // can throws ClassNotFoundException
-driver.method() // we can invoke the methods in the class using reflection API 
-```
-
-#### **Functioning of classloader**:
-
-* **a ClassLoader instance will delegate the search for the class or resource to its parent class loader before attempting to find the class or resource itself.**
-  * CL are part of JRE, whenever JVM request a class the CL checks to load the class. 
-  * If it doesn't able to load it, this'll delegate the loading task to its parent class (a type of Bootstrap ClassLoader)
-  * Still not found --> delegate to its child (a type of ExtClassLoader)
-  * Still not found --> delegate to its child (AppClassLoader)
-  * Still not found --> then only throw the error. 
+#### 1. Core Definition
+* **ClassLoader:** JVM subsystem that dynamically reads raw `.class` bytecode on-demand and transforms it into live `java.lang.Class` objects inside **Metaspace** memory upon first code reference.
 
 ---
-#### **Uses of CustomClassLoader** :
-  * Load classes from sources other than the file system or JARs, such as databases, networks, or custom file systems.
-  * Dynamically load and unload plugins at runtime. (new functionalities can be added without restarting the system.)
-  * enabling different versions of classes to coexist.
+
+#### 2. Modern Hierarchy (Java 9+)
+
+| ClassLoader | Implementation | Scope / Packages Covered |
+| :--- | :--- | :--- |
+| **Bootstrap** | Native C/C++ | Core runtime modules (`java.base` e.g., `java.lang.*`, `java.util.*`). Returns `null` in Java code. |
+| **Platform** | Java-based | Non-core SE platform modules/extensions (`java.sql.*`, `java.xml.*`). Replaced Java 8 Extension loader. |
+| **Application** | Java-based | Application classpath/module-path (User classes, Spring, Hibernate, third-party JARs). |
+
+---
+
+#### 3. Parent-First Delegation Flow
+1. **Trigger:** JVM targets **Application ClassLoader** for a class.
+2. **Upward Delegation:** Application CL pauses $\rightarrow$ delegates to **Platform CL** $\rightarrow$ delegates to **Bootstrap CL**.
+3. **Downward Execution:** Bootstrap CL gets "first right of refusal". 
+   * *Found:* Loaded instantly (Guarantees security, prevents **Class Hijacking** of core API).
+   * *Missing:* Trickles downward to Platform, then Application.
+   * *Nowhere found:* Throws `ClassNotFoundException`.
+
+
+
+---
+
+#### 4. Custom ClassLoaders & Real-World Use
+
+##### Definition
+* Extends `java.lang.ClassLoader` and overrides `findClass(String name)`. 
+* **Mechanics:** Customizes *how to fetch raw bytes* (`byte[]`) from non-standard sources, then passes them to the final native JVM method `defineClass()` to build the memory object.
+
+##### Primary Use Cases
+* **Non-standard Sources:** Loading bytecode from encrypted disk files, remote HTTP streams, or Database Binary Large Objects (BLOBs).
+* **Hot-Swapping:** Loading/unloading modules or runtime plugins without restarting the JVM process.
+
+##### Production Example: Spring Boot `LaunchedURLClassLoader`
+* **The Problem:** Standard Java Application ClassLoader cannot read nested JARs (e.g., `app.jar -> /lib/dependency.jar`).
+* **The Solution:** Spring Boot uses `LaunchedURLClassLoader` to scan, index, and programmatically load classes packaged deep inside a single executable **Fat JAR** (`BOOT-INF/lib/`).
 ---
 ### **Memory areas in Java**:
 
