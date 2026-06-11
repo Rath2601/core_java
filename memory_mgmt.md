@@ -51,7 +51,7 @@ By default, the JVM loads classes **lazily** (only when a line of code explicitl
 ---
 ### **Memory areas in Java**:
 
-![Memory management](https://github.com/Rath2601/core_java/blob/main/images/memory_mgmt.png)
+![Memory management](https://github.com/Rath2601/core_java/blob/main/images/Java_Memory_Model.png)
 
 * **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
 * **Heap** : Stores objects, arrays and other data structure.
