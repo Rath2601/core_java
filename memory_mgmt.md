@@ -3,6 +3,14 @@
 #### 1. Core Definition
 * **ClassLoader:** JVM subsystem that dynamically reads raw `.class` bytecode on-demand and transforms it into live `java.lang.Class` objects inside **Metaspace** memory upon first code reference.
 
+#### Class Loading Triggers: Lazy vs. Manual Eager
+
+By default, the JVM loads classes **lazily** (only when a line of code explicitly mentions the class type or creates an instance). You can force **explicit/eager** loading via:
+
+1. **`Class.forName(String)`**: Forces immediate loading, linking, and static initialization.
+2. **Reflection API**: Calling methods like `loadClass()` or investigating class metadata forces immediate loading.
+3. **Framework Bootstrapping**: Spring/Hibernate eagerly scan and load target entities/beans during startup to fail-fast if classes are missing.
+   
 ---
 
 #### 2. Modern Hierarchy (Java 9+)
