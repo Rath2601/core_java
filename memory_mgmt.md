@@ -51,8 +51,6 @@ By default, the JVM loads classes **lazily** (only when a line of code explicitl
 
 ![Memory management](https://github.com/Rath2601/core_java/blob/main/images/Java_Memory_Model.png)
 
-#### Java Memory Management
-
 ##### Java Memory Model
 
 A specification that defines how threads in Java interact with memory, ensuring consistent and predictable behavior in multithreaded environments across different hardware and JVM implementations.
