@@ -31,8 +31,6 @@ By default, the JVM loads classes **lazily** (only when a line of code explicitl
    * *Missing:* Trickles downward to Platform, then Application.
    * *Nowhere found:* Throws `ClassNotFoundException`.
 
-
-
 ---
 
 #### 4. Custom ClassLoaders & Real-World Use
@@ -49,128 +47,164 @@ By default, the JVM loads classes **lazily** (only when a line of code explicitl
 * **The Problem:** Standard Java Application ClassLoader cannot read nested JARs (e.g., `app.jar -> /lib/dependency.jar`).
 * **The Solution:** Spring Boot uses `LaunchedURLClassLoader` to scan, index, and programmatically load classes packaged deep inside a single executable **Fat JAR** (`BOOT-INF/lib/`).
 ---
-### **Memory areas in Java**:
+### **JAVA MEMORY MANAGEMENT**:
 
 ![Memory management](https://github.com/Rath2601/core_java/blob/main/images/Java_Memory_Model.png)
 
-* **Class(Method) Area** : Stores class metadata, static variables, and code for methods and constructors.
-* **Heap** : Stores objects, arrays and other data structure.
-* **Stack** : Stores method call frames, local variables, and primitive data types.
-* **Program Counter Register** :  Stores the address of the next instruction to be executed for each thread.
-* **Native Method Stack** : Stores native method calls (if any).
----
-### **Garbage collector**:
+#### Java Memory Management
 
-The garbage collector is primarily applicable for **heap memory**.
+##### Java Memory Model
 
-Heap divided into Young generation (Eden, survivors) , old generation, and permanent generation (static and non static method metadata , static and non static block metadata, static variables)
+A specification that defines how threads in Java interact with memory, ensuring consistent and predictable behavior in multithreaded environments across different hardware and JVM implementations.
 
-1. First when we run GC , the unreferenced objects marked and moved out of the heap and referenced are sweep to survivor 0.
-2. the second time GC executes, the unreferenced objects marked and moved out of heap and referenced are sweep to survivor 1. 
-(each time the age of an object is increased and we can set the threshold value in VM argument)
-3. If an object survived till it reaches the threshold value then it'll be promoted to old generation . In the old generation the execution of GC is less frequent. Also the objects present in old generation are quiet big one.
-4. the GC executed in young generation is called minor GC. GC executed in old generation is called major GC. 
+It establishes rules for visibility, ordering, and atomicity, preventing issues like data races caused by CPU caching or instruction reordering.
 
-The garbage collector has two **strategies of execution**, They are 
+##### GC Roots
 
-1. Mark and sweep 
-2. Mark and sweep and compaction
-  * **Prevents Fragmentation**: Fragmentation occurs when free memory is scattered across the heap, making it difficult to allocate large objects even if enough memory is available overall.
-  * **Improves Allocation Efficiency**: With compacted memory, allocating memory for new objects is faster because the JVM doesn’t need to search for fragmented free spaces.
+An object on the Java Heap is a GC Root if and only if its liveness is determined by an execution context outside of the general garbage-collected heap itself.
 
-Also the garbage collector has **many versions** along many versions of Java. They are
+**GC root examples:**
 
-versions of GC ->  because of the enhancement of GC (throughput will increase and latency will decrease) (*Here provide me pros and cons for each*) 
+- **Stack:** Local variables and method parameters
+- **Metaspace:** References to static variables of loaded classes
+- **OS / Native Layer (JNI):** JNI Handles (Global/Local) used by external native C/C++ code.
+- **JVM System Internal Layer:** Core JVM engine references (like GC threads, system ClassLoaders, and fundamental system exceptions) living in Native Process Memory and Metaspace.
 
- 1. **serial**  -> single thread (app thread will pause)
- 2. **parallel** -> multiple thread will work (app thread will pause)
- 3. **concurrent mark & sweep(CMS)** -> while app thread working , concurrently GC threads also working (100% not guaranteed) (no compaction happens)
- 4. **G1 garbage collector** (like CMS with compaction)
+##### Java Memory Structure
 
-**Serial Collector**:
-* Use -XX:+UseSerialGC if:
-* The application has a small data set (up to approximately 100 MB).
-* The application will run on a single processor with no pause-time requirements.
+At runtime, the JVM creates a set of runtime data areas. These include:
 
-**Parallel Collector**:
-* Use -XX:+UseParallelGC if:
-* Peak application performance is the first priority.
-* There are no strict pause-time requirements, or pauses of 1 second or longer are acceptable.
+- Heap Memory
+- Stack Memory
+- Method Area (Implemented as Metaspace in Java 8+)
+- Program Counter (PC) Register
+- Native Method Stack
 
-**G1 or CMS Collector**:
-* Use -XX:+UseG1GC or -XX:+UseConcMarkSweepGC if:
-* Response time is more important than overall throughput.
-* Garbage collection pauses must be kept shorter than 1 second.
+###### Heap Memory
 
-**ZGC (Fully Concurrent Collector)**:
-* Use -XX:+UseZGC if:
-* Response time is a high priority.
-* The application uses a very large heap.
+- primary area for dynamic memory allocation
+- shared memory space accessed by all threads
+- JVM regions: Young Generation and the Old Generation (To optimize this process and reduce application pause times)
+
+###### Young Generation
+
+- optimised for fast allocation and frequent garbage collection (newly created objects begins lifecycle)
+- objects are collected often using Minor GCs which are fast and efficient (e.g., method-local objects, temporary buffers small objects)
+- **Eden Space:** When Eden fills up, a Minor GC triggered (JVM pauses briefly, hence to optimize multithreading used)
+- **Survivor Spaces (S0/S1):** After each Minor GC, reachable objects from Eden are moved into one of the survivor spaces
+- if object age exceeds `-XX:MaxTenuringThreshold` promoted to old generation / forced promotion when S0/S1 fills up
+- tuning of the Young Generation: size of the Young Generation (`-Xmn`), Eden-to-Survivor space ratio (`-XX:SurvivorRatio`), promotion age threshold (`-XX:MaxTenuringThreshold`)
+- tuning useful for applications with high allocation rates, such as REST APIs, streaming pipelines, or real-time event processing systems
+
+###### Old Generation
+
+- designed to hold long-lived objects, those that have survived multiple Minor GCs.
+- examples: Persistent application-level caches, Large object graphs such as sessions or user data, Static or shared data structures that are retained across requests
+- Major GC run here. when both generations are collected together, the process is known as a Full GC.
+- A full stop-the-world pause, Tracing all reachable objects starting from the GC roots and Compacting memory to eliminate fragmentation
+- tune maximum heap size using (`-Xmx`) and initial heap size (`-Xms`), ratio btw old/young (`-XX:NewRatio`)
+
+###### Stack Memory
+
+- Thread local and stack exist for each thread. it has many frames.
+- Last-in, first-out (LIFO) order.
+- each frame has:
+  - **Local variable array:** Holds method parameters, primitives, reference to objects declared within the method.
+  - **Operand stack:** Used internally by the JVM to evaluate expressions and store intermediate computations.
+  - **Return value slot:** Stores the result of the method call, if any, before passing it back to the calling method.
+  - **Reference to the runtime constant pool:** Allows the method to resolve field names, method names, and literals.
+- lightweight and quick. No Garbage collector required
+- stack size can be tuned (`-Xss`)
+- we would get stackOverflowError if we had too many nested methods without tail call optimization / recurses too deeply with no base case or improper termination condition
+
+###### Metaspace
+
+- class metadata (whole blueprint including constructor code, field and method metadata), runtime constant pool, reference to static variables
+- majorly used by polymorphism, reflections
+- this is replacement for permgem after java 8 which is allocated from native memory (grow dynamically as needed) (in this static content part of permgem)
+- can size to prevent native memory exhausion (`-XX:MetaspaceSize` `-XX:MaxMetaspaceSize`)
+- GC same as heap (major GC) —> identifies classes that are loaded by classloader are unreachable and also classloader is not reachable (`-XX:+ClassUnloading` to make JVM unload classes if not used and no object exist of that class)
+
+###### Program Counter Register
+
+- has bytecode instruction a thread could execute next
+- each thread will have its own private PC register (to have multithreaded independent execution for threads)
+- native methods are handled by JNI and implemented in C.
+- decode and execute as per OS
+- PC register does not require garbage collection or tuning, and it has no configurable size or visibility at the language level
+
+###### Native Method Stack
+
+- used for native (C/C++) methods via JNI (acts as bridge between JVM and native libraries)
+- unlike java stack, this is managed by OS
+- each thread has it own native method stack
+- No GC manually managed in native code.
+- **Common Causes of Native Memory Leaks:**
+  - Missing free() or delete calls in JNI code
+  - Improper use of DirectByteBuffer without cleanup
+  - Unreleased file handles or sockets
+  - Repeated class loading without proper unloading
+  - Native libraries with poor memory hygiene
+
+##### Garbage Collector
+
+- its efficiency has a direct impact on application performance, latency, and scalability
+- Frees up memory occupied by unreachable objects
+- Prevents memory leaks and heap exhaustion
+- Ensures long-running applications continue to operate without manual intervention
+
+| Collector | Pause Time | Concurrency | Compaction | Best Use Cases | Platform & JDK Support |
+|---|---|---|---|---|---|
+| Serial GC | High (stop-the-world) | None | Yes | Small apps, single-threaded or embedded systems | All platforms, all JDKs `-XX:+UseSerialGC` |
+| Parallel GC | Moderate–High | Parallel stop-the-world | Yes | Batch jobs, compute-heavy services, large heaps with loose latency requirements | All platforms, all JDKs `-XX:+UseParallelGC` |
+| CMS (Deprecated) | Low (some phases concurrent) | Mark & sweep are concurrent | No (leads to fragmentation) | Legacy low-latency systems (Java 8 only) | Removed in Java 14 `-XX:+UseConcMarkSweepGC` |
+| G1 GC | Low–Moderate | Concurrent marking, mixed mode | Partial (region-based) | General-purpose apps, moderate-latency SLAs | Default in Java 9+ `-XX:+UseG1GC` |
+| ZGC | Very low (<10ms) | Fully concurrent | No (uses colored pointers) | Real-time, large-heap, low-latency systems | Linux, Windows, macOS (x86_64, AArch64), Java 15+ `-XX:+UseZGC` |
+| Shenandoah | Very low (heap size independent) | Fully concurrent | Yes (concurrent compaction) | Interactive, real-time systems needing low pause and compaction | Linux, Windows (x86_64, AArch64), Java 15+ `-XX:+UseShenandoahGC` |
+
+Regardless of the algorithm used, most GC implementations follow a variation of the Mark-Sweep-Compact process:
+
+1. **Mark:** The collector scans through live references and marks all reachable objects by tracing from the GC roots.
+2. **Sweep:** Once marking is complete, the collector reclaims memory occupied by objects that were not marked (i.e., unreachable).
+3. **Compact (optional):** To reduce fragmentation, some collectors move live objects into contiguous memory regions and update references.
 
 To make references we can have three options Strong references, weak references, soft references.
 
- 1. **Strong reference** -> Regular object references.
- 2. **Weak reference** -> Caches where objects can be discarded if memory is tight.
- 3. **Soft reference** -> Memory-sensitive caches or applications.
+1. **Strong reference** -> Regular object references.
+2. **Weak reference** -> Caches where objects can be discarded if memory is tight.
+3. **Soft reference** -> Memory-sensitive caches or applications.
 
----
-### **Memory Leak**:
+##### Memory Leak
 
-**Memory leak is a situation where where there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory.**
+A memory leak occurs when objects that are no longer needed remain reachable and are not collected by the garbage collector. This usually results in gradual heap growth and eventual OutOfMemoryError
 
-The **potential areas of memory leak** are
-1. Static References
-   (note : A static field, by itself, is not a memory leak.It's only a memory leak if memory is allocated but not released when no longer needed.If you need a list of doubles for the lifetime of the program, then keeping the data in a static field is an appropriate design.)
-3. listeners and callback
-4. cached objects
-5. Improper use of collections
-6. unclosed resources
-7. Inner class.
+- **Collection growth leak:** Singleton instance (spring bean) which has an instance variable collection and we add to this list.
+- **static field leak:** if we assign massive object graph to static field
+- **Thread leak:** Anything reachable from a running thread's stack cannot be garbage collected. failed to call shutdown() on ExecutorService / we didn't exit from infinite looped Thread. anything referred via this thread will not be removed from heap
+- **ClassLoader Leaks:** Failure to isolate dynamic runtime environments. (JVM metaspace infra)
 
-**impact of memory leak** can be
-1. Decreased Application Performance
-2. Increasing Memory Consumption Over Time
-3. Frequent Garbage Collection Activities
-4. OutOfMemoryError Exceptions
+**particularly in heap:**
 
-#### **Analyzing and Diagnosing Memory Leaks**
+- Failure to properly release resources like database connections
+- Inefficient caching mechanisms without proper evict / expire mechanism
+- Loading large files or large numbers of objects into memory
 
-* **heap dump** -> snapshot of all the objects in memory at a particular moment
-* **heap walker** -> tool for inspecting objects, references, and memory usage in the Java heap to identify memory leaks.
+**particularly in metaspace:**
 
-##### **VisualVM**
-* Pricing: Free (Included in Oracle JDK).
-* Features: Real-time memory monitoring, heap dump analysis, and built-in heap walker.
-* Usage: Detect leaks by observing heap size growth and ineffective garbage collection.
+- Excessive class loading (e.g., repeated redeployment in application servers)
+- Classloader memory leaks in frameworks or custom classloaders
+- Lack of a defined Metaspace limit
 
-##### **Eclipse Memory Analyzer (MAT)**
-* Pricing: Free (Open-source).
-* Features: Large heap dump analysis and automatic memory leak detection.
-* Usage: Analyze heap dumps to locate memory leak suspects and large object allocations.
+**due to GC:**
 
-##### **JProfiler**
-* Pricing: €449 (per user, perpetual license).
-* Features: Real-time profiling, detailed heap analysis, and memory allocation tracking.
-* Usage: Monitor memory usage in real-time and identify high-memory-consuming code paths.
+- High object allocation rate with insufficient heap
+- Memory leaks causing the heap to remain full
+- Inefficient GC configuration
 
-##### **YourKit Java Profiler**
-* Pricing: $499 (per user, perpetual license).
-* Features: Comprehensive profiling for memory, CPU, and garbage collection.
-* Usage: Analyze memory allocations and investigate inefficient garbage collection.
+##### Best Practices
 
-##### **Java Flight Recorder (JFR) and Java Mission Control (JMC)**
-* Pricing: Free (Bundled with Oracle JDK).
-* Features: Low-overhead data recording and advanced analysis of memory patterns.
-* Usage: Collect runtime data and analyze memory usage in development or production.
-  
-#### **strategies to prevent memory leak**
-* use local variables inside methods wherever possible
-* Avoid static collections that grow indefinitely. (If a static collection is necessary, consider implementing a cleanup strategy that periodically removes unnecessary entries.) 
-* Always unregister listeners and callbacks when they are no longer needed
-* Use caching wisely with an eviction policy in place. Limit the size of caches and use soft or weak references.
-* Be vigilant with collections. Remove objects from collections when they are no longer needed.
-* Use static inner classes if an instance of the inner class can outlive its outer class instance.
-* Always close resources (files, streams, connections) after use. Use try-with-resources statements for automatic resource management.
-* Regularly profile your application for memory usage, especially after adding new features or making significant changes.
-* Regular code reviews and pair programming sessions can help identify potential memory leak issues early.
-* Write unit and integration tests to check for memory leaks, particularly in critical parts of the application.
+- **Minimise unnecessary object creation** (Reuse objects where possible (e.g., use StringBuilder instead of concatenating immutable strings), Prefer primitive types over boxed types (e.g., int instead of Integer) when autoboxing is not needed, Use object pools only when profiling shows significant performance gain.)
+- **Avoid memory leaks:** Use weak references (WeakReference, WeakHashMap) for caches or listeners, Deregister event listeners and callbacks explicitly, Close all resources in finally blocks or use try-with-resources)
+- **Choose the right Data structure:** (Prefer ArrayList over LinkedList unless insert/remove operations dominate, Use EnumSet or EnumMap instead of general-purpose collections for enums, Avoid using synchronized collections when not needed, Pre-size collections if the final size is known to avoid resizing overhead)
+- **Be mindful of object retention in collection:** Clear collections when they are no longer needed, Limit the scope of long-lived caches or queues, Use bounded collections where applicable (e.g., LinkedBlockingQueue with capacity)
+- **Understand application specific memory pattern:** Web servers may have many short-lived objects (benefits from efficient young generation tuning), Stream processors often maintain stateful objects (heap size and compaction become critical), GUI applications are sensitive to GC pauses (low-latency GC collectors may be required)
