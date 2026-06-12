@@ -7,7 +7,7 @@
 
 By default, the JVM loads classes **lazily** (only when a line of code explicitly mentions the class type or creates an instance). You can force **explicit/eager** loading via:
 
-1. **`Class.forName(String)`**: Forces immediate loading, linking, and static initialization.
+1. **`Class.forName(String)`**: Forces immediate loading, linking, and static initialization. `Class.forName(name, false, loader)` loads and links the class but explicitly bypasses static initialization
 2. **Reflection API**: Calling methods like `loadClass()` or investigating class metadata forces immediate loading.
 3. **Framework Bootstrapping**: Spring/Hibernate eagerly scan and load target entities/beans during startup to fail-fast if classes are missing.
    
@@ -45,7 +45,8 @@ By default, the JVM loads classes **lazily** (only when a line of code explicitl
 
 ##### Production Example: Spring Boot `LaunchedURLClassLoader`
 * **The Problem:** Standard Java Application ClassLoader cannot read nested JARs (e.g., `app.jar -> /lib/dependency.jar`).
-* **The Solution:** Spring Boot uses `LaunchedURLClassLoader` to scan, index, and programmatically load classes packaged deep inside a single executable **Fat JAR** (`BOOT-INF/lib/`).
+* **The Solution:** Spring Boot uses `LaunchedURLClassLoader` to scan, index, and programmatically load classes packaged deep inside a single executable **Fat JAR** (`BOOT-INF/lib/`). Modern Spring Boot uses standard Java URLClassLoader combined with custom URL stream handlers (via org.springframework.boot.loader.net.protocol.jar.Handler) to read nested JAR entries directly from the standard module/classpath.
+
 ---
 ### **JAVA MEMORY MANAGEMENT**:
 
@@ -157,7 +158,7 @@ At runtime, the JVM creates a set of runtime data areas. These include:
 | Parallel GC | Moderate–High | Parallel stop-the-world | Yes | Batch jobs, compute-heavy services, large heaps with loose latency requirements | All platforms, all JDKs `-XX:+UseParallelGC` |
 | CMS (Deprecated) | Low (some phases concurrent) | Mark & sweep are concurrent | No (leads to fragmentation) | Legacy low-latency systems (Java 8 only) | Removed in Java 14 `-XX:+UseConcMarkSweepGC` |
 | G1 GC | Low–Moderate | Concurrent marking, mixed mode | Partial (region-based) | General-purpose apps, moderate-latency SLAs | Default in Java 9+ `-XX:+UseG1GC` |
-| ZGC | Very low (<10ms) | Fully concurrent | No (uses colored pointers) | Real-time, large-heap, low-latency systems | Linux, Windows, macOS (x86_64, AArch64), Java 15+ `-XX:+UseZGC` |
+| ZGC | Very low (<10ms) | Fully concurrent | No (uses Colored Pointers and Load Barrier) | Real-time, large-heap, low-latency systems | Linux, Windows, macOS (x86_64, AArch64), Java 15+ `-XX:+UseZGC` |
 | Shenandoah | Very low (heap size independent) | Fully concurrent | Yes (concurrent compaction) | Interactive, real-time systems needing low pause and compaction | Linux, Windows (x86_64, AArch64), Java 15+ `-XX:+UseShenandoahGC` |
 
 Regardless of the algorithm used, most GC implementations follow a variation of the Mark-Sweep-Compact process:
