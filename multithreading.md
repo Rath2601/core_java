@@ -1,13 +1,12 @@
 ## **Multitasking in a system**
-* **Process based** -> multiple threads in multiple process (ex: using paint and word at same time)
-* **Thread based** -> multitasking within a program (ex: printing and autocorrecting text at same time)
-  
-## **Thread**
-* Independent sequential path of execution.
-* Many threads can run concurrently.
-* At runtime THREADS in a program exist in **common memory space** and share both data & code.
-* Lightweight compared to process.
-* **share the process** running the program.
+* **Process** : An independent program instance; can run with a single thread or multiple threads.
+* **Thread**: A lightweight, sequential path of execution running inside a host process.
+* **Independence**: Every process (and its threads) is completely isolated from other external processes.
+* **Memory**: Processes have isolated memory; all threads within a process share the same data and code space.
+* **Speed**: Thread switching is fast; process-to-process switching and communication are expensive.
+* **Blast Radius**: A single thread failure crashes the entire parent process and all its other threads.
+* **Process-Based**: Running separate apps concurrently (e.g., using Paint and Word at the same time).
+* **Thread-Based**: Running concurrent tasks inside one app (e.g., printing and autocorrecting simultaneously in Word).
   
 ### **Thread methods**:
 
