@@ -23,6 +23,8 @@
 * we set a thread as deamon by using Thread.setDeamon(true)
 * to create a Thread on our own
   * We create a runnable type and override run method.(implements Runnable) (preferred as multiple interface supported in java)
+    * Runnable is just the task | Thread is the task + utility methods
+	* ExecutorService already has its own set of pre-warmed, highly optimized worker threads sitting in a pool waiting for work. we can only assign task rather than giving more workers
   * We create a Thread type and overrider run method. (extends Thread)
     
 ### **synchronization** [makes a particular code thread safe]
