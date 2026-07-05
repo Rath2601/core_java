@@ -142,9 +142,9 @@ public class Stack {
 * Thread-safety typically refers to the **ability to safely modify the state of an object when accessed concurrently by multiple threads**.
 
 * **common thread safe classes in java**
-     * **Vector**, **Stack** ,**Hashtable**
-     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`**
-     * **Stringuffer** (mutable and synchronized)
+     * **Vector**, **Stack** ,**Hashtable** (use locking - mutual exclusion)
+     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`** (hardware-level atomicity)
+     * **StringBuffer** (mutable and synchronized) [ mutability -> the state of the data | synchronization -> mechanism of access control ]
 * String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
 * Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
   
