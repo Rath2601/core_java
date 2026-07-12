@@ -37,10 +37,10 @@
 
 * **prevents race conditions by allowing only one thread to execute** a block of code or a method at a time for a given object or class.
 * **Method Synchronization**:
-  * **Instance level** 
-  * **Class level**
-* If a synchronized method in the parent class is overridden in a child class, the synchronization behavior depends on the child class. If not explicitly synchronized, it won't be synchronized by default.
+  * **Class level** : **blocks all threads across** the whole application regardless of the object they use.
+  * **Object-Level**:  threads having different objects run completely in parallel without blocking each other. different thread having different objects can run concurrently
 * You **can use synchronized blocks inside methods** to synchronize specific code blocks (rather than the entire method).
+  
 ```java
   synchronized (lock) { // lock --> any object can be passed as lock object, usually the instance that is calling this method
      // If the lock object is null, it will result in a NullPointerException.
@@ -70,6 +70,7 @@
 ![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
 
 ---
+### **synchronization demo with stack** : 
 
 ```java
 public class Stack {
