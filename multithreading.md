@@ -84,27 +84,21 @@ synchronized (MyClass.class) { // In case of static, we must use the class in th
 ### Thread-Safe Classes & the Loophole Associated with Them
 
 #### Common thread-safe classes in Java
-
 | Class / Group | Mechanism |
 |---|---|
-| `Vector`, `Stack`, `Hashtable` | Use locking — **mutual exclusion** |
-| All classes in `java.util.concurrent` & `java.util.concurrent.atomic` | **Hardware-level atomicity** (CAS) |
+| `Vector`, `Stack`, `Hashtable` | Use locking — **mutual exclusion** (all methods are synced with single lock & one method executes at a time)|
+| All classes in `java.util.concurrent` & `java.util.concurrent.atomic` | **Hardware-level atomicity** Atomic classes are pure CAS wrappers for single values, while concurrent collection classes use CAS as their primary weapon for high-performance concurrency control before resorting to locks|
 | `StringBuffer` | Mutable **and** synchronized — every single one of its public methods is explicitly marked with the `synchronized` keyword |
 | `String` and wrapper classes (`Integer`, `Double`, etc.) | **Immutable** — thread-safe because their state cannot be modified after creation |
 
 > **Mutability** → the state of the data | **Synchronization** → the mechanism of access control.
 
 #### The Loophole
-
 > **Just because a class is thread-safe doesn't mean your logic is.**
-
 When you chain multiple thread-safe methods together (compound actions like *check-then-act* or *read-modify-write*), you have to wrap them in a `synchronized` block so they are treated as a **single, uninterrupted transaction**.
 
-- `Vector`, `Stack` → mutual exclusion (all methods are synced with single lock & one method executes at a time)
-- Atomic classes → maintain atomicity (CPU-level Compare-And-Swap (CAS) read and write only if nobody changes it meanwhile)
 
 #### Immutability vs. Synchronization
-
 Even though immutability and synchronization are two different concepts, **immutable classes might not need synchronization at all**. Synchronization is applicable only to classes containing **mutable fields**.
 
 ---
