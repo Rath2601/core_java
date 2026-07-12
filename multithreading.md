@@ -1,4 +1,4 @@
-### 1. Multitasking in a System (Process & Thread)
+### Multitasking in a System (Process & Thread)
 
 - **Process vs. Thread:** A process is an isolated sandbox container; a thread is a lightweight worker executing code inside it.
 - **Execution Minimum:** Every process requires at least one "main" thread to actually run the application.
@@ -11,14 +11,11 @@
 
 ---
 
-### 2. Multithreading Basics in Java
+### Multithreading Basics in Java
 
 - **Main thread** (also a user thread) is the initial point where we can spawn multiple **user** and **daemon** threads.
 - Program stops executing as soon as **user threads** finish (does **not** wait for daemon execution).
 - We set a thread as daemon using `Thread.setDaemon(true)`.
-
-#### Creating a Thread on our own
-
 1. **Implement `Runnable`** and override `run()` — *(preferred, as multiple interfaces are supported in Java)*.
    - `Runnable` is just the **task** | `Thread` is the **task + utility methods**.
 2. **Extend `Thread`** and override `run()`.
@@ -27,7 +24,7 @@
 
 ---
 
-### 3. Thread Methods
+### Thread Methods
 
 | Method | What it does |
 |---|---|
@@ -40,38 +37,29 @@
 
 ---
 
-### 4. Synchronization
+### Synchronization
 
 **Makes a particular piece of code thread-safe** — prevents race conditions by allowing only one thread to execute a block of code or a method at a time for a given object or class.
 
-#### Method Synchronization
-
 - **Class level:** Blocks all threads across the whole application, regardless of the object they use.
 - **Object level:** Threads having different objects run completely in parallel without blocking each other. Different threads with different objects can run concurrently.
-
-#### Synchronized Blocks
-
-You can use synchronized blocks inside methods to synchronize specific code blocks (rather than the entire method):
+- You can use synchronized blocks inside methods to synchronize specific code blocks (rather than the entire method):
 
 ```java
 synchronized (lock) { // lock --> any object can be passed as the lock object,
-                      // usually the instance that is calling this method
+      // usually the instance that is calling this method
     // If the lock object is null, it will result in a NullPointerException.
 }
 
 synchronized (MyClass.class) { // In case of static, we must use the class in the synchronized block
-
 }
 ```
-
-#### Golden Rules
-
 - **You cannot release a lock you do not own** → you need to acquire the lock using `synchronized` before calling `wait()` / `notify()`.
-- **Synchronization should be at the same level** (either class-level everywhere or object-level everywhere) — mixing levels means threads are locking on different monitors and won't block each other.
+- **Synchronization should be at the same level while using wait/notify otherwise IllegalMonitorStateException** (either class-level everywhere or object-level everywhere) — mixing levels means threads are locking on different monitors and won't block each other.
 
 ---
 
-### 5. wait() / notify() with synchronized  vs  ReentrantLock with Condition
+### wait() / notify() with synchronized  vs  ReentrantLock with Condition
 
 - `wait()` and `notify()` are **hardcoded** to look only for native `synchronized` monitor locks.
 - You need **at least two threads** for wait/notify coordination to make sense.
@@ -106,14 +94,14 @@ synchronized (MyClass.class) { // In case of static, we must use the class in th
 
 > **Mutability** → the state of the data | **Synchronization** → the mechanism of access control.
 
-#### The Loophole ⚠️
+#### The Loophole
 
 > **Just because a class is thread-safe doesn't mean your logic is.**
 
 When you chain multiple thread-safe methods together (compound actions like *check-then-act* or *read-modify-write*), you have to wrap them in a `synchronized` block so they are treated as a **single, uninterrupted transaction**.
 
-- `Vector`, `Stack` → mutual exclusion (per-method only)
-- Atomic classes → maintain atomicity (per-operation only)
+- `Vector`, `Stack` → mutual exclusion (all methods are synced with single lock & one method executes at a time)
+- Atomic classes → maintain atomicity (CPU-level Compare-And-Swap (CAS) read and write only if nobody changes it meanwhile)
 
 #### Immutability vs. Synchronization
 
