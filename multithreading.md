@@ -1,73 +1,172 @@
-## **Multitasking in a system**
-* **Process vs. Thread**: A process is an isolated sandbox container; a thread is a lightweight worker executing code inside it.
-* **Execution Minimum**: Every process requires at least one "main" thread to actually run the application.
-* **Isolation**: Processes are completely blind to each other; threads inside a process share everything (code, data, and memory).
-* **Communication**: Process-to-process communication (IPC) is expensive and slow; thread-to-thread communication is direct and fast.
-* **Switching Overhead**: Swapping processes forces the OS to reload memory maps (slow); swapping threads keeps the same map (fast).
-* **Blast Radius**: A process crash is contained to itself; a single thread crash destroys the entire parent process and all other threads.
-* **Process-Based**: Running separate apps concurrently (e.g., using Paint and Word at the same time).
-* **Thread-Based**: Running concurrent tasks inside one app (e.g., printing and autocorrecting simultaneously in Word).
+### 1. Multitasking in a System (Process & Thread)
+
+- **Process vs. Thread:** A process is an isolated sandbox container; a thread is a lightweight worker executing code inside it.
+- **Execution Minimum:** Every process requires at least one "main" thread to actually run the application.
+- **Isolation:** Processes are completely blind to each other; threads inside a process share everything (code, data, and memory).
+- **Communication:** Process-to-process communication (IPC) is expensive and slow; thread-to-thread communication is direct and fast.
+- **Switching Overhead:** Swapping processes forces the OS to reload memory maps (slow); swapping threads keeps the same map (fast).
+- **Blast Radius:** A process crash is contained to itself; a single thread crash destroys the entire parent process and all other threads.
+- **Process-Based multitasking:** Running separate apps concurrently (e.g., using Paint and Word at the same time).
+- **Thread-Based multitasking:** Running concurrent tasks inside one app (e.g., printing and autocorrecting simultaneously in Word).
 
 ---
 
-### **Concept in multithreading**
-* Main thread(also user thread) is initial point where we can spawn multiple user and deamon threads.
-* Program stops executing as soon as user thread finished (dont wait for deamon execution)
-* we set a thread as deamon by using Thread.setDeamon(true)
-* to create a Thread on our own
-  * We create a runnable type and override run method.(implements Runnable) (preferred as multiple interface supported in java)
-    * Runnable is just the task | Thread is the task + utility methods
-	* ExecutorService already has its own set of pre-warmed, highly optimized worker threads sitting in a pool waiting for work. we can only assign task rather than giving more workers (we pass only runnable(task) to executor service)
-  * We create a Thread type and overrider run method. (extends Thread)
-    
----
+### 2. Multithreading Basics in Java
 
-### **Thread methods**:
+- **Main thread** (also a user thread) is the initial point where we can spawn multiple **user** and **daemon** threads.
+- Program stops executing as soon as **user threads** finish (does **not** wait for daemon execution).
+- We set a thread as daemon using `Thread.setDaemon(true)`.
 
-* **start()** : Creates a new thread and runs concurrently.
-* **run()**   : Calling run method, runs in the main thread, not concurrently.
-* **sleep()** : Pauses the thread for a specified time Useful to delay execution or simulate time-based tasks.
-* **join()**  : Waits for this thread to terminate. (only work on running thread / otherwise just moves to next line)
-* **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS)
-* **interrupt()**: Signals that the thread should stop its current operation.
+#### Creating a Thread on our own
+
+1. **Implement `Runnable`** and override `run()` — *(preferred, as multiple interfaces are supported in Java)*.
+   - `Runnable` is just the **task** | `Thread` is the **task + utility methods**.
+2. **Extend `Thread`** and override `run()`.
+
+> **ExecutorService insight:** `ExecutorService` already has its own set of pre-warmed, highly optimized worker threads sitting in a pool waiting for work. We can only **assign tasks** rather than giving more workers — we pass only a `Runnable` (task) to the executor service.
 
 ---
 
-### **synchronization** [makes a particular code thread safe]
+### 3. Thread Methods
 
-* **prevents race conditions by allowing only one thread to execute** a block of code or a method at a time for a given object or class.
-* **Method Synchronization**:
-  * **Class level** : **blocks all threads across** the whole application regardless of the object they use.
-  * **Object-Level**:  threads having different objects run completely in parallel without blocking each other. different thread having different objects can run concurrently
-* You **can use synchronized blocks inside methods** to synchronize specific code blocks (rather than the entire method).
-  
+| Method | What it does |
+|---|---|
+| `start()` | Creates a new thread and runs concurrently. |
+| `run()` | Calling `run()` directly runs in the **main thread**, not concurrently. |
+| `sleep()` | Pauses the thread for a specified time. Useful to delay execution or simulate time-based tasks. |
+| `join()` | Waits for this thread to terminate. *(Only works on a running thread — otherwise just moves to the next line.)* |
+| `yield()` | Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. *(Totally dependent upon the OS.)* |
+| `interrupt()` | Signals that the thread should stop its current operation. |
+
+---
+
+### 4. Synchronization
+
+**Makes a particular piece of code thread-safe** — prevents race conditions by allowing only one thread to execute a block of code or a method at a time for a given object or class.
+
+#### Method Synchronization
+
+- **Class level:** Blocks all threads across the whole application, regardless of the object they use.
+- **Object level:** Threads having different objects run completely in parallel without blocking each other. Different threads with different objects can run concurrently.
+
+#### Synchronized Blocks
+
+You can use synchronized blocks inside methods to synchronize specific code blocks (rather than the entire method):
+
 ```java
-  synchronized (lock) { // lock --> any object can be passed as lock object, usually the instance that is calling this method
-     // If the lock object is null, it will result in a NullPointerException.
-  }
+synchronized (lock) { // lock --> any object can be passed as the lock object,
+                      // usually the instance that is calling this method
+    // If the lock object is null, it will result in a NullPointerException.
+}
 
-  synchronized (MyClass.class) {  // In case of static we have to use the class in the synchronized block
-     
-  }
+synchronized (MyClass.class) { // In case of static, we must use the class in the synchronized block
+
+}
 ```
+
+#### Golden Rules
+
+- **You cannot release a lock you do not own** → you need to acquire the lock using `synchronized` before calling `wait()` / `notify()`.
+- **Synchronization should be at the same level** (either class-level everywhere or object-level everywhere) — mixing levels means threads are locking on different monitors and won't block each other.
+
 ---
 
-### **Thread safety**
+### 5. wait() / notify() with synchronized  vs  ReentrantLock with Condition
 
-* Thread-safety typically refers to the **ability to safely modify the state of an object when accessed concurrently by multiple threads**.
+- `wait()` and `notify()` are **hardcoded** to look only for native `synchronized` monitor locks.
+- You need **at least two threads** for wait/notify coordination to make sense.
+- `ReentrantLock` and `Condition` are far more powerful than `synchronized` because **a single lock can have multiple conditions** (e.g., separate `notFull` and `notEmpty` conditions on one queue lock).
 
-* **common thread safe classes in java**
-     * **Vector**, **Stack** ,**Hashtable** (use locking - mutual exclusion)
-     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`** (hardware-level atomicity)
-     * **StringBuffer** (mutable and synchronized) [ mutability -> the state of the data | synchronization -> mechanism of access control ]
-* String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
-* Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
-  
+#### Side-by-side API Comparison
+
+| `synchronized` / Object Framework | `ReentrantLock` Framework | What it actually does |
+|---|---|---|
+| `synchronized(lock)` | `lock.lock()` | Acquires the lock. |
+| `lock.wait()` | `condition.await()` | Releases the lock, drops the thread to `WAITING`. |
+| `lock.notify()` | `condition.signal()` | Wakes up **one** waiting thread. |
+| `lock.notifyAll()` | `condition.signalAll()` | Wakes up **all** waiting threads. |
+
+#### Producer–Consumer Problem
+
+- The basic **educational** solution is `wait()` and `notify()`.
+- In a **real-world scenario we would never use these methods** — we would use utility classes like `ArrayBlockingQueue` or `LinkedBlockingQueue`, which use **separate locks for reading and writing to maximize throughput**. We would also use `ReentrantLock` where finer control is needed.
+
 ---
 
-### **Thread lifecycle**
+### 6. Thread-Safe Classes & the Loophole Associated with Them
+
+#### Common thread-safe classes in Java
+
+| Class / Group | Mechanism |
+|---|---|
+| `Vector`, `Stack`, `Hashtable` | Use locking — **mutual exclusion** |
+| All classes in `java.util.concurrent` & `java.util.concurrent.atomic` | **Hardware-level atomicity** (CAS) |
+| `StringBuffer` | Mutable **and** synchronized — every single one of its public methods is explicitly marked with the `synchronized` keyword |
+| `String` and wrapper classes (`Integer`, `Double`, etc.) | **Immutable** — thread-safe because their state cannot be modified after creation |
+
+> **Mutability** → the state of the data | **Synchronization** → the mechanism of access control.
+
+#### The Loophole ⚠️
+
+> **Just because a class is thread-safe doesn't mean your logic is.**
+
+When you chain multiple thread-safe methods together (compound actions like *check-then-act* or *read-modify-write*), you have to wrap them in a `synchronized` block so they are treated as a **single, uninterrupted transaction**.
+
+- `Vector`, `Stack` → mutual exclusion (per-method only)
+- Atomic classes → maintain atomicity (per-operation only)
+
+#### Immutability vs. Synchronization
+
+Even though immutability and synchronization are two different concepts, **immutable classes might not need synchronization at all**. Synchronization is applicable only to classes containing **mutable fields**.
+
+---
+
+### 7. Immutability & Singleton Reference
+
+*(Cross-linked concept — added here because it's easy to confuse while studying multithreading.)*
+
+- **Singleton** → could be / could not be mutable. Singleton only guarantees *one instance*, not *immutable state* — a mutable singleton still needs thread-safety handling.
+
+#### A truly immutable class requires:
+
+1. `final` class (no subclassing).
+2. `private final` fields (assigned once, hidden from the outside).
+3. **Defensive copying in the constructor** for all incoming mutable parameters.
+4. **Defensive copying in getters** for all outgoing mutable internal objects.
+5. **No `this` reference escaping** during the construction phase.
+---
 
 ![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
+
+### 8. Thread States — Triggers, Production Meaning & the Real-World Replacement
+
+| Thread State | Primary Triggers (Basic & JUC Methods) | Key Production Meaning / Behavior | Real-World Proper Solution (instead of raw basics) |
+|---|---|---|---|
+| **NEW** | `new Thread()` | Object allocated in memory; not started. Pools manage this lazily or eagerly. | Never `new Thread()` manually in production → use **`ExecutorService` / thread pools** (`Executors.newFixedThreadPool`, etc.), which pre-create and reuse threads. |
+| **RUNNABLE** | `t.start()`, `Thread.yield()`, user's I/O completion | Actively executing or waiting for a CPU time slice. The JVM makes no distinction between the two. | Submit tasks via **`ExecutorService.submit()`** / **`CompletableFuture.supplyAsync()`** instead of `start()`; never rely on `yield()` — leave scheduling to the pool + OS. |
+| **BLOCKED** | Waiting for a `synchronized` block/method; post-`notify()` lock re-acquisition | Waiting **strictly for an intrinsic monitor lock**. Does **not** apply to `ReentrantLock` (it's a class which keeps the thread in the WAITING state instead). | Replace long/contended `synchronized` sections with **`ReentrantLock`** (`tryLock`, fairness, interruptibility) or lock-free **atomic classes** / **concurrent collections**. |
+| **WAITING** | `obj.wait()`, `t.join()`, `ReentrantLock.lock()` | Waiting **indefinitely** for another thread to signal/finish. Uses `LockSupport.park()`. | Replace `wait()/notify()` with **`Condition.await()/signal()`**, or better, **`BlockingQueue`** for producer–consumer; replace `join()` with **`CompletableFuture.thenApply/thenCombine/allOf`** or `Future.get()`. |
+| **TIMED_WAITING** | `Thread.sleep(ms)`, `obj.wait(ms)`, `t.join(ms)`, `lock.tryLock(time)` | Waiting with a **hard upper-bound timeout**. `sleep()` **retains** locks; `wait()` **releases** them. | Replace `sleep()`-based polling with **`ScheduledExecutorService`** (scheduled/periodic tasks), **`lock.tryLock(timeout)`**, **`future.get(timeout)`**, or **`CompletableFuture.orTimeout()`**. |
+| **TERMINATED** | Run completion, uncaught exception | Dead. Cannot be restarted. **Deadlocks or leaks show up here in thread dumps.** | Use **`ExecutorService.shutdown()/awaitTermination()`** for graceful lifecycle; handle failures via `Future`/`CompletableFuture.exceptionally()` and `UncaughtExceptionHandler` instead of letting threads die silently. |
+
+---
+
+### 9. Benefits of Real-World Concurrency Classes
+
+| Class / Utility | Replaces (educational primitive) | Key Benefits in Production |
+|---|---|---|
+| **`ExecutorService`** (thread pools) | `new Thread()` + `start()` | Pre-warmed, reusable worker threads (no per-task thread creation cost); bounded resource usage; task-vs-worker separation; built-in lifecycle (`shutdown`, `awaitTermination`); returns `Future` for results. |
+| **`ReentrantLock`** | `synchronized` | Explicit lock control across method boundaries; `tryLock()` (avoid deadlock by backing off); `tryLock(timeout)`; **interruptible** lock acquisition (`lockInterruptibly()`); optional **fairness** policy; one lock → **multiple `Condition`s**. |
+| **`Condition`** | `wait()` / `notify()` / `notifyAll()` | Multiple wait-sets per lock (e.g., `notFull` + `notEmpty`), so you signal exactly the threads that care — no "wake everyone and re-check" thundering herd. |
+| **`CompletableFuture`** | `join()`, manual result-passing between threads | Non-blocking async composition (`thenApply`, `thenCompose`, `thenCombine`, `allOf/anyOf`); declarative error handling (`exceptionally`, `handle`); timeouts (`orTimeout`); chains pipelines instead of blocking threads. |
+| **`ArrayBlockingQueue` / `LinkedBlockingQueue`** | `wait()`/`notify()` producer–consumer code | Producer–consumer solved out-of-the-box; blocking `put()`/`take()` handle all signaling internally; `LinkedBlockingQueue` uses **separate locks for reading and writing to maximize throughput**. |
+| **`java.util.concurrent.atomic` classes** (`AtomicInteger`, etc.) | `synchronized` counters/flags | **Hardware-level atomicity** (CAS) — lock-free, no BLOCKED threads, far higher throughput for simple read-modify-write operations. |
+| **Concurrent collections** (`ConcurrentHashMap`, etc.) | `Hashtable`, `Vector`, `Collections.synchronizedX` | Fine-grained/striped locking or lock-free reads instead of one big monitor; atomic compound operations (`computeIfAbsent`, `putIfAbsent`) that close the "thread-safe class ≠ thread-safe logic" loophole. |
+| **`ScheduledExecutorService`** | `Thread.sleep()` loops | Precise delayed & periodic scheduling without burning a thread on `sleep()`; survives task exceptions per policy. |
+
+---
+
+*Rule of thumb: the `Thread`/`wait`/`notify`/`sleep`/`join`/`yield` layer is for **understanding the JVM's threading model**; the `java.util.concurrent` layer is what you actually **ship**.*
 
 ---
 ### **synchronization demo with stack** : 
