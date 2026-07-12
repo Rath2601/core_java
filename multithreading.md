@@ -1,13 +1,27 @@
 ## **Multitasking in a system**
-* **Process** : An independent program instance; can run with a single thread or multiple threads.
-* **Thread**: A lightweight, sequential path of execution running inside a host process.
-* **Independence**: Every process (and its threads) is completely isolated from other external processes.
-* **Memory**: Processes have isolated memory; all threads within a process share the same data and code space.
-* **Speed**: Thread switching is fast; process-to-process switching and communication are expensive.
-* **Blast Radius**: A single thread failure crashes the entire parent process and all its other threads.
+* **Process vs. Thread**: A process is an isolated sandbox container; a thread is a lightweight worker executing code inside it.
+* **Execution Minimum**: Every process requires at least one "main" thread to actually run the application.
+* **Isolation**: Processes are completely blind to each other; threads inside a process share everything (code, data, and memory).
+* **Communication**: Process-to-process communication (IPC) is expensive and slow; thread-to-thread communication is direct and fast.
+* **Switching Overhead**: Swapping processes forces the OS to reload memory maps (slow); swapping threads keeps the same map (fast).
+* **Blast Radius**: A process crash is contained to itself; a single thread crash destroys the entire parent process and all other threads.
 * **Process-Based**: Running separate apps concurrently (e.g., using Paint and Word at the same time).
 * **Thread-Based**: Running concurrent tasks inside one app (e.g., printing and autocorrecting simultaneously in Word).
-  
+
+---
+
+### **Concept in multithreading**
+* Main thread(also user thread) is initial point where we can spawn multiple user and deamon threads.
+* Program stops executing as soon as user thread finished (dont wait for deamon execution)
+* we set a thread as deamon by using Thread.setDeamon(true)
+* to create a Thread on our own
+  * We create a runnable type and override run method.(implements Runnable) (preferred as multiple interface supported in java)
+    * Runnable is just the task | Thread is the task + utility methods
+	* ExecutorService already has its own set of pre-warmed, highly optimized worker threads sitting in a pool waiting for work. we can only assign task rather than giving more workers (we pass only runnable(task) to executor service)
+  * We create a Thread type and overrider run method. (extends Thread)
+    
+---
+
 ### **Thread methods**:
 
 * **start()** : Creates a new thread and runs concurrently.
@@ -16,17 +30,9 @@
 * **join()**  : Waits for this thread to terminate. (only work on running thread / otherwise just moves to next line)
 * **yield()** : Hints to the thread scheduler that the current thread is willing to yield its current use of CPU to let other threads execute. (but totally dependent upon OS)
 * **interrupt()**: Signals that the thread should stop its current operation.
-  
-### **Concept in multithreading**
-* Main thread(also user thread) is initial point where we can spawn multiple user and deamon threads.
-* Program stops executing as soon as user thread finished (dont wait for deamon execution)
-* we set a thread as deamon by using Thread.setDeamon(true)
-* to create a Thread on our own
-  * We create a runnable type and override run method.(implements Runnable) (preferred as multiple interface supported in java)
-    * Runnable is just the task | Thread is the task + utility methods
-	* ExecutorService already has its own set of pre-warmed, highly optimized worker threads sitting in a pool waiting for work. we can only assign task rather than giving more workers
-  * We create a Thread type and overrider run method. (extends Thread)
-    
+
+---
+
 ### **synchronization** [makes a particular code thread safe]
 
 * **prevents race conditions by allowing only one thread to execute** a block of code or a method at a time for a given object or class.
@@ -44,6 +50,27 @@
      
   }
 ```
+---
+
+### **Thread safety**
+
+* Thread-safety typically refers to the **ability to safely modify the state of an object when accessed concurrently by multiple threads**.
+
+* **common thread safe classes in java**
+     * **Vector**, **Stack** ,**Hashtable** (use locking - mutual exclusion)
+     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`** (hardware-level atomicity)
+     * **StringBuffer** (mutable and synchronized) [ mutability -> the state of the data | synchronization -> mechanism of access control ]
+* String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
+* Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
+  
+---
+
+### **Thread lifecycle**
+
+![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
+
+---
+
 ```java
 public class Stack {
 	private int[] array;
@@ -136,21 +163,8 @@ public class Stack {
 
 }
 ```
-
-### **Thread safety**
-
-* Thread-safety typically refers to the **ability to safely modify the state of an object when accessed concurrently by multiple threads**.
-
-* **common thread safe classes in java**
-     * **Vector**, **Stack** ,**Hashtable** (use locking - mutual exclusion)
-     * all classes in **`java.util.concurrent`** & **`java.util.concurrent.atomic`** (hardware-level atomicity)
-     * **StringBuffer** (mutable and synchronized) [ mutability -> the state of the data | synchronization -> mechanism of access control ]
-* String and wrapper classes like Integer, Double, etc., are immutable, and they are thread-safe because their state cannot be modified after creation. 
-* Eventhough **immutability** and **synchronization** are two different concepts, In case of immutable classes we might not need synchronization itself. Synchronization is applicable only to class containing mutable fields.
-  
 ---
 ### **ProducerConsumer problem in Threads**:
-
 ```java
 
 public class ProducerConsumerDemo {
@@ -249,12 +263,8 @@ public class ProducerConsumerDemo {
     }
 }
 ```
-### **Thread lifecycle**
-
-![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
-
+---
 ### **Join Demo**:
-
 ```java
 public class JoinDemo {
 	public static void main(String[] args) {
@@ -307,6 +317,7 @@ public class JoinDemo {
 	}
 }
 ```
+---
 ### **Dead lock**
 
 ```java
@@ -350,3 +361,4 @@ public class DeadLockDemo {
 	}
 }
 ```
+---
