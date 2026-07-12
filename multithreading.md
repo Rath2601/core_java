@@ -81,7 +81,7 @@ synchronized (MyClass.class) { // In case of static, we must use the class in th
 
 ---
 
-### 6. Thread-Safe Classes & the Loophole Associated with Them
+### Thread-Safe Classes & the Loophole Associated with Them
 
 #### Common thread-safe classes in Java
 
@@ -109,7 +109,7 @@ Even though immutability and synchronization are two different concepts, **immut
 
 ---
 
-### 7. Immutability & Singleton Reference
+### Immutability & Singleton Reference
 
 *(Cross-linked concept — added here because it's easy to confuse while studying multithreading.)*
 
@@ -126,7 +126,7 @@ Even though immutability and synchronization are two different concepts, **immut
 
 ![Thread Lifecycle](https://github.com/Rath2601/core_java/blob/main/images/thread_lc.png)
 
-### 8. Thread States — Triggers, Production Meaning & the Real-World Replacement
+### Thread States — Triggers, Production Meaning & the Real-World Replacement
 
 | Thread State | Primary Triggers (Basic & JUC Methods) | Key Production Meaning / Behavior | Real-World Proper Solution (instead of raw basics) |
 |---|---|---|---|
@@ -139,7 +139,7 @@ Even though immutability and synchronization are two different concepts, **immut
 
 ---
 
-### 9. Benefits of Real-World Concurrency Classes
+### Benefits of Real-World Concurrency Classes
 
 | Class / Utility | Replaces (educational primitive) | Key Benefits in Production |
 |---|---|---|
