@@ -152,7 +152,7 @@ Even though immutability and synchronization are two different concepts, **immut
 
 ---
 
-### PROD grade multithreading classes
+### PROD grade multithreading options
 
 | Component | Exact Java Definition | Primary Real-World Use Case | Key Trap / Failure Mode |
 | --- | --- | --- | --- |
