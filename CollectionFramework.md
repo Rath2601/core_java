@@ -8,9 +8,9 @@
 ---
 ## **Important Terms** :
 
-### **Iterable and Iterator**:
-* **Iterable**: An interface that represents a collection that can be iterated over; it provides the iterator() method to return an Iterator.
-* **Iterator**: An interface used to traverse a collection, offering methods like hasNext() and next() to access elements sequentially.
+### **Iterable and Iterator** (Interfaces):
+* **Iterable**: marks a collection that can be iterated ; provides iterator() method returning Iterator.
+* **Iterator**: An used to traverse a collection, offering methods like hasNext() and next() to access elements sequentially.
 
 *why use iterable with collection class?*
 
