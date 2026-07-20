@@ -151,6 +151,26 @@ Even though immutability and synchronization are two different concepts, **immut
 *Rule of thumb: the `Thread`/`wait`/`notify`/`sleep`/`join`/`yield` layer is for **understanding the JVM's threading model**; the `java.util.concurrent` layer is what you actually **ship**.*
 
 ---
+
+### PROD grade multithreading classes
+
+| Component | Exact Java Definition | Primary Real-World Use Case | Key Trap / Failure Mode |
+| --- | --- | --- | --- |
+| **`synchronized` + `wait()` / `notify()**` | Built-in JVM intrinsic locking tied to an object's monitor, supporting a single wait set. | Basic thread synchronization and primitive wait/notify coordination. | Calling `wait()` outside a `synchronized` block throws `IllegalMonitorStateException`; supports only a single wait-set per object. |
+| **`ReentrantLock` + `Condition**` | Manual lock supporting multiple explicit wait/notify sets (`Condition` instances) instead of just one. | Fine-grained thread signaling (e.g., bounded buffers with distinct `notFull` and `notEmpty` queues). | Forgetting to call `unlock()` inside a `finally` block creates permanent deadlocks. |
+| **Striped Lock** | Splitting one big lock into an array of smaller locks mapped by keys/hashes to reduce lock contention. | Concurrent operations on distinct entities (e.g., locking per `userId` or `accountId`). | Too few stripes causes hash collisions; too many stripes wastes memory. |
+| **`Semaphore`** | A counter that tracks available permits and blocks threads when permits reach 0. | Rate-limiting / throttling concurrent access to limited resources (e.g., max 5 DB connections). | Forgetting to `release()` in a `finally` block leads to permanent permit leaks. |
+| **`ThreadLocal`** | Thread-isolated memory map where values are bound exclusively to the executing thread. | Request-scoped context propagation (e.g., Security Context, Transaction ID, Tenant ID). | Not calling `.remove()` when using thread pools causes data pollution and memory leaks. |
+| **`ExecutorService`** | High-level interface managing worker thread lifecycles and task execution queues automatically. | Decoupling task submission from thread creation and lifecycle management. | Leaving it un-shutdown keeps the JVM running indefinitely. |
+| **`ThreadPoolExecutor`** | The fully configurable implementation class underlying `ExecutorService` (core/max threads, queue, rejection policy). | Production thread pool tuning (bounded queues, custom thread factories, backpressure policies). | Using `Executors.newFixedThreadPool()` uses unbounded queues, causing `OutOfMemoryError` under load. |
+| **`Future`** | A handle to an async task whose result must be retrieved by blocking via `.get()`. | Simple asynchronous task execution where blocking to wait for the result is acceptable. | Calling `.get()` blocks the calling thread, defeating the purpose of asynchronous processing. |
+| **`CompletableFuture`** | Non-blocking, event-driven async pipeline that allows chaining, transforming, and combining tasks. | Asynchronous microservice orchestration and reactive task execution pipelines. | Omitting a custom executor forces usage of shared `ForkJoinPool.commonPool()`, risking thread starvation. |
+| **`ConcurrentHashMap`** | A thread-safe Map using fine-grained bucket locks (Lock Striping / CAS) for high concurrency. | High-throughput shared in-memory caches and lookups. | Compound operations (e.g., `if (!map.containsKey) map.put`) aren't atomic without `computeIfAbsent`. |
+| **`CopyOnWriteArrayList`** | A thread-safe List that clones its underlying array on every write operation. | Extremely read-heavy scenarios with rare writes (e.g., Event Listeners, plugin registries). | Frequent writes clone the array every time, causing massive memory overhead and slow performance. |
+| **`ArrayBlockingQueue`** | A fixed-capacity, array-backed thread-safe queue using a single lock for head/tail operations. | Bounded Producer-Consumer messaging where predictable memory allocation is required. | Fixed size cannot grow; if full, producers block or get rejected based on the method used. |
+| **`LinkedBlockingQueue`** | A node-backed queue using separate locks for reading (`takeLock`) and writing (`putLock`). | High-volume Producer-Consumer queues where pushing and popping shouldn't block each other. | Unbounded by default (`Integer.MAX_VALUE`), which can cause `OutOfMemoryError` under high load. |
+
+---
 ### **synchronization demo with stack** : 
 
 ```java
