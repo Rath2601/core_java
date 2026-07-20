@@ -25,9 +25,7 @@ It merely marks a class as capable of doing a specific task to the JRE.
 2. **Clonable**      : indicates a class permits cloning.
 3. **Random access** : to mark list implementations that supports fast random access.
 
-while serializing we should keep in mind that,
- * transient field should not be serialized  (e.g., sensitive data like passwords).
- * To prevent issues when deserializing an object, a class can declare a serialVersionUID to maintain compatibility.
+If your class does not implement Serializable (or extend Throwable), you do not need serialVersionUID. In modern Spring Boot, avoid implementing Serializable altogether unless forced by a legacy framework interface.
 
 **serialVersionUID** : long value uniquely identifies a version of a serializable class.
 * How to Generate -> Automatic Generation by IDE / Manual assignment
