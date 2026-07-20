@@ -10,7 +10,7 @@
 
 ### **Iterable and Iterator** (Interfaces):
 * **Iterable**: marks a collection that can be iterated ; provides iterator() method returning Iterator.
-* **Iterator**: An used to traverse a collection, offering methods like hasNext() and next() to access elements sequentially.
+* **Iterator**: used to traverse a collection, offering methods like hasNext() and next().
 
 *why use iterable with collection class?*
 
