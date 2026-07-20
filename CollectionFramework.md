@@ -8,19 +8,14 @@
 ---
 ## **Important Terms** :
 
-### **Iterable and Iterator** (Interfaces):
-* **Iterable**: marks a collection that can be iterated ; provides iterator() method returning Iterator.
-* **Iterator**: used to traverse a collection, offering methods like hasNext() and next().
+* **Iterable**: Marks a collection that can be iterated; provides the iterator() method acting as a factory that returns a new Iterator instance.
+* **Iterator**: Used to traverse a collection; acts as a single-use cursor offering methods like hasNext(), next(), and remove().
 
-*why use iterable with collection class?*
-
-* **Uniformity**: Implementing Iterable makes the collection **compatible with enhanced for-loops (for-each)** and Java's iteration utilities.
-* **Separation of Concerns**: Iterable defines the capability to be iterated, while Iterator encapsulates the traversal logic, **keeping the iteration independent of the collection's internal structure**.
-
-*note*
-
-*  to use forEach loop, the instance should be array or it should implements iterable. **Can only iterate over an array or an instance of java.lang.Iterable**
-*  map is not implemented collection which implements Iterable, then how we traverse over the elements ?
+NOTE:
+* **State Separation**: Callers (including nested loops or multiple threads) can traverse the same collection concurrently because every call to iterator() returns a independent, fresh Iterator with its own tracking state.
+* **Single-Use Lifecycle**: An Iterator is single-use. Once hasNext() returns false (or the traversal completes), that specific instance cannot be reset and must be discarded.
+* **Safe Mutation**: The Iterator interface provides a safe remove() method to delete elements during traversal without throwing a ConcurrentModificationException.
+* For map (since doesn't implements Iterable) : Must explicitly pick a view (entrySet(), keySet(), values()) or use map.forEach()
 
 ---
 ### **Marker Interface** :
