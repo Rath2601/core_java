@@ -12,7 +12,7 @@
 * **Iterator**: Used to traverse a collection; acts as a single-use cursor offering methods like hasNext(), next(), and remove().
 
 NOTE:
-* **State Separation**: Callers (including nested loops or multiple threads) can traverse the same collection concurrently because every call to iterator() returns a independent, fresh Iterator with its own tracking state.
+* **State Separation**: Callers (including nested loops or multiple threads) can traverse the same collection concurrently because every call to iterator() returns a independent, fresh Iterator with its own tracking state. (nested loops would fight over the same pointer and corrupt the loop.)
 * **Single-Use Lifecycle**: An Iterator is single-use. Once hasNext() returns false (or the traversal completes), that specific instance cannot be reset and must be discarded.
 * **Safe Mutation**: The Iterator interface provides a safe remove() method to delete elements during traversal without throwing a ConcurrentModificationException.
 * For map (since doesn't implements Iterable) : Must explicitly pick a view (entrySet(), keySet(), values()) or use map.forEach()
