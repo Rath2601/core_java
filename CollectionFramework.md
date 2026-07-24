@@ -37,17 +37,17 @@ If your class does not implement Serializable (or extend Throwable), you do not 
 The hashCode() and equals() methods from the Object class are required by collections for the following operations:
 
 1. Sequential Collections (List, Queue)
-Insertion (add): No methods needed. Elements are blindly appended sequentially.
-Deletion & Access (remove, contains, indexOf): Require only equals(). The collection performs a linear scan to find a match.
-hashCode(): Not required or used.
+* Insertion (add): No methods needed. Elements are blindly appended sequentially.
+* Deletion & Access (remove, contains, indexOf): Require only equals(). The collection performs a linear scan to find a match.
+* hashCode(): Not required or used.
 
 2. Hashing Collections (HashSet, HashMap, Hashtable)
-Insertion (put, add): Require BOTH hashCode() and equals(). hashCode() finds the bucket. If a collision occurs, equals() checks if the key exists to overwrite it; otherwise, it appends a new node.
-Deletion & Access (remove, get, containsKey): Require BOTH hashCode() and equals(). hashCode() instantly targets the bucket, and equals() pinpoints the exact object inside it.
+* Insertion (put, add): Require BOTH hashCode() and equals(). hashCode() finds the bucket. If a collision occurs, equals() checks if the key exists to overwrite it; otherwise, it appends a new node.
+* Deletion & Access (remove, get, containsKey): Require BOTH hashCode() and equals(). hashCode() instantly targets the bucket, and equals() pinpoints the exact object inside it.
 
 3. Custom Class Rules
-The exact same principles above apply to custom classes when stored in these collections.
-Reference Check Shortcut: When overriding equals() to implement value equality, the very first step should always be a reference check (this == obj). If references match, it instantly returns true, skipping expensive field-by-field comparisons
+* The exact same principles above apply to custom classes when stored in these collections.
+* Reference Check Shortcut: When overriding equals() to implement value equality, the very first step should always be a reference check (this == obj). If references match, it instantly returns true, skipping expensive field-by-field comparisons
 
 ---
 ### **Comparable vs Comparator**
